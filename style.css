@@ -4,7 +4,11 @@
 
 body {
   font-family: 'DM Sans', sans-serif;
-  background: #e8edf5;
+  background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.82) 0%, rgba(22, 22, 22, 0.72) 45%, rgba(56, 56, 56, 0.62) 100%), url('img/bg.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-blend-mode: overlay;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -33,12 +37,12 @@ body {
   width: 100px;
   height: 100px;
   border-radius: 24px;
-  background: #4f46e5;
+  background: #b01c1c;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 30px;
-  box-shadow: 0 4px 16px rgba(79,70,229,0.30);
+  box-shadow: 0 4px 16px rgba(176,28,28,0.30);
 }
 
 .icon-wrap svg { width: 56px; height: 56px; fill: #fff; }
@@ -86,8 +90,8 @@ input {
 input::placeholder { color: #bbbccc; }
 
 input:focus {
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 4px rgba(79,70,229,0.10);
+  border-color: #b01c1c;
+  box-shadow: 0 0 0 4px rgba(176,28,28,0.10);
 }
 
 .password-wrap { position: relative; }
@@ -109,14 +113,14 @@ input:focus {
   transition: color 0.2s;
 }
 
-.eye-btn:hover { color: #4f46e5; }
+.eye-btn:hover { color: #b01c1c; }
 
 .login-btn {
   width: 100%;
   padding: 20px;
   border: none;
   border-radius: 14px;
-  background: #4f46e5;
+  background: #b01c1c;
   color: #fff;
   font-size: 1.2rem;
   font-weight: 600;
@@ -124,12 +128,12 @@ input:focus {
   cursor: pointer;
   margin-top: 10px;
   transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
-  box-shadow: 0 4px 14px rgba(79,70,229,0.25);
+  box-shadow: 0 4px 14px rgba(176,28,28,0.25);
 }
 
 .login-btn:hover {
-  background: #4338ca;
-  box-shadow: 0 6px 20px rgba(79,70,229,0.30);
+  background: #8b0e0e;
+  box-shadow: 0 6px 20px rgba(176,28,28,0.30);
 }
 
 .login-btn:active { transform: scale(0.98); }
@@ -138,7 +142,7 @@ input:focus {
   display: block;
   text-align: center;
   margin-top: 26px;
-  color: #4f46e5;
+  color: #b01c1c;
   font-weight: 600;
   font-size: 1.1rem;
   text-decoration: none;
@@ -146,7 +150,7 @@ input:focus {
   transition: color 0.2s;
 }
 
-.admin-link:hover { color: #4338ca; }
+.admin-link:hover { color: #8b0e0e; }
 
 .create-account {
   margin-top: 16px;
@@ -156,10 +160,10 @@ input:focus {
 }
 
 .create-account a {
-  color: #4f46e5;
+  color: #b01c1c;
   font-weight: 700;
   text-decoration: none;
   transition: color 0.2s;
 }
 
-.create-account a:hover { color: #4338ca; }
+.create-account a:hover { color: #8b0e0e; }
