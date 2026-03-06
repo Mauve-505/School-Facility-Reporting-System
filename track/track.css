@@ -1,0 +1,30 @@
+body {
+  background: linear-gradient(135deg, #7b0d0d 0%, #b01c1c 25%, #cc2a2a 45%, #e8e0dc 70%, #f5f0ee 100%);
+  min-height: 100vh;
+  font-family: Arial;
+  margin: 0;
+}
+.topbar {
+  background-color: white;
+  padding: 15px 20px;
+  border-bottom: 1px solid #ccc;
+}
+
+#backbtn {
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.backbtn:hover {
+  color: blue;
+}
+.mainbox {
+  background-color: white;
+  width: 700px;
+  margin: 0 auto;
+  padding: 25px;
+  border: 1px solid #cccccc;
+  border-radius: 10px;
+}
