@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report an Issue</title>
+    <link rel="stylesheet" type="text/css" href="report.css">
+</head>
+<body>
+    <div class="topbar">
+        <a href="dashboard.html" id="backbtn">&#8592; Dashboard</a>
+        <br>
+        <small style="color: gray; margin-left: 5px;">Monitor your submitted reports</small>
+    </div>
+    
+    <br><br>
+
+    <center>
+        <h1>Submit a request</h1>
+    </center>
+
+    <div id ="formbox">
+        <p id="detailstxt">DETAILS</p>
+        <hr>
+        <br>
+
+        <p><b>1.CHOOSE A REQUEST</b></p>
+        <select id="myselect">
+            <option>-</option>
+            <option>Electrical Issue</option>
+            <option>Plumbing Issue</option>
+            <option>HVAC / Ventilation</option>
+            <option>Furniture / Equipment</option>
+            <option>IT / Technology</option>
+            <option>Cleaning / Sanitation</option>
+            <option>Structural / Safety</option>
+            <option>Other</option>
+        </select>
+
+    <br><br><br>
+
+    <p><b>2. LOCATION / ROOM NUMBER</b></p>
+    <br>
+    <input type="text" id="locationinput" placeholder="e.g., Room 3001 Library, Canteen, Gymnasium">
+
+    <br><br><br>
+
+    <p><b>3. DESCRIBE THE ISSUE</b></p>
+    <br>
+    <textarea id="textbox" placeholder="Please provide detailed information about the issue..."></textarea>
+    <br><br>
+
+    <br><br>
+
+    <div class="field-group">
+      <p><b>4. ATTACH A PHOTO</b></p>
+      <br>
+      <input type="file" id="photoinput" accept="image/*" onchange="showPreview()">
+      <div id="photobox" onclick="document.getElementById('photoinput').click()">
+        &#128247; Click here to upload a photo
+      </div>
+      <img id="previewimg" src="" alt="preview" style="display:none;">
+    </div>
+
+    <button onclick="submitForm()" id="submit">Submit Request</button>
+
+    
+    </div>
+</body>
+</html>
