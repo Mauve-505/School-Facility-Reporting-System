@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporting System</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <nav>
+        <div class="navbar">
+            <div class="system">School Facility Reporting System</div>
+            <ul class="nav-links">
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-content">
+            <h2>Student Dashboard</h2>
+            <p>Welcome back! Manage your facility reports</p>
+
+            <a href="report" class="new-task"> + Report New Issue</a>
+        
+
+        <div class="stats">
+            <div class="card">
+                <p>1</p>
+                <h4>Pending</h4>
+            </div>
+            <div class="card">
+                <p>1</p>
+                <h4>In Progress</h4>
+            </div>
+            <div class="card">
+                <p>1</p>
+                <h4>Resolved</h4>
+            </div>
+        </div>
+
+        <div class="submitted">
+            <i class="fa-regular fa-clipboard list"></i>
+            <span>My Submitted Reports</span>
+            <br><br>
+        </div>
+        
+        <div class="reportList">
+            <div class="report">
+                <h3>Broken Chair</h3>
+                <p>Chair Leg is broken in Room 1</p>
+                <small class="info">
+                    <span class="room">Room 1</span>
+
+                    <span class="date">
+                        <i class="fa-regular fa-calendar"> 2026-03-01</i>
+                    </span>
+                </small>
+                <br>
+                <span class="status progress">In Progress</span>
+            </div>
+
+            <br>
+
+            <div class="report">
+                <h3>Projector</h3>
+                <p>Projector not turning on</p>
+                <small class="info">
+                    <span class="room">Room 2</span>
+
+                    <span class="date">
+                        <i class="fa-regular fa-calendar"> 2026-03-01</i>
+                    </span>
+                </small>
+                <br>
+                <span class="status resolved">Resolved</span>
+            </div>
+
+            <br>
+
+            <div class="report">
+                <h3>Air Conditioner</h3>
+                <p>AC making load noise</p>
+                <small class="info">
+                    <span class="room">Room 2</span>
+
+                    <span class="date">
+                        <i class="fa-regular fa-calendar"> 2026-03-01</i>
+                    </span>
+                </small>
+                <br>
+                <span class="status pending">Pending</span>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
