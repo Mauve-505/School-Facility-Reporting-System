@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 body {
   font-family: 'DM Sans', sans-serif;
@@ -16,7 +20,7 @@ body {
 }
 
 .card {
-  background: #fff;
+  background: white;
   border-radius: 28px;
   padding: 72px 72px 68px;
   width: 100%;
@@ -25,33 +29,51 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  animation: fadeUp 0.5s cubic-bezier(.22,.68,0,1.2) both;
 }
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
+.back-link {
+  align-self: flex-start;
+  color: #111111;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.back-link:hover {
+  color: #b01c1c;
+}
+
+.logo {
+  width: 80px;
+  margin-bottom: 10px;
 }
 
 .icon-wrap {
   width: 100px;
   height: 100px;
   border-radius: 24px;
-  background: #b01c1c;
+  background-color: #b01c1c;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 30px;
-  box-shadow: 0 4px 16px rgba(176,28,28,0.30);
+  box-shadow: 0 4px 16px rgba(176, 28, 28, 0.30);
 }
 
-.icon-wrap svg { width: 56px; height: 56px; fill: #fff; }
+.icon-wrap svg {
+  width: 56px;
+  height: 56px;
+  fill: white;
+}
 
 h1 {
   font-size: 2.3rem;
   font-weight: 700;
-  color: #111;
-  letter-spacing: -0.3px;
+  color: #111111;
   text-align: center;
   margin-bottom: 10px;
 }
@@ -62,9 +84,13 @@ h1 {
   margin-bottom: 44px;
 }
 
-.form { width: 100%; }
+.form {
+  width: 100%;
+}
 
-.field { margin-bottom: 26px; }
+.field {
+  margin-bottom: 26px;
+}
 
 label {
   display: block;
@@ -80,23 +106,28 @@ input {
   border: 1.5px solid #e2e5ef;
   border-radius: 14px;
   font-size: 1.15rem;
-  font-family: inherit;
-  color: #222;
-  background: #fff;
+  font-family: 'DM Sans', sans-serif;
+  color: #222222;
+  background: white;
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
 }
-
-input::placeholder { color: #bbbccc; }
 
 input:focus {
   border-color: #b01c1c;
-  box-shadow: 0 0 0 4px rgba(176,28,28,0.10);
+  box-shadow: 0 0 0 4px rgba(176, 28, 28, 0.10);
 }
 
-.password-wrap { position: relative; }
+input::placeholder {
+  color: #bbbccc;
+}
 
-.password-wrap input { padding-right: 60px; }
+.password-wrap {
+  position: relative;
+}
+
+.password-wrap input {
+  padding-right: 60px;
+}
 
 .eye-btn {
   position: absolute;
@@ -110,33 +141,35 @@ input:focus {
   display: flex;
   align-items: center;
   padding: 0;
-  transition: color 0.2s;
 }
 
-.eye-btn:hover { color: #b01c1c; }
+.eye-btn:hover {
+  color: #b01c1c;
+}
 
 .login-btn {
   width: 100%;
   padding: 20px;
   border: none;
   border-radius: 14px;
-  background: #b01c1c;
-  color: #fff;
+  background-color: #b01c1c;
+  color: white;
   font-size: 1.2rem;
   font-weight: 600;
-  font-family: inherit;
+  font-family: 'DM Sans', sans-serif;
   cursor: pointer;
   margin-top: 10px;
-  transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
-  box-shadow: 0 4px 14px rgba(176,28,28,0.25);
+  box-shadow: 0 4px 14px rgba(176, 28, 28, 0.25);
 }
 
 .login-btn:hover {
-  background: #8b0e0e;
-  box-shadow: 0 6px 20px rgba(176,28,28,0.30);
+  background-color: #8b0e0e;
+  box-shadow: 0 6px 20px rgba(176, 28, 28, 0.30);
 }
 
-.login-btn:active { transform: scale(0.98); }
+.login-btn:active {
+  transform: scale(0.98);
+}
 
 .admin-link {
   display: block;
@@ -147,10 +180,11 @@ input:focus {
   font-size: 1.1rem;
   text-decoration: none;
   cursor: pointer;
-  transition: color 0.2s;
 }
 
-.admin-link:hover { color: #8b0e0e; }
+.admin-link:hover {
+  color: #8b0e0e;
+}
 
 .create-account {
   margin-top: 16px;
@@ -163,27 +197,51 @@ input:focus {
   color: #b01c1c;
   font-weight: 700;
   text-decoration: none;
-  transition: color 0.2s;
 }
 
-.create-account a:hover { color: #8b0e0e; }
+.create-account a:hover {
+  color: #8b0e0e;
+}
 
-/* ── Responsive ── */
+/* mobile */
 @media (max-width: 768px) {
-  body { padding: 24px 16px; align-items: flex-start; padding-top: 40px; }
+  body {
+    padding: 24px 16px;
+    align-items: flex-start;
+    padding-top: 40px;
+  }
 
   .card {
     padding: 40px 28px 36px;
     border-radius: 20px;
   }
 
-  .icon-wrap { width: 72px; height: 72px; border-radius: 18px; margin-bottom: 20px; }
-  .icon-wrap svg { width: 38px; height: 38px; }
+  .icon-wrap {
+    width: 72px;
+    height: 72px;
+    border-radius: 18px;
+    margin-bottom: 20px;
+  }
 
-  h1 { font-size: 1.5rem; margin-bottom: 6px; }
-  .subtitle { font-size: 0.95rem; margin-bottom: 28px; }
+  .icon-wrap svg {
+    width: 38px;
+    height: 38px;
+  }
 
-  label { font-size: 0.9rem; margin-bottom: 7px; }
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 6px;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 28px;
+  }
+
+  label {
+    font-size: 0.9rem;
+    margin-bottom: 7px;
+  }
 
   input {
     padding: 13px 16px;
@@ -191,10 +249,17 @@ input:focus {
     border-radius: 10px;
   }
 
-  .password-wrap input { padding-right: 48px; }
-  .eye-btn { right: 14px; }
+  .password-wrap input {
+    padding-right: 48px;
+  }
 
-  .field { margin-bottom: 18px; }
+  .eye-btn {
+    right: 14px;
+  }
+
+  .field {
+    margin-bottom: 18px;
+  }
 
   .login-btn {
     padding: 14px;
@@ -203,11 +268,13 @@ input:focus {
     margin-top: 6px;
   }
 
-  .admin-link { font-size: 0.92rem; margin-top: 18px; }
-  .create-account { font-size: 0.92rem; margin-top: 12px; }
-}
+  .admin-link {
+    font-size: 0.92rem;
+    margin-top: 18px;
+  }
 
-@media (max-width: 400px) {
-  .card { padding: 32px 20px 28px; }
-  h1 { font-size: 1.25rem; }
+  .create-account {
+    font-size: 0.92rem;
+    margin-top: 12px;
+  }
 }
