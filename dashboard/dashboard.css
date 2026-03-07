@@ -73,6 +73,7 @@ nav{
     z-index: 1;
 }
 
+.track-bttn,
 .new-task{
     display: block;
     margin-top: 10px;
@@ -88,6 +89,10 @@ nav{
 }
 
 .new-task:hover{
+    background: #b01c1c;
+}
+
+.track-bttn:hover{
     background: #b01c1c;
 }
 
@@ -165,4 +170,5 @@ nav{
 .pending{
     background: #fef9c3;
     color: #a16207;
+
 }
