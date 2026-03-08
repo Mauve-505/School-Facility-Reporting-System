@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Admin Dashboard</h1>
+      <p>Manage facility reports and monitor system activity</p>
+    </div>
+    <a href="../adminlog/adminlog.html" class="logout">Logout</a>
+  </header>
+
+  <main>
+    
+    <div class="stats">
+      <div class="StatCard">
+        <p class="statLabel">Total Reports</p>
+        <p class="StatValue">6</p>
+      </div>
+      <div class="StatCard">
+        <p class="StatLabel orange">Pending</p>
+        <p class="StatValue orange">2</p>
+      </div>
+      <div class="StatCard">
+        <p class="StatLabel blue">In Progress</p>
+        <p class="StatValue blue">2</p>
+      </div>
+      <div class="StatCard">
+        <p class="StatLabel green">Resolved</p>
+        <p class="StatValue green">1</p>
+      </div>
+      <div class="StatCard">
+        <p class="StatLabel red">Rejected</p>
+        <p class="StatValue red">1</p>
+      </div>
+    </div>
+
+    <div class="searchbar">
+      <input type="text" placeholder="Search by student name, report type, location, or ID..." />
+    </div>
+
+    <h2 class="sec-title">All Reports (6)</h2>
+
+
+    <div class="card">
+      <div class="CardTop">
+        <div>
+          <span class="CardTitle">Broken Chair</span>
+          <span class="badge orange">Medium</span>
+        </div>
+        <button class="view">👁 View &amp; Update</button>
+      </div>
+      <p class="CardPerson">👤 Juan Dela Cruz &nbsp; ID: 2024-12345</p>
+      <p class="CardDesc">Chair leg is broken in Room 301</p>
+      <p class="Card-Tags">📍 Room 301 &nbsp;&nbsp; 📋 Furniture &nbsp;&nbsp; 📅 2026-03-01 &nbsp;&nbsp; #1</p>
+      <span class="status blue">⏳ In Progress</span>
+    </div>
+
+    <div class="card">
+      <div class="CardTop">
+        <div>
+          <span class="CardTitle">Projector</span>
+          <span class="badge red">High</span>
+        </div>
+        <button class="view">👁 View &amp; Update</button>
+      </div>
+      <p class="CardPerson">👤 Maria Santos &nbsp; ID: 2024-12346</p>
+      <p class="CardDesc">Projector not turning on</p>
+      <p class="CardTags">📍 Room 205 &nbsp;&nbsp; 📋 ICT/Equipment &nbsp;&nbsp; 📅 2026-02-28 &nbsp;&nbsp; #2</p>
+      <span class="status green">✔ Resolved</span>
+    </div>
+
+    <div class="card">
+      <div class="CardTop">
+        <div>
+          <span class="CardTitle">Air Conditioner</span>
+          <span class="badge gray">Low</span>
+        </div>
+        <button class="view">👁 View &amp; Update</button>
+      </div>
+      <p class="CardPerson">👤 Pedro Reyes &nbsp; ID: 2024-12347</p>
+      <p class="CardDesc">AC making loud noise</p>
+      <p class="CardTags">📍 Library &nbsp;&nbsp; 📋 Air Conditioning/Ventilation &nbsp;&nbsp; 📅 2026-03-02 &nbsp;&nbsp; #3</p>
+      <span class="status orange">⏳ Pending</span>
+    </div>
+
+    <div class="card">
+      <div class="CardTop">
+        <div>
+          <span class="CardTitle">Leaking Faucet</span>
+          <span class="badge red">High</span>
+        </div>
+        <button class="view">👁 View &amp; Update</button>
+      </div>
+      <p class="CardPerson">👤 Ana Garcia &nbsp; ID: 2024-12348</p>
+      <p class="CardDesc">Water leaking from faucet in restroom</p>
+      <p class="CardTags">📍 Restroom B2 &nbsp;&nbsp; 📋 Plumbing/Water &nbsp;&nbsp; 📅 2026-03-03 &nbsp;&nbsp; #4</p>
+      <span class="status orange">⏳ Pending</span>
+    </div>
+
+    <div class="card">
+      <div class="CardTop">
+        <div>
+          <span class="CardTitle">Broken Light</span>
+          <span class="badge orange">Medium</span>
+        </div>
+        <button class="view">👁 View &amp; Update</button>
+      </div>
+      <p class="CardPerson">👤 Carlos Lopez &nbsp; ID: 2024-12349</p>
+      <p class="CardDesc">Fluorescent light not working</p>
+      <p class="CardTags">📍 Hallway 3F &nbsp;&nbsp; 📋 Electrical &nbsp;&nbsp; 📅 2026-03-04 &nbsp;&nbsp; #5</p>
+      <span class="status blue">⏳ In Progress</span>
+    </div>
+
+    <div class="card">
+      <div class="CardTop">
+        <div>
+          <span class="CardTitle">Cracked Window</span>
+          <span class="badge gray">Low</span>
+        </div>
+        <button class="view">👁 View &amp; Update</button>
+      </div>
+      <p class="CardPerson">👤 Lisa Tan &nbsp; ID: 2024-12350</p>
+      <p class="CardDesc">Window has a large crack</p>
+      <p class="CardTags">📍 Room 401 &nbsp;&nbsp; 📋 Building/Structural &nbsp;&nbsp; 📅 2026-03-05 &nbsp;&nbsp; #6</p>
+      <span class="status red">✖ Rejected</span>
+    </div>
+
+  </main>
+
+</body>
+</html>

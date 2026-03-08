@@ -1,0 +1,200 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: #f0f2f8;
+  color: #1a1d2e;
+  min-height: 100vh;
+}
+
+header {
+  background: #b01c1c;
+  border-bottom: 1px solid #991818;
+  padding: 18px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+header h1{
+    font-size: 22.4px;
+    font-weight: 700;
+    color:white;
+}
+header p{
+    font-size: 13px;
+    color:#f8c2c2;
+    margin-top: 3px;
+}
+.logout{
+    background: white;
+    color: #b01c1c;
+    border: none;
+    padding: 9px 20px;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+}
+.logout:hover{
+    background: #f8c2c2;
+}
+main{
+    padding: 30px 36px;
+    max-width: 1200px;
+    margin: 0px auto;
+}
+
+.stats{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.StatCard{
+background: whitesmoke;
+border-radius: 8px;
+padding: 20px;
+border: 1px solid #e5e7f0;
+text-align: center;
+}
+
+.StatLabel{
+    font-size: 32px;
+    text-transform: uppercase;
+    color: #6b7280;
+    margin-bottom: 8px;
+}
+
+.StatValue{
+    font-size: 32px;
+    color: #1a1d2e;
+}
+
+.orange{
+color: #a16207;
+}
+.blue{
+color: #2563eb;
+}
+.green{
+color: #15803d;
+}
+.red{
+color: #b01c1c;
+}
+
+.searchbar{
+    background: whitesmoke;
+    border: 1px solid #e5e7f0;
+    padding: 14px 18px;
+    margin-bottom: 24px;
+    border-radius: 8px;
+}
+.searchbar input{
+    width: 100%;
+    border: 1px solid #e5e7f0;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 16px;
+    background: #f0f2f8;
+}
+.searchbar input:focus {
+  border-color: #b01c1c;
+  background: white;
+}
+
+.sec-title{
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 14px;
+}
+
+.card{
+    background:whitesmoke;
+    border:1px solid #e5e7f0;
+    padding: 20px 24px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 5px grey;
+    line-height: 1.6;
+    border-radius: 10px;
+}
+.card:hover{
+    box-shadow: 0 4px 16px rgba(176, 28, 28, 0.15);
+}
+.CardTop{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+.CardTitle{
+    font-size: 18px;
+    font-weight: 600;
+    margin-right: 10px;
+}
+.badge {
+  font-size: 14px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+.badge.red    { 
+    background: #fecaca; color: #b01c1c; 
+}
+.badge.orange { 
+    background: #fef9c3; color: #a16207;
+}
+.badge.gray   {
+     background: #e5e7f0; color: #6b7280; 
+}
+.CardPerson{
+    font-size: 16px;
+    color: #6b7280;
+    margin-bottom: 6px;
+}
+.CardDesc{
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+.CardTags{
+    font-size: 15px;
+    color: #6b7280;
+    margin-bottom: 10px;    
+}
+.status {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 15px;
+  line-height: 1.4;
+}
+.status.orange { 
+    background: #fef9c3; color: #a16207;
+ }
+.status.blue   {
+     background: #dbeafe; color: #2563eb;
+}
+.status.green  { 
+    background: #dcfce7; color: #15803d; 
+}
+.status.red    { 
+    background: #fecaca; color: #b01c1c; 
+}
+.view{
+    background: #b01c1c;
+    color: white;
+    border: none;
+    padding: 9px 16px;
+    border-radius: 9px;
+    font-size: 13.12px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.view:hover{
+    background: #ec6464;
+}
