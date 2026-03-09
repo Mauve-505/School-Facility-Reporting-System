@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Status Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="header-nav">
+            <i data-lucide="arrow-left" class="back-icon"></i>
+            <h1>Track Status</h1>
+        </div>
+        <p>Monitor your submitted reports</p>
+    </header>
+
+    <div class="search-container">
+        <i data-lucide="search" class="icon-muted"></i>
+        <input type="text" id="searchInput" placeholder="Search by ID, type, or location...">
+    </div>
+
+    <div class="filters" id="filterContainer">
+        <button class="filter-chip active" data-filter="all">All</button>
+        <button class="filter-chip" data-filter="pending">Pending</button>
+        <button class="filter-chip" data-filter="in-progress">In Progress</button>
+        <button class="filter-chip" data-filter="resolved">Resolved</button>
+        <button class="filter-chip" data-filter="rejected">Rejected</button>
+    </div>
+
+    <div id="cardList">
+        <div class="card card-blue" data-status="in-progress">
+            <div class="card-content">
+                <div class="card-header">
+                    <span class="id-badge">RPT-001</span>
+                    <span class="status-label status-blue"><span class="dot"></span> In Progress</span>
+                </div>
+                <h2>Furniture</h2>
+                <p class="description">Broken chair leg in classroom, unstable and unsafe for use</p>
+                <div class="details">
+                    <div class="detail-item"><i data-lucide="map-pin"></i> Room 301, Building A</div>
+                    <div class="detail-item"><i data-lucide="calendar"></i> Submitted: 2026-03-01 09:30 AM</div>
+                    <div class="detail-item"><i data-lucide="clock"></i> Last Updated: 2026-03-03 02:15 PM</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-green" data-status="resolved">
+            <div class="card-content">
+                <div class="card-header">
+                    <span class="id-badge">RPT-002</span>
+                    <span class="status-label status-green"><span class="dot"></span> Resolved</span>
+                </div>
+                <h2>Electrical</h2>
+                <p class="description">Projector not turning on, power button unresponsive</p>
+                <div class="details">
+                    <div class="detail-item"><i data-lucide="map-pin"></i> Room 205, Building B</div>
+                    <div class="detail-item"><i data-lucide="calendar"></i> Submitted: 2026-02-28 11:00 AM</div>
+                    <div class="detail-item"><i data-lucide="clock"></i> Last Updated: 2026-03-02 10:30 AM</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-yellow" data-status="pending">
+            <div class="card-content">
+                <div class="card-header">
+                    <span class="id-badge">RPT-003</span>
+                    <span class="status-label status-yellow"><span class="dot"></span> Pending</span>
+                </div>
+                <h2>Air Conditioning / Ventilation</h2>
+                <p class="description">AC making loud noise and not cooling properly</p>
+                <div class="details">
+                    <div class="detail-item"><i data-lucide="map-pin"></i> Library, 2nd Floor</div>
+                    <div class="detail-item"><i data-lucide="calendar"></i> Submitted: 2026-03-02 03:45 PM</div>
+                    <div class="detail-item"><i data-lucide="clock"></i> Last Updated: 2026-03-02 03:45 PM</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-yellow" data-status="pending">
+            <div class="card-content">
+                <div class="card-header">
+                    <span class="id-badge">RPT-004</span>
+                    <span class="status-label status-yellow"><span class="dot"></span> Pending</span>
+                </div>
+                <h2>ICT / Equipment</h2>
+                <p class="description">Computer monitor flickering, possibly hardware issue</p>
+                <div class="details">
+                    <div class="detail-item"><i data-lucide="map-pin"></i> Computer Lab 1</div>
+                    <div class="detail-item"><i data-lucide="calendar"></i> Submitted: 2026-03-04 08:20 AM</div>
+                    <div class="detail-item"><i data-lucide="clock"></i> Last Updated: 2026-03-04 08:20 AM</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-red" data-status="rejected">
+            <div class="card-content">
+                <div class="card-header">
+                    <span class="id-badge">RPT-005</span>
+                    <span class="status-label status-red"><span class="dot"></span> Rejected</span>
+                </div>
+                <h2>Restroom / Sanitation</h2>
+                <p class="description">Toilet not flushing properly, water leaking</p>
+                <div class="details">
+                    <div class="detail-item"><i data-lucide="map-pin"></i> 3rd Floor Restroom, Building C</div>
+                    <div class="detail-item"><i data-lucide="calendar"></i> Submitted: 2026-02-25 01:15 PM</div>
+                    <div class="detail-item"><i data-lucide="clock"></i> Last Updated: 2026-02-26 09:00 AM</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
