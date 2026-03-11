@@ -5,14 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Track Status Dashboard</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body { display: block; padding: 0; }
+        .container { margin: 0 auto; padding: 20px; }
+    </style>
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
 
+<nav>
+    <div class="navbar">
+        <div class="system">School Facility Reporting System</div>
+        <ul class="nav-links">
+            <li><a href="../dashboard/dashboard.html">&#8592; Dashboard</a></li>
+            <li><a href="../index.html">Logout</a></li>
+        </ul>
+    </div>
+</nav>
+
 <div class="container">
     <header>
         <div class="header-nav">
-            <i data-lucide="arrow-left" class="back-icon"></i>
             <h1>Track Status</h1>
         </div>
         <p>Monitor your submitted reports</p>
@@ -24,11 +38,11 @@
     </div>
 
     <div class="filters" id="filterContainer">
-        <button class="filter-chip active" data-filter="all">All</button>
-        <button class="filter-chip" data-filter="pending">Pending</button>
-        <button class="filter-chip" data-filter="in-progress">In Progress</button>
-        <button class="filter-chip" data-filter="resolved">Resolved</button>
-        <button class="filter-chip" data-filter="rejected">Rejected</button>
+        <button class="filter-chip active" data-filter="all">All <span class="count-badge">5</span></button>
+        <button class="filter-chip" data-filter="pending">Pending <span class="count-badge">2</span></button>
+        <button class="filter-chip" data-filter="in-progress">In Progress <span class="count-badge">1</span></button>
+        <button class="filter-chip" data-filter="resolved">Resolved <span class="count-badge">1</span></button>
+        <button class="filter-chip" data-filter="rejected">Rejected <span class="count-badge">1</span></button>
     </div>
 
     <div id="cardList">
