@@ -7,6 +7,11 @@
     font-family: 'DM Sans', sans-serif;
 }
 
+body {
+  background-color: #f8fafc;
+  color: #1e293b;
+}
+
 nav{
     position: sticky;
     top: 0;
@@ -67,10 +72,18 @@ nav{
 .main-content{
     padding: 20px;
     box-sizing: border-box;
-    min-height: 100vh;
-    font-size: 12px;
     position: relative;
-    z-index: 1;
+}
+
+.main-content h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.main-content p {
+  color: #64748b;
+  font-size: 13px;
 }
 
 .track-bttn,
@@ -98,25 +111,37 @@ nav{
 
 .stats{
     display: flex;
-    gap: 20px;
-    margin-bottom: 30px;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
 }
 
 .card{
     margin-top: 20px;
-    background-color: whitesmoke;
-    color: black;
-    padding: 20px;
-    font-size: 12px;
+    background-color: white;
+    padding: 16px 20px;
     border-radius: 8px;
     flex: 1;
     text-align: center;
+    font-weight: bold;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
 }
 
-.card p{
-    font-size: 17px;
-    font-weight: bold;
+p .Label{
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 4px;
 }
+
+h3{
+  font-size: 22px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.Label.orange, .Value.orange { color: #a16207; }
+.Label.blue,   .Value.blue   { color: #2563eb; }
+.Label.green,  .Value.green  { color: #15803d; }
 
 .submitted{
     display: flex;
@@ -128,33 +153,38 @@ nav{
 }
 
 .report{
-    background: whitesmoke;
+    background: white;
     padding: 15px;
     border-radius: 10px;
-    box-shadow: 0 2px 5px grey;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
     line-height: 1.6;
-
 }
 
-.card h3{
+.cardTitle{
     margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    margin-right: 8px;
 }
 
-.info{
-    margin-bottom: 18px;
+#description{
+    font-size: 13px;
+    margin-bottom: 6px;
+    color: black
 }
 
-.room{
-    margin-right: 20px;
+.CardTags {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-bottom: 8px;
 }
 
 .status{
     display: inline-block;
-    margin-top: 6px;
-    padding: 6px 12px;
+    padding: 4px 12px;
     border-radius: 15px;
-    font-size: 10px;
-    line-height: 2;
+    font-size: 11px;
+    font-weight: 600;
 }
 
 .progress{

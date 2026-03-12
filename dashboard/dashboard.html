@@ -22,24 +22,24 @@
     </nav>
 
     <div class="main-content">
-            <h2>Student Dashboard</h2>
-            <p>Welcome back! Manage your facility reports</p>
+        <h2>Student Dashboard</h2>
+        <p>Welcome back! Manage your facility reports</p>
 
-            <a href="../report/report.html" class="new-task"> + Report New Issue</a>
-            <a href="../track/track.html" class="track-bttn">Track Report</a>
+        <a href="../report/report.html" class="new-task"> + Report New Issue</a>
+        <a href="../track/track.html" class="track-bttn">Track Report</a>
         
         <div class="stats">
             <div class="card">
-                <p>1</p>
-                <h4>Pending</h4>
+                <p class="Label orange">Pending</p>
+                <h3 class="Value orange">1</h3>
             </div>
             <div class="card">
-                <p>1</p>
-                <h4>In Progress</h4>
+                <p class="Label blue">In Progress</p>
+                <h3 class="Value blue">1</h3>
             </div>
             <div class="card">
-                <p>1</p>
-                <h4>Resolved</h4>
+                <p class="Label green">Resolved</p>
+                <h3 class="Value green">1</h3>
             </div>
         </div>
 
@@ -51,48 +51,37 @@
         
         <div class="reportList">
             <div class="report">
-                <h3>Broken Chair</h3>
-                <p>Chair Leg is broken in Room 1</p>
-                <small class="info">
-                    <span class="room">Room 1</span>
+                <span class="cardTitle">Broken Chair</span>
+                <p id="description">Chair Leg is broken in Room 301</p>
 
-                    <span class="date">
-                        <i class="fa-regular fa-calendar"> 2026-03-01</i>
+                    <span class="info">
+                        <p class="CardTags">📍 Room 301 &nbsp;&nbsp; 📋 Furniture &nbsp;&nbsp; 📅 2026-03-01</p>
                     </span>
-                </small>
-                <br>
+
                 <span class="status progress">In Progress</span>
             </div>
 
             <br>
 
             <div class="report">
-                <h3>Projector</h3>
-                <p>Projector not turning on</p>
-                <small class="info">
-                    <span class="room">Room 2</span>
-
-                    <span class="date">
-                        <i class="fa-regular fa-calendar"> 2026-03-01</i>
+                <span class="cardTitle">Projector</span>
+                <p id="description">Projector not turning on</p>
+        
+                    <span class="info">
+                        <p class="CardTags">📍 Room 205 &nbsp;&nbsp; 📋 ICT/Equipment &nbsp;&nbsp; 📅 2026-02-28</p>
                     </span>
-                </small>
-                <br>
                 <span class="status resolved">Resolved</span>
             </div>
 
             <br>
 
             <div class="report">
-                <h3>Air Conditioner</h3>
-                <p>AC making load noise</p>
-                <small class="info">
-                    <span class="room">Room 2</span>
+                <span class="cardTitle">Air Conditioner</span>
+                <p id="description">AC making load noise</p>
 
-                    <span class="date">
-                        <i class="fa-regular fa-calendar"> 2026-03-01</i>
+                    <span class="info">
+                        <p class="CardTags">📍 Library &nbsp;&nbsp; 📋 Air Conditioning/Ventilation &nbsp;&nbsp; 📅 2026-03-02</p>
                     </span>
-                </small>
-                <br>
                 <span class="status pending">Pending</span>
             </div>
         </div>
