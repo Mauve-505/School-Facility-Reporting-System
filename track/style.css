@@ -110,14 +110,14 @@ header {
     cursor: pointer;
 }
 
-header h1 {
+header h2 {
     margin: 0;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 700;
 }
 
 header p {
-    margin: 4px 0 0 36px;
+    margin: 0 0 36px;
     color: var(--text-muted);
     font-size: 14px;
 }
@@ -250,15 +250,14 @@ header p {
 .status-yellow { color: var(--yellow); } .status-yellow .dot { background: var(--yellow); }
 .status-red    { color: var(--red);    } .status-red .dot    { background: var(--red);    }
 
-h2 {
+.CardTitle {
     margin: 0 0 8px 0;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
 }
 
 .description {
-    color: var(--text-muted);
-    font-size: 14px;
+    font-size: 13px;
     margin-bottom: 16px;
 }
 
