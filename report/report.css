@@ -71,13 +71,13 @@ body {
 }
 
 .page-header {
-    padding: 20px 20px 0;
+    padding: 20px 20px;
 }
 
 .page-header h2 {
     font-size: 20px;
     font-weight: 700;
-    margin-bottom: 2px;
+    margin-bottom: 2px; 
 }
 
 .page-header p {
