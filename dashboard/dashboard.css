@@ -16,7 +16,7 @@ nav{
     position: sticky;
     top: 0;
     background: #b01c1c;
-    padding: 8px 40px;
+    padding: 20px 40px;
     z-index: 1000;
 }
 
@@ -31,6 +31,7 @@ nav{
     color: white;
     font-weight: bold;
     letter-spacing: 1px;
+    font-size: 20px;
 }
 
 .nav-links{
@@ -68,6 +69,8 @@ nav{
 .nav-links a.active{
     color: #ec6464;
 }
+
+
 
 .main-content{
     padding: 20px;
