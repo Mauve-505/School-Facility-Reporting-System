@@ -21,7 +21,7 @@
     <h1>School Facility Reporting System</h1>
     <p class="subtitle">Login to continue</p>
 
-    <form class="form" action="../dashboard/dashboard.html">
+    <form class="form" onsubmit="handleLogin(event)">
 
       <div class="field">
         <label>Email</label>
@@ -43,23 +43,31 @@
 
       <button class="login-btn" type="submit">Login</button>
 
-      <a class="admin-link" href="../adminlog/adminlog.html">Login as Admin</a>
-
       <p class="create-account">Don't have an account? <a href="../register/register.html">Create Account</a></p>
 
     </form>
   </div>
 
   <script>
-    // show or hide the password
-    function showHidePassword() {
-      var input = document.getElementById('password')
+    //Admin account
+    var ADMIN_EMAILS = [
+      "admin@wmsu.edu"
+    ];
 
-      if (input.type == "password") {
-        input.type = "text"
+    function handleLogin(event) {
+      event.preventDefault();
+      var email = document.getElementById('email').value.trim().toLowerCase();
+
+      if (ADMIN_EMAILS.includes(email)) {
+        window.location.href = "../admindashboard/admindashboard.html";
       } else {
-        input.type = "password"
+        window.location.href = "../dashboard/dashboard.html";
       }
+    }
+
+    function showHidePassword() {
+      var input = document.getElementById('password');
+      input.type = (input.type === "password") ? "text" : "password";
     }
   </script>
 

@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Admin Dashboard</title>
   <link rel="stylesheet" href="style.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 </head>
 <body>
   <nav>
@@ -47,96 +48,277 @@
       </div>
     </div>
 
+    <!-- Charts Row -->
+    <div class="charts-row">
+      <div class="chart-card">
+        <p class="chart-title">🕐 Status Distribution</p>
+        <div class="pie-wrapper">
+          <canvas id="statusChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <p class="chart-title">↗ Priority Levels</p>
+        <div class="pie-wrapper">
+          <canvas id="priorityChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-card trend-card">
+      <div class="trend-header">
+        <p class="chart-title">📊 Reports Trend</p>
+        <div class="trend-toggle">
+          <button class="toggle-btn active" data-period="weekly">Weekly</button>
+          <button class="toggle-btn" data-period="monthly">Monthly</button>
+          <button class="toggle-btn" data-period="yearly">Yearly</button>
+        </div>
+      </div>
+      <canvas id="trendChart"></canvas>
+    </div>
+
     <div class="searchbar">
-      <input type="text" placeholder="Search by student name, report type, location, or ID..." />
+      <input type="text" id="searchInput" placeholder="Search by student name, report type, location, or ID..." oninput="filterCards()"/>
     </div>
 
     <h2 class="sec-title">All Reports (6)</h2>
 
-    <div class="card">
-      <div class="CardTop">
-        <div>
-          <span class="CardTitle">Broken Chair</span>
-          <span class="badge orange">Medium</span>
-        </div>
-        <button class="view">👁 View &amp; Update</button>
-      </div>
-      <p class="CardPerson">👤 Juan Dela Cruz &nbsp; ID: 2024-12345</p>
-      <p class="CardDesc">Chair leg is broken in Room 301</p>
-      <p class="CardTags">📍 Room 301 &nbsp;&nbsp; 📋 Furniture &nbsp;&nbsp; 📅 2026-03-01 &nbsp;&nbsp; #1</p>
-      <span class="status blue">⏳ In Progress</span>
-    </div>
+    <div id="reportList">
 
-    <div class="card">
-      <div class="CardTop">
-        <div>
-          <span class="CardTitle">Projector</span>
-          <span class="badge red">High</span>
+      <div class="card" data-search="juan dela cruz 2024-12345 room 301 furniture broken chair">
+        <div class="CardTop">
+          <div>
+            <span class="CardTitle">Broken Chair</span>
+            <span class="badge orange">Medium</span>
+          </div>
+          <button class="view" onclick="openModal(1)">👁 View &amp; Update</button>
         </div>
-        <button class="view">👁 View &amp; Update</button>
+        <p class="CardPerson">👤 Juan Dela Cruz &nbsp; ID: 2024-12345</p>
+        <p class="CardDesc">Chair leg is broken in Room 301</p>
+        <p class="CardTags">📍 Room 301 &nbsp;&nbsp; 📋 Furniture &nbsp;&nbsp; 📅 2026-03-01 &nbsp;&nbsp; #1</p>
+        <span class="status blue">⏳ In Progress</span>
       </div>
-      <p class="CardPerson">👤 Maria Santos &nbsp; ID: 2024-12346</p>
-      <p class="CardDesc">Projector not turning on</p>
-      <p class="CardTags">📍 Room 205 &nbsp;&nbsp; 📋 ICT/Equipment &nbsp;&nbsp; 📅 2026-02-28 &nbsp;&nbsp; #2</p>
-      <span class="status green">✔ Resolved</span>
-    </div>
 
-    <div class="card">
-      <div class="CardTop">
-        <div>
-          <span class="CardTitle">Air Conditioner</span>
-          <span class="badge gray">Low</span>
+      <div class="card" data-search="maria santos 2024-12346 room 205 ict equipment projector">
+        <div class="CardTop">
+          <div>
+            <span class="CardTitle">Projector</span>
+            <span class="badge red">High</span>
+          </div>
+          <button class="view" onclick="openModal(2)">👁 View &amp; Update</button>
         </div>
-        <button class="view">👁 View &amp; Update</button>
+        <p class="CardPerson">👤 Maria Santos &nbsp; ID: 2024-12346</p>
+        <p class="CardDesc">Projector not turning on</p>
+        <p class="CardTags">📍 Room 205 &nbsp;&nbsp; 📋 ICT/Equipment &nbsp;&nbsp; 📅 2026-02-28 &nbsp;&nbsp; #2</p>
+        <span class="status green">✔ Resolved</span>
       </div>
-      <p class="CardPerson">👤 Pedro Reyes &nbsp; ID: 2024-12347</p>
-      <p class="CardDesc">AC making loud noise</p>
-      <p class="CardTags">📍 Library &nbsp;&nbsp; 📋 Air Conditioning/Ventilation &nbsp;&nbsp; 📅 2026-03-02 &nbsp;&nbsp; #3</p>
-      <span class="status orange">⏳ Pending</span>
-    </div>
 
-    <div class="card">
-      <div class="CardTop">
-        <div>
-          <span class="CardTitle">Leaking Faucet</span>
-          <span class="badge red">High</span>
+      <div class="card" data-search="pedro reyes 2024-12347 library air conditioning ventilation">
+        <div class="CardTop">
+          <div>
+            <span class="CardTitle">Air Conditioner</span>
+            <span class="badge gray">Low</span>
+          </div>
+          <button class="view" onclick="openModal(3)">👁 View &amp; Update</button>
         </div>
-        <button class="view">👁 View &amp; Update</button>
+        <p class="CardPerson">👤 Pedro Reyes &nbsp; ID: 2024-12347</p>
+        <p class="CardDesc">AC making loud noise</p>
+        <p class="CardTags">📍 Library &nbsp;&nbsp; 📋 Air Conditioning/Ventilation &nbsp;&nbsp; 📅 2026-03-02 &nbsp;&nbsp; #3</p>
+        <span class="status orange">⏳ Pending</span>
       </div>
-      <p class="CardPerson">👤 Ana Garcia &nbsp; ID: 2024-12348</p>
-      <p class="CardDesc">Water leaking from faucet in restroom</p>
-      <p class="CardTags">📍 Restroom B2 &nbsp;&nbsp; 📋 Plumbing/Water &nbsp;&nbsp; 📅 2026-03-03 &nbsp;&nbsp; #4</p>
-      <span class="status orange">⏳ Pending</span>
-    </div>
 
-    <div class="card">
-      <div class="CardTop">
-        <div>
-          <span class="CardTitle">Broken Light</span>
-          <span class="badge orange">Medium</span>
+      <div class="card" data-search="ana garcia 2024-12348 restroom b2 plumbing water leaking faucet">
+        <div class="CardTop">
+          <div>
+            <span class="CardTitle">Leaking Faucet</span>
+            <span class="badge red">High</span>
+          </div>
+          <button class="view" onclick="openModal(4)">👁 View &amp; Update</button>
         </div>
-        <button class="view">👁 View &amp; Update</button>
+        <p class="CardPerson">👤 Ana Garcia &nbsp; ID: 2024-12348</p>
+        <p class="CardDesc">Water leaking from faucet in restroom</p>
+        <p class="CardTags">📍 Restroom B2 &nbsp;&nbsp; 📋 Plumbing/Water &nbsp;&nbsp; 📅 2026-03-03 &nbsp;&nbsp; #4</p>
+        <span class="status orange">⏳ Pending</span>
       </div>
-      <p class="CardPerson">👤 Carlos Lopez &nbsp; ID: 2024-12349</p>
-      <p class="CardDesc">Fluorescent light not working</p>
-      <p class="CardTags">📍 Hallway 3F &nbsp;&nbsp; 📋 Electrical &nbsp;&nbsp; 📅 2026-03-04 &nbsp;&nbsp; #5</p>
-      <span class="status blue">⏳ In Progress</span>
-    </div>
 
-    <div class="card">
-      <div class="CardTop">
-        <div>
-          <span class="CardTitle">Cracked Window</span>
-          <span class="badge gray">Low</span>
+      <div class="card" data-search="carlos lopez 2024-12349 hallway 3f electrical broken light">
+        <div class="CardTop">
+          <div>
+            <span class="CardTitle">Broken Light</span>
+            <span class="badge orange">Medium</span>
+          </div>
+          <button class="view" onclick="openModal(5)">👁 View &amp; Update</button>
         </div>
-        <button class="view">👁 View &amp; Update</button>
+        <p class="CardPerson">👤 Carlos Lopez &nbsp; ID: 2024-12349</p>
+        <p class="CardDesc">Fluorescent light not working</p>
+        <p class="CardTags">📍 Hallway 3F &nbsp;&nbsp; 📋 Electrical &nbsp;&nbsp; 📅 2026-03-04 &nbsp;&nbsp; #5</p>
+        <span class="status blue">⏳ In Progress</span>
       </div>
-      <p class="CardPerson">👤 Lisa Tan &nbsp; ID: 2024-12350</p>
-      <p class="CardDesc">Window has a large crack</p>
-      <p class="CardTags">📍 Room 401 &nbsp;&nbsp; 📋 Building/Structural &nbsp;&nbsp; 📅 2026-03-05 &nbsp;&nbsp; #6</p>
-      <span class="status red">✖ Rejected</span>
+
+      <div class="card" data-search="lisa tan 2024-12350 room 401 building structural cracked window">
+        <div class="CardTop">
+          <div>
+            <span class="CardTitle">Cracked Window</span>
+            <span class="badge gray">Low</span>
+          </div>
+          <button class="view" onclick="openModal(6)">👁 View &amp; Update</button>
+        </div>
+        <p class="CardPerson">👤 Lisa Tan &nbsp; ID: 2024-12350</p>
+        <p class="CardDesc">Window has a large crack</p>
+        <p class="CardTags">📍 Room 401 &nbsp;&nbsp; 📋 Building/Structural &nbsp;&nbsp; 📅 2026-03-05 &nbsp;&nbsp; #6</p>
+        <span class="status red">✖ Rejected</span>
+      </div>
+
     </div>
 
   </main>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+    <div class="modal" id="modal">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <h3 class="modal-title" id="modalTitle">Report Details</h3>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-footer">
+        <label class="modal-label">Update Status</label>
+        <div class="status-btn-group">
+          <button class="status-action pending"     onclick="updateStatus('Pending')">⏳ Pending</button>
+          <button class="status-action in-progress" onclick="updateStatus('In Progress')">🔄 In Progress</button>
+          <button class="status-action resolved"    onclick="updateStatus('Resolved')">✔ Resolved</button>
+          <button class="status-action rejected"    onclick="updateStatus('Rejected')">✖ Rejected</button>
+        </div>
+        <div id="updateMsg" class="update-msg"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const reports = [
+      { title:'Broken Chair',    priority:'Medium', status:'In Progress', person:'Juan Dela Cruz', id:'2024-12345', location:'Room 301',    category:'Furniture',                   date:'2026-03-01', num:1 },
+      { title:'Projector',       priority:'High',   status:'Resolved',    person:'Maria Santos',   id:'2024-12346', location:'Room 205',    category:'ICT/Equipment',               date:'2026-02-28', num:2 },
+      { title:'Air Conditioner', priority:'Low',    status:'Pending',     person:'Pedro Reyes',    id:'2024-12347', location:'Library',     category:'Air Conditioning/Ventilation', date:'2026-03-02', num:3 },
+      { title:'Leaking Faucet',  priority:'High',   status:'Pending',     person:'Ana Garcia',     id:'2024-12348', location:'Restroom B2', category:'Plumbing/Water',              date:'2026-03-03', num:4 },
+      { title:'Broken Light',    priority:'Medium', status:'In Progress', person:'Carlos Lopez',   id:'2024-12349', location:'Hallway 3F',  category:'Electrical',                  date:'2026-03-04', num:5 },
+      { title:'Cracked Window',  priority:'Low',    status:'Rejected',    person:'Lisa Tan',       id:'2024-12350', location:'Room 401',    category:'Building/Structural',         date:'2026-03-05', num:6 },
+    ];
+
+    new Chart(document.getElementById('statusChart'), {
+      type: 'pie',
+      data: {
+        labels: ['Pending','In Progress','Resolved','Rejected'],
+        datasets: [{ data:[2,2,1,1], backgroundColor:['#a16207','#2563eb','#15803d','#b91c1c'], borderWidth:2, borderColor:'#fff' }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position:'right', labels:{ font:{ family:'DM Sans', size:11 }, padding:12 } },
+          tooltip: { callbacks:{ label: ctx => ` ${ctx.label}: ${Math.round(ctx.parsed/6*100)}%` } }
+        }
+      }
+    });
+
+    new Chart(document.getElementById('priorityChart'), {
+      type: 'pie',
+      data: {
+        labels: ['High','Medium','Low'],
+        datasets: [{ data:[2,2,2], backgroundColor:['#b91c1c','#ea580c','#475569'], borderWidth:2, borderColor:'#fff' }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position:'right', labels:{ font:{ family:'DM Sans', size:11 }, padding:12 } },
+          tooltip: { callbacks:{ label: ctx => ` ${ctx.label}: ${Math.round(ctx.parsed/6*100)}%` } }
+        }
+      }
+    });
+
+    const trendData = {
+      weekly:  { labels:['Week 1','Week 2','Week 3','Week 4'], datasets:[
+        { label:'Pending',     data:[1,2,2,1], borderColor:'#a16207', fill:false, tension:0.4, pointRadius:4 },
+        { label:'In Progress', data:[0,1,2,1], borderColor:'#2563eb', fill:false, tension:0.4, pointRadius:4 },
+        { label:'Resolved',    data:[0,0,1,1], borderColor:'#15803d', fill:false, tension:0.4, pointRadius:4 },
+        { label:'Rejected',    data:[3,5,2,2], borderColor:'#b01c1c', fill:false, tension:0.4, pointRadius:4 },
+      ]},
+      monthly: { labels:['Jan','Feb','Mar','Apr','May','Jun'], datasets:[
+        { label:'Pending',     data:[3,5,2,4,1,2], borderColor:'#a16207', fill:false, tension:0.4, pointRadius:4 },
+        { label:'In Progress', data:[1,2,3,2,3,1], borderColor:'#2563eb', fill:false, tension:0.4, pointRadius:4 },
+        { label:'Resolved',    data:[2,3,1,4,2,3], borderColor:'#15803d', fill:false, tension:0.4, pointRadius:4 },
+        { label:'Rejected',    data:[1,1,2,1,0,1], borderColor:'#b01c1c', fill:false, tension:0.4, pointRadius:4 },
+      ]},
+      yearly:  { labels:['2022','2023','2024','2025','2026'], datasets:[
+        { label:'Pending',     data:[10,18,22,15,8],  borderColor:'#a16207', fill:false, tension:0.4, pointRadius:4 },
+        { label:'In Progress', data:[8,14,18,12,6],   borderColor:'#2563eb', fill:false, tension:0.4, pointRadius:4 },
+        { label:'Resolved',    data:[12,20,25,18,10], borderColor:'#15803d', fill:false, tension:0.4, pointRadius:4 },
+        { label:'Rejected',    data:[3,5,8,6,2],      borderColor:'#b01c1c', fill:false, tension:0.4, pointRadius:4 },
+      ]}
+    };
+
+    let trendChart = new Chart(document.getElementById('trendChart'), {
+      type: 'line',
+      data: trendData.weekly,
+      options: {
+        responsive: true,
+        plugins: { legend:{ position:'bottom', labels:{ font:{ family:'DM Sans', size:11 }, padding:16 } } },
+        scales: {
+          x: { grid:{ color:'#f1f5f9', borderDash:[4,4] }, ticks:{ font:{ family:'DM Sans', size:11 } } },
+          y: { beginAtZero:true, grid:{ color:'#f1f5f9', borderDash:[4,4] }, ticks:{ font:{ family:'DM Sans', size:11 }, stepSize:2 } }
+        }
+      }
+    });
+
+    document.querySelectorAll('.toggle-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        trendChart.data = trendData[btn.dataset.period];
+        trendChart.update();
+      });
+    });
+
+    function filterCards() {
+      const q = document.getElementById('searchInput').value.toLowerCase();
+      document.querySelectorAll('#reportList .card').forEach(card => {
+        card.style.display = card.dataset.search.includes(q) ? '' : 'none';
+      });
+    }
+
+    let currentModal = null;
+
+    function openModal(num) {
+      const r = reports[num - 1];
+      currentModal = num;
+      document.getElementById('modalTitle').textContent = 'Report #' + r.num + ' — ' + r.title;
+      const cls  = r.status   === 'Resolved'    ? 'green'  : r.status   === 'Rejected' ? 'red' : r.status === 'In Progress' ? 'blue' : 'orange';
+      const pcls = r.priority === 'High'         ? 'red'    : r.priority === 'Medium'   ? 'orange' : 'gray';
+      document.getElementById('modalBody').innerHTML =
+        '<div class="modal-info-grid">' +
+        '<div class="modal-info-item"><span class="mi-label">Reporter</span><span class="mi-val">👤 ' + r.person + '</span></div>' +
+        '<div class="modal-info-item"><span class="mi-label">Student ID</span><span class="mi-val">' + r.id + '</span></div>' +
+        '<div class="modal-info-item"><span class="mi-label">Location</span><span class="mi-val">📍 ' + r.location + '</span></div>' +
+        '<div class="modal-info-item"><span class="mi-label">Category</span><span class="mi-val">📋 ' + r.category + '</span></div>' +
+        '<div class="modal-info-item"><span class="mi-label">Priority</span><span class="mi-val"><span class="badge ' + pcls + '">' + r.priority + '</span></span></div>' +
+        '<div class="modal-info-item"><span class="mi-label">Date Filed</span><span class="mi-val">📅 ' + r.date + '</span></div>' +
+        '<div class="modal-info-item full"><span class="mi-label">Current Status</span><span class="mi-val" id="currentStatusDisplay"><span class="status ' + cls + '">' + r.status + '</span></span></div>' +
+        '</div>';
+      document.getElementById('updateMsg').textContent = '';
+      document.getElementById('modalOverlay').classList.add('open');
+    }
+
+    function closeModal(e) {
+      if (!e || e.target === document.getElementById('modalOverlay')) {
+        document.getElementById('modalOverlay').classList.remove('open');
+      }
+    }
+
+    function updateStatus(newStatus) {
+      if (!currentModal) return;
+      reports[currentModal - 1].status = newStatus;
+      const cls = newStatus === 'Resolved' ? 'green' : newStatus === 'Rejected' ? 'red' : newStatus === 'In Progress' ? 'blue' : 'orange';
+      const statusEl = document.getElementById('currentStatusDisplay');
+      if (statusEl) statusEl.innerHTML = '<span class="status ' + cls + '">' + newStatus + '</span>';
+      const msg = document.getElementById('updateMsg');
+      msg.textContent = '✓ Status updated to "' + newStatus + '"';
+      msg.style.color = newStatus === 'Resolved' ? '#15803d' : newStatus === 'Rejected' ? '#b91c1c' : '#2563eb';
+    }
+  </script>
 </body>
 </html>
