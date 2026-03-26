@@ -104,6 +104,12 @@ header p {
   margin-bottom: 20px;
 }
 
+.box p {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
 .features {
   display: flex;
   flex-wrap: wrap;
