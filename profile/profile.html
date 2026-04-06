@@ -19,8 +19,7 @@
                 <li><a href="../dashboard/dashboard.html">Home</a></li>
                 <li><a href="../report/report.html">Report</a></li>
                 <li><a href="../track/track.html">Track</a></li>
-                <li><a href="../profile/profile.html">Profile</a></li>
-                <li><a href="../index.html">Logout</a></li>
+                <li><a href="../profile/profile.html">Profile</a></li>  
             </ul>
         </div>
     </nav>
@@ -87,7 +86,7 @@ Student ID Card
 <h3>Account Settings</h3>
 
 <div class="setting">Change Password</div>
-<div class="setting logout">Logout</div>
+<div class="setting logout" onclick="logout()">Logout</div>
 
 </div>
 
@@ -95,3 +94,9 @@ Student ID Card
 
 </body>
 </html>
+
+<script>
+function logout() {
+    window.location.href = "../index.html";
+}
+</script>
