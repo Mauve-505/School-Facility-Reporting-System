@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Create Account – School Facility Reporting System</title>
   <link rel="stylesheet" href="register.css">
+  <link rel="stylesheet" href="registerextra.css">
 </head>
 <body>
   <div class="card">
@@ -24,6 +25,47 @@
       </div>
       <h1>Create Account</h1>
       <p class="subtitle">Verify your student status to continue</p>
+    </div>
+
+    <!-- Name Fields -->
+    <div class="field-row">
+      <div class="field">
+        <label for="lastname">Last Name</label>
+        <input type="text" id="lastname" placeholder="Enter last name">
+      </div>
+      <div class="field">
+        <label for="given">Given Name</label>
+        <input type="text" id="given" placeholder="Enter given name">
+      </div>
+      <div class="field field-mi">
+        <label for="mi">M.I.</label>
+        <input type="text" id="mi" placeholder="M.I." maxlength="2">
+      </div>
+    </div>
+
+    <!-- College Dropdown -->
+    <div class="field">
+      <label for="college">College / Department</label>
+      <select id="college">
+        <option value="" disabled selected>Select your college</option>
+        <option>College of Agriculture</option>
+        <option>College of Architecture</option>
+        <option>College of Asian &amp; Islamic Studies</option>
+        <option>College of Computing Studies</option>
+        <option>College of Criminal Justice Education</option>
+        <option>College of Engineering</option>
+        <option>College of Forestry &amp; Environmental Studies</option>
+        <option>College of Home Economics</option>
+        <option>College of Law</option>
+        <option>College of Liberal Arts</option>
+        <option>College of Medicine</option>
+        <option>College of Nursing</option>
+        <option>College of Public Administration &amp; Development Studies</option>
+        <option>College of Science and Mathematics</option>
+        <option>College of Social Work &amp; Community Development</option>
+        <option>College of Teacher Education</option>
+        <option>College of Sports Science &amp; Physical Education (CSSPE)</option>
+      </select>
     </div>
 
     <div class="field">
@@ -92,7 +134,7 @@
       <p class="selected-count" id="selected-count">Selected: 0 of 2</p>
     </div>
 
-    <button class="create-btn" type="button">Create Account</button>
+    <button class="create-btn" type="button" onclick="handleRegister()">Create Account</button>
 
   </div>
 
@@ -102,9 +144,7 @@
     function toggleDoc(el) {
       const isSelected = el.classList.contains('selected');
       const currentCount = document.querySelectorAll('.doc-option.selected').length;
-
       if (!isSelected && currentCount >= MAX_SELECTIONS) return;
-
       el.classList.toggle('selected');
       updateCount();
     }
@@ -113,6 +153,32 @@
       const count = document.querySelectorAll('.doc-option.selected').length;
       document.getElementById('selected-count').textContent = `Selected: ${count} of 2`;
     }
+
+    function handleRegister() {
+      var lastname = document.getElementById('lastname').value.trim();
+      var given = document.getElementById('given').value.trim();
+      var college = document.getElementById('college').value;
+      var email = document.getElementById('email').value.trim();
+      var password = document.getElementById('password').value;
+      var confirm = document.getElementById('confirm-password').value;
+      var count = document.querySelectorAll('.doc-option.selected').length;
+
+      if (!lastname || !given || !college || !email || !password || !confirm) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+      if (password !== confirm) {
+        alert('Passwords do not match.');
+        return;
+      }
+      if (count < 2) {
+        alert('Please select 2 documents.');
+        return;
+      }
+
+      window.location.href = 'regsuccess.html';
+    }
   </script>
+
 </body>
 </html>
