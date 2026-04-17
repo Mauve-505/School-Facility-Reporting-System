@@ -2,13 +2,13 @@
 <html>
 <head>
   <title>School Facility Reporting System</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../Asset/CSS/login.css">
 </head>
 <body>
 
   <div class="card">
 
-    <a href="../index.html" class="back-link">&#8592; Back</a>
+    <a href="../../index.html" class="back-link">&#8592; Back</a>
 
     <img src="../img/logo.png" class="logo" onerror="this.style.display='none'">
 
@@ -59,7 +59,7 @@
       var email = document.getElementById('email').value.trim().toLowerCase();
 
       if (ADMIN_EMAILS.includes(email)) {
-        window.location.href = "../admindashboard/admindashboard.html";
+        window.location.href = "../Admin/Pages/admindashboard.html";
       } else {
         window.location.href = "logsucess.html";
       }
