@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dean's Dashboard</title>
+    <link rel="stylesheet" href="dean.css">
+</head>
+<body>
+    <nav>
+        <div class="navbar">
+        <div class="system">School Facility Reporting System</div>
+        <ul class="nav-links">
+            <li><a href="../admindashboard/admindashboard.html" class="active">Home</a></li>
+            <li><a href="../index.html">Logout</a></li>
+        </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div class="page-header">
+      <h2>Dean Dashboard</h2>
+      <p>Review and approve facility reports from students and faculty.</p>
+    </div>
+
+    <div class="stats">
+        <div class="StatCard">
+            <p class="StatLabel">Total Reports</p>
+            <p class="StatValue">6</p>
+        </div>
+        <div class="StatCard">
+            <p class="StatLabel orange">Pending Review</p>
+            <p class="StatValue orange">2</p>
+        </div>
+        <div class="StatCard">
+            <p class="StatLabel green">Approve</p>
+            <p class="StatValue green">2</p>
+        </div>
+        <div class="StatCard">
+            <p class="StatLabel red">Rejected</p>
+            <p class="StatValue red">1</p>
+        </div>
+    </div>
+
+    <div class="searchStat">
+        <div class="searchbar">
+            <input type="text" id="searchInput" placeholder="Search by student name, report type, location, or ID..." oninput="filterCards()"/>
+        </div>
+
+        <div class="filters" id="filterContainer">
+            <button class="filter-chip active" data-filter="all">All <span class="count-badge">5</span></button>
+            <button class="filter-chip" data-filter="pending">Pending <span class="count-badge">2</span></button>
+            <button class="filter-chip" data-filter="in-progress">In Progress <span class="count-badge">1</span></button>
+            <button class="filter-chip" data-filter="resolved">Resolved <span class="count-badge">1</span></button>
+            <button class="filter-chip" data-filter="rejected">Rejected <span class="count-badge">1</span></button>
+        </div>
+    </div>
+
+    <h2 class="sec-title">Reports (7)</h2>
+
+    <div id="reportList">
+
+      <div class="card" data-search="juan dela cruz 2024-12345 room 301 furniture broken chair">
+        <div class="CardTop">
+          <div>
+            <span class="CardTitle">Broken Chair</span>
+            <span class="badge orange">Medium</span>
+          </div>
+          <button class="view" onclick="openModal(1)">👁 View &amp; Update</button>
+        </div>
+        <p class="CardPerson">👤 Juan Dela Cruz &nbsp; ID: 2024-12345</p>
+        <p class="CardDesc">Chair leg is broken in Room 301</p>
+        <p class="CardTags">📍 Room 301 &nbsp;&nbsp; 📋 Furniture &nbsp;&nbsp; 📅 2026-03-01 &nbsp;&nbsp; #1</p>
+        <span class="status blue">⏳ In Progress</span>
+      </div>
+
+      <div class="card" data-search="maria santos 2024-12346 room 205 ict equipment projector">
+        <div class="CardTop">
+          <div>
+            <span class="CardTitle">Projector</span>
+            <span class="badge red">High</span>
+          </div>
+          <button class="view" onclick="openModal(2)">👁 View &amp; Update</button>
+        </div>
+        <p class="CardPerson">👤 Maria Santos &nbsp; ID: 2024-12346</p>
+        <p class="CardDesc">Projector not turning on</p>
+        <p class="CardTags">📍 Room 205 &nbsp;&nbsp; 📋 ICT/Equipment &nbsp;&nbsp; 📅 2026-02-28 &nbsp;&nbsp; #2</p>
+        <span class="status green">✔ Resolved</span>
+      </div>
+
+      <div class="card" data-search="pedro reyes 2024-12347 library air conditioning ventilation">
+        <div class="CardTop">
+          <div>
+            <span class="CardTitle">Air Conditioner</span>
+            <span class="badge gray">Low</span>
+          </div>
+          <button class="view" onclick="openModal(3)">👁 View &amp; Update</button>
+        </div>
+        <p class="CardPerson">👤 Pedro Reyes &nbsp; ID: 2024-12347</p>
+        <p class="CardDesc">AC making loud noise</p>
+        <p class="CardTags">📍 Library &nbsp;&nbsp; 📋 Air Conditioning/Ventilation &nbsp;&nbsp; 📅 2026-03-02 &nbsp;&nbsp; #3</p>
+        <span class="status orange">⏳ Pending</span>
+      </div>
+
+      <div class="card" data-search="ana garcia 2024-12348 restroom b2 plumbing water leaking faucet">
+        <div class="CardTop">
+          <div>
+            <span class="CardTitle">Leaking Faucet</span>
+            <span class="badge red">High</span>
+          </div>
+          <button class="view" onclick="openModal(4)">👁 View &amp; Update</button>
+        </div>
+        <p class="CardPerson">👤 Ana Garcia &nbsp; ID: 2024-12348</p>
+        <p class="CardDesc">Water leaking from faucet in restroom</p>
+        <p class="CardTags">📍 Restroom B2 &nbsp;&nbsp; 📋 Plumbing/Water &nbsp;&nbsp; 📅 2026-03-03 &nbsp;&nbsp; #4</p>
+        <span class="status orange">⏳ Pending</span>
+      </div>
+
+      <div class="card" data-search="carlos lopez 2024-12349 hallway 3f electrical broken light">
+        <div class="CardTop">
+          <div>
+            <span class="CardTitle">Broken Light</span>
+            <span class="badge orange">Medium</span>
+          </div>
+          <button class="view" onclick="openModal(5)">👁 View &amp; Update</button>
+        </div>
+        <p class="CardPerson">👤 Carlos Lopez &nbsp; ID: 2024-12349</p>
+        <p class="CardDesc">Fluorescent light not working</p>
+        <p class="CardTags">📍 Hallway 3F &nbsp;&nbsp; 📋 Electrical &nbsp;&nbsp; 📅 2026-03-04 &nbsp;&nbsp; #5</p>
+        <span class="status blue">⏳ In Progress</span>
+      </div>
+
+      <div class="card" data-search="lisa tan 2024-12350 room 401 building structural cracked window">
+        <div class="CardTop">
+          <div>
+            <span class="CardTitle">Cracked Window</span>
+            <span class="badge gray">Low</span>
+          </div>
+          <button class="view" onclick="openModal(6)">👁 View &amp; Update</button>
+        </div>
+        <p class="CardPerson">👤 Lisa Tan &nbsp; ID: 2024-12350</p>
+        <p class="CardDesc">Window has a large crack</p>
+        <p class="CardTags">📍 Room 401 &nbsp;&nbsp; 📋 Building/Structural &nbsp;&nbsp; 📅 2026-03-05 &nbsp;&nbsp; #6</p>
+        <span class="status red">✖ Rejected</span>
+      </div>
+
+      </div>
+
+    </main>
+
+      <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <h3 class="modal-title" id="modalTitle">Review Report</h3>
+            <p><strong>Student: </strong><span id="student"></span></p>
+            <p><strong>Report type: </strong><span id="type"></span></p>
+            <p><strong>Location: </strong><span id="location"></span></p>
+        </div>
+    </div>
+    
+
+    <script>
+        const reports = [
+            {student: "Juan Dela Cruz", type: "Broken Chair", location: "Room 301"},
+            {student: "Maria Santos", type: "Aircon not working", location: "Room 205"}
+        ];
+    </script>
+</body>
+</html>
