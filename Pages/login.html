@@ -49,27 +49,32 @@
   </div>
 
   <script>
-    //Admin account
-    var ADMIN_EMAILS = [
-      "admin@wmsu.edu"
-    ];
+  var DEAN_EMAILS = [
+    "dean@wmsu.edu"
+  ];
 
-    function handleLogin(event) {
-      event.preventDefault();
-      var email = document.getElementById('email').value.trim().toLowerCase();
+  var ADMIN_EMAILS = [
+    "admin@wmsu.edu"
+  ];
 
-      if (ADMIN_EMAILS.includes(email)) {
-        window.location.href = "../Admin/Pages/admindashboard.html";
-      } else {
-        window.location.href = "logsucess.html";
-      }
+  function handleLogin(event) {
+    event.preventDefault();
+    var email = document.getElementById('email').value.trim().toLowerCase();
+
+    if (ADMIN_EMAILS.includes(email)) {
+      window.location.href = "../Admin/Pages/adminlog.html";
+    } else if (DEAN_EMAILS.includes(email)) {
+      window.location.href = "../Admin/Pages/deanlog.html";
+    } else {
+      window.location.href = "logsucess.html";
     }
+  }
 
-    function showHidePassword() {
-      var input = document.getElementById('password');
-      input.type = (input.type === "password") ? "text" : "password";
-    }
-  </script>
+  function showHidePassword() {
+    var input = document.getElementById('password');
+    input.type = (input.type === "password") ? "text" : "password";
+  }
+</script>
 
 </body>
 </html>
