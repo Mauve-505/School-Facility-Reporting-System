@@ -186,9 +186,44 @@ body {
     box-shadow: 0 6px 20px rgba(176,28,28,0.25);
 }
 
+.hamburger {
+    display: none;
+    font-size: 22px;
+    color: white;
+    cursor: pointer;
+}
+
 @media (max-width: 768px) {
+
     nav {
         padding: 8px 16px;
+    }
+
+    .navbar {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .nav-links {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #b01c1c;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 15px 0;
+        display: none;
+        z-index: 999;
+    }
+
+    .nav-links.active {
+        display: flex;
     }
 
     #formbox {
@@ -198,5 +233,25 @@ body {
 
     #submit {
         font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .system {
+        font-size: 16px;
+    }
+
+    .nav-links {
+        gap: 10px;
+        font-size: 12px;
+    }
+
+    .page-header h2 {
+        font-size: 18px;
+    }
+
+    .page-header p {
+        font-size: 12px;
     }
 }

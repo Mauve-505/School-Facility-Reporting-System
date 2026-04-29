@@ -6,26 +6,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>School Facility Reporting System - Landing</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </head>
 <body>
 
-  <nav>
-    <div class="nav-container">
-      <h2 class="logo1">School Facility Reporting System</h2>
-      <ul class="links1">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="#features">Features</a></li>
-        <li><a href="Pages/login.html">Login</a></li>
-        <li><a href="Pages/register.html">Register</a></li>
-      </ul>
+<nav>
+  <div class="nav-container">
+    <h2 class="logo1">School Facility Reporting System</h2>
+
+    <ul class="links1" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="Pages/login.html">Login</a></li>
+      <li><a href="Pages/register.html">Register</a></li>
+    </ul>
+
+    <div class="hamburger" id="hamburger">
+      <i class="fa-solid fa-bars"></i>
     </div>
-  </nav>
+  </div>
+</nav>
 
   <header>
     <h1>School Facility Reporting System</h1>
     <p>Streamline reporting and management of school facilities.</p>
-    <button class="nis" onclick="window.location.href='login/login.html'">Get Started</button>
+    <button class="nis" onclick="window.location.href='Pages/login.html'">
+  Get Started
+</button>
   </header>
 
   <section class="box" id="features">
@@ -46,5 +54,6 @@
     <p>&copy; 2026 WMSU</p>
   </footer>
   
+    <script src="Asset/JS/hamburger.js"></script>
 </body>
 </html>

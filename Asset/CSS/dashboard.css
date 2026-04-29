@@ -205,3 +205,115 @@ h3{
     color: #a16207;
 
 }
+
+
+
+@media (max-width: 768px) {
+
+  nav {
+    padding: 15px 20px;
+  }
+
+  .navbar {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .stats {
+    flex-direction: column;
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  .track-bttn,
+  .new-task {
+    width: 100%;
+  }
+
+  .report {
+    padding: 12px;
+  }
+}
+
+
+@media (max-width: 480px) {
+
+  .system {
+    font-size: 16px;
+  }
+
+  .main-content h2 {
+    font-size: 18px;
+  }
+
+  .main-content p {
+    font-size: 12px;
+  }
+
+  .nav-links {
+    gap: 10px;
+    font-size: 12px;
+  }
+
+  .cardTitle {
+    font-size: 14px;
+  }
+
+  .CardTags {
+    font-size: 11px;
+  }
+
+  .status {
+    font-size: 10px;
+    padding: 3px 10px;
+  }
+
+  .report {
+    line-height: 1.4;
+  }
+}
+
+.hamburger {
+    display: none;
+    font-size: 22px;
+    color: white;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+
+    .navbar {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .nav-links {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: #b01c1c;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 15px 0;
+        display: none;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+}

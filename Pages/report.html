@@ -5,33 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Report an Issue</title>
     <link rel="stylesheet" type="text/css" href="../Asset/CSS/report.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
     <nav>
         <div class="navbar">
             <div class="system">School Facility Reporting System</div>
-            <ul class="nav-links">
+
+            <ul class="nav-links" id="navLinks">
                 <li><a href="../Pages/dashboard.html">Home</a></li>
-                <li><a href="../Pages/report.html">Report</a></li>
+                <li><a href="../Pages/report.html" class="active">Report</a></li>
                 <li><a href="../Pages/track.html">Track</a></li>
                 <li><a href="../Pages/profile.html">Profile</a></li>
             </ul>
         </div>
-    </nav>
-    
-    <br><br>
 
-   <div class="page-header">
-    <h2>Submit a Request</h2>
-    <p>Report a facility issue for review</p>
+        <div class="hamburger" id="hamburger">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h2>Submit a Request</h2>
+        <p>Report a facility issue for review</p>
     </div>
 
-    <div id ="formbox">
+    <div id="formbox">
         <p id="detailstxt">DETAILS</p>
         <hr>
         <br>
 
-        <p><b>1.CHOOSE A REQUEST</b></p>
+        <p><b>1. CHOOSE A REQUEST</b></p>
         <select id="myselect">
             <option>-</option>
             <option>Electrical Issue</option>
@@ -44,34 +48,32 @@
             <option>Other</option>
         </select>
 
-    <br><br><br>
+        <br><br><br>
 
-    <p><b>2. LOCATION / ROOM NUMBER</b></p>
-    <br>
-    <input type="text" id="locationinput" placeholder="e.g., Room 3001 Library, Canteen, Gymnasium">
+        <p><b>2. LOCATION / ROOM NUMBER</b></p>
+        <br>
+        <input type="text" id="locationinput" placeholder="e.g., Room 301, Library, Canteen, Gymnasium">
 
-    <br><br><br>
+        <br><br><br>
 
-    <p><b>3. DESCRIBE THE ISSUE</b></p>
-    <br>
-    <textarea id="textbox" placeholder="Please provide detailed information about the issue..."></textarea>
-    <br><br>
+        <p><b>3. DESCRIBE THE ISSUE</b></p>
+        <br>
+        <textarea id="textbox" placeholder="Please provide detailed information about the issue..."></textarea>
+        <br><br>
 
-    <br><br>
+        <div class="field-group">
+            <p><b>4. ATTACH A PHOTO</b></p>
+            <br>
+            <input type="file" id="photoinput" accept="image/*" onchange="showPreview()">
+            <div id="photobox" onclick="document.getElementById('photoinput').click()">
+                &#128247; Click here to upload a photo
+            </div>
+            <img id="previewimg" src="" alt="preview" style="display:none;">
+        </div>
 
-    <div class="field-group">
-      <p><b>4. ATTACH A PHOTO</b></p>
-      <br>
-      <input type="file" id="photoinput" accept="image/*" onchange="showPreview()">
-      <div id="photobox" onclick="document.getElementById('photoinput').click()">
-        &#128247; Click here to upload a photo
-      </div>
-      <img id="previewimg" src="" alt="preview" style="display:none;">
+        <button onclick="submitForm()" id="submit">Submit Request</button>
     </div>
 
-    <button onclick="submitForm()" id="submit">Submit Request</button>
-
-    
-    </div>
+    <script src="../Asset/JS/hamburger.js"></script>
 </body>
 </html>
