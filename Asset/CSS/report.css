@@ -7,7 +7,11 @@
     font-family: 'DM Sans', sans-serif;
 }
 
-nav{
+body {
+    background: #f0f0f0;
+}
+
+nav {
     position: sticky;
     top: 0;
     background: #b01c1c;
@@ -15,38 +19,38 @@ nav{
     z-index: 1000;
 }
 
-.navbar{
+.navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 13px;
 }
 
-.system{
+.system {
     color: white;
     font-weight: bold;
     letter-spacing: 1px;
     font-size: 20px;
 }
 
-.nav-links{
+.nav-links {
     list-style: none;
     display: flex;
     gap: 30px;
 }
 
-.nav-links a{
+.nav-links a {
     position: relative;
     text-decoration: none;
     color: whitesmoke;
-    transform: color 0.3s ease;
+    transition: color 0.3s ease;
 }
 
-.nav-links a:hover{
+.nav-links a:hover {
     color: #ffffff;
 }
 
-.nav-links a::after{
+.nav-links a::after {
     content: "";
     position: absolute;
     left: 0;
@@ -54,136 +58,15 @@ nav{
     width: 0%;
     height: 2px;
     background: #ec6464;
-    transform: width 0.3s ease;
+    transition: width 0.3s ease;
 }
 
-.nav-links a:hover::after{
+.nav-links a:hover::after {
     width: 100%;
 }
 
-.nav-links a.active{
+.nav-links a.active {
     color: #ec6464;
-}
-
-body {
-    background-color: #f0f0f0;
-    font-size: 12px;
-}
-
-.page-header {
-    padding: 20px 20px;
-}
-
-.page-header h2 {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 2px; 
-}
-
-.page-header p {
-    color: #666;
-    margin-bottom: 16px;
-}
-
-#formbox {
-    background-color: white;
-    width: 90%;
-    max-width: 700px;
-    margin: 20px auto;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    box-sizing: border-box;
-}
-
-#detailstxt {
-    color: gray;
-    font-size: 11px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
-
-#formbox hr {
-    border: none;
-    border-top: 1px solid #e5e7eb;
-    margin: 8px 0 16px;
-}
-
-#formbox p b {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-}
-
-#myselect, #locationinput, #textbox {
-    width: 100%;
-    padding: 11px 13px;
-    font-size: 13px;
-    font-family: 'DM Sans', sans-serif;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    outline: none;
-    transition: border 0.2s;
-    background: #fafafa;
-}
-
-#myselect:focus, #locationinput:focus, #textbox:focus {
-    border-color: #b01c1c;
-    background: white;
-}
-
-#textbox {
-    min-height: 100px;
-    resize: vertical;
-}
-
-#photobox {
-    width: 100%;
-    padding: 14px;
-    border: 1px dashed #ccc;
-    border-radius: 8px;
-    text-align: center;
-    background-color: #fafafa;
-    cursor: pointer;
-    font-size: 13px;
-    color: gray;
-    margin-bottom: 15px;
-    box-sizing: border-box;
-    transition: background 0.2s;
-}
-
-#photobox:hover {
-    background-color: #f0f0f0;
-}
-
-#photoinput {
-    display: none;
-}
-
-#previewimg {
-    margin-top: 10px;
-    width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-}
-
-#submit {
-    width: 100%;
-    padding: 13px;
-    background-color: #b01c1c;
-    color: white;
-    font-size: 13px;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 700;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background 0.2s, box-shadow 0.2s;
-}
-
-#submit:hover {
-    background: #8f1616;
-    box-shadow: 0 6px 20px rgba(176,28,28,0.25);
 }
 
 .hamburger {
@@ -193,10 +76,99 @@ body {
     cursor: pointer;
 }
 
-@media (max-width: 768px) {
+.page-header {
+    padding: 20px;
+}
 
+.page-header h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.page-header p {
+    color: #64748b;
+    font-size: 13px;
+}
+
+#formbox {
+    background: white;
+    width: 90%;
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    margin-bottom: 40px;
+}
+
+#detailstxt {
+    font-weight: 700;
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 10px;
+}
+
+select, textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+}
+
+textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+#photoinput {
+    display: none;
+}
+
+#photobox {
+    border: 1px dashed #ccc;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #64748b;
+    transition: background 0.2s;
+}
+
+#photobox:hover {
+    background: #f8fafc;
+}
+
+#previewimg {
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 8px;
+}
+
+#submit {
+    width: 100%;
+    padding: 12px;
+    background: #b01c1c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    transition: background 0.3s ease;
+}
+
+#submit:hover {
+    background: #8f1616;
+}
+
+@media (max-width: 768px) {
     nav {
-        padding: 8px 16px;
+        padding: 15px 20px;
     }
 
     .navbar {
@@ -210,7 +182,7 @@ body {
 
     .nav-links {
         position: absolute;
-        top: 60px;
+        top: 70px;
         left: 0;
         width: 100%;
         background: #b01c1c;
@@ -219,7 +191,6 @@ body {
         gap: 15px;
         padding: 15px 0;
         display: none;
-        z-index: 999;
     }
 
     .nav-links.active {
@@ -228,23 +199,12 @@ body {
 
     #formbox {
         width: 95%;
-        padding: 20px;
-    }
-
-    #submit {
-        font-size: 14px;
     }
 }
 
 @media (max-width: 480px) {
-
     .system {
         font-size: 16px;
-    }
-
-    .nav-links {
-        gap: 10px;
-        font-size: 12px;
     }
 
     .page-header h2 {

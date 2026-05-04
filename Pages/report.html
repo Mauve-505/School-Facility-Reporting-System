@@ -4,76 +4,143 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Report an Issue</title>
-    <link rel="stylesheet" type="text/css" href="../Asset/CSS/report.css">
+    <link rel="stylesheet" href="../Asset/CSS/report.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-    <nav>
-        <div class="navbar">
-            <div class="system">School Facility Reporting System</div>
 
-            <ul class="nav-links" id="navLinks">
-                <li><a href="../Pages/dashboard.html">Home</a></li>
-                <li><a href="../Pages/report.html" class="active">Report</a></li>
-                <li><a href="../Pages/track.html">Track</a></li>
-                <li><a href="../Pages/profile.html">Profile</a></li>
-            </ul>
-        </div>
-
+<nav>
+    <div class="navbar">
+        <div class="system">School Facility Reporting System</div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="../Pages/dashboard.html">Home</a></li>
+        <li><a href="../Pages/report.html">Report</a></li>
+        <li><a href="../Pages/track.html">Track</a></li>
+        <li><a href="../Pages/profile.html">Profile</a></li>
+        </ul>
         <div class="hamburger" id="hamburger">
             <i class="fa-solid fa-bars"></i>
         </div>
-    </nav>
+    </div>
+</nav>
 
-    <div class="page-header">
-        <h2>Submit a Request</h2>
-        <p>Report a facility issue for review</p>
+<div class="page-header">
+    <h2>Submit a Request</h2>
+    <p>Report a facility issue for review</p>
+</div>
+
+<div id="formbox">
+    <p id="detailstxt">DETAILS</p>
+    <hr><br>
+
+    <p><b>1. CHOOSE A REQUEST</b></p>
+    <select id="myselect">
+        <option>-</option>
+        <option>Electrical Issue</option>
+        <option>Plumbing Issue</option>
+        <option>HVAC / Ventilation</option>
+        <option>Furniture / Equipment</option>
+        <option>IT / Technology</option>
+        <option>Cleaning / Sanitation</option>
+        <option>Structural / Safety</option>
+        <option>Other</option>
+    </select>
+
+    <br><br><br>
+
+    <p><b>2. SELECT DEPARTMENT</b></p>
+    <br>
+    <select id="department" onchange="updateRooms()">
+        <option value="">-- Select Department --</option>
+        <option value="ccs">College of Computing Studies</option>
+        <option value="csm">College of Science and Mathematics</option>
+        <option value="ccje">College of Criminal Justice Education</option>
+    </select>
+
+    <br><br><br>
+
+    <p><b>3. SELECT ROOM</b></p>
+    <br>
+    <select id="room">
+        <option value="">-- Select Room --</option>
+    </select>
+
+    <br><br><br>
+
+    <p><b>4. DESCRIBE THE ISSUE</b></p>
+    <br>
+    <textarea id="textbox" placeholder="Please provide detailed information..."></textarea>
+
+    <br><br>
+
+    <p><b>5. ATTACH A PHOTO</b></p>
+    <br>
+    <input type="file" id="photoinput" accept="image/*" onchange="showPreview()">
+
+    <div id="photobox" onclick="document.getElementById('photoinput').click()">
+        📷 Click here to upload a photo
     </div>
 
-    <div id="formbox">
-        <p id="detailstxt">DETAILS</p>
-        <hr>
-        <br>
+    <img id="previewimg" style="display:none;">
 
-        <p><b>1. CHOOSE A REQUEST</b></p>
-        <select id="myselect">
-            <option>-</option>
-            <option>Electrical Issue</option>
-            <option>Plumbing Issue</option>
-            <option>HVAC / Ventilation</option>
-            <option>Furniture / Equipment</option>
-            <option>IT / Technology</option>
-            <option>Cleaning / Sanitation</option>
-            <option>Structural / Safety</option>
-            <option>Other</option>
-        </select>
+    <br><br>
 
-        <br><br><br>
+    <button onclick="submitForm()" id="submit">Submit Request</button>
+</div>
 
-        <p><b>2. LOCATION / ROOM NUMBER</b></p>
-        <br>
-        <input type="text" id="locationinput" placeholder="e.g., Room 301, Library, Canteen, Gymnasium">
+<script>
+function updateRooms() {
+    const department = document.getElementById("department").value;
+    const room = document.getElementById("room");
 
-        <br><br><br>
+    room.innerHTML = '<option value="">-- Select Room --</option>';
 
-        <p><b>3. DESCRIBE THE ISSUE</b></p>
-        <br>
-        <textarea id="textbox" placeholder="Please provide detailed information about the issue..."></textarea>
-        <br><br>
+    let rooms = [];
 
-        <div class="field-group">
-            <p><b>4. ATTACH A PHOTO</b></p>
-            <br>
-            <input type="file" id="photoinput" accept="image/*" onchange="showPreview()">
-            <div id="photobox" onclick="document.getElementById('photoinput').click()">
-                &#128247; Click here to upload a photo
-            </div>
-            <img id="previewimg" src="" alt="preview" style="display:none;">
-        </div>
+    if (department === "ccs") {
+        rooms = ["LR 1", "LR 2", "LR 3", "LR 4", "LR 5", "LAB 1", "LAB 2"];
+    } else if (department === "csm") {
+        rooms = ["Room 101", "Room 102", "Room 103", "Chemistry Lab", "Physics Lab"];
+    } else if (department === "ccje") {
+        rooms = ["CJ Room 1", "CJ Room 2", "Simulation Room"];
+    }
 
-        <button onclick="submitForm()" id="submit">Submit Request</button>
-    </div>
+    rooms.forEach(r => {
+        let option = document.createElement("option");
+        option.text = r;
+        room.add(option);
+    });
+}
 
-    <script src="../Asset/JS/hamburger.js"></script>
+function showPreview() {
+    const file = document.getElementById("photoinput").files[0];
+    const preview = document.getElementById("previewimg");
+    if (file) {
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = "block";
+    }
+}
+
+function submitForm() {
+    const request = document.getElementById("myselect").value;
+    const department = document.getElementById("department").value;
+    const room = document.getElementById("room").value;
+    const description = document.getElementById("textbox").value;
+
+    if (!request || request === "-" || !department || !room || !description) {
+        alert("Please fill out all fields!");
+        return;
+    }
+
+    alert("Request Submitted Successfully!");
+
+    console.log({ request, department, room, description });
+}
+
+document.getElementById("hamburger").onclick = () => {
+    document.getElementById("navLinks").classList.toggle("active");
+};
+</script>
+
 </body>
 </html>
