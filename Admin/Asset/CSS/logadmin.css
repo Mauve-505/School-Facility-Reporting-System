@@ -86,6 +86,16 @@
       background: #dbeafe;
       color: #1e40af;
     }
+
+    .role-badge.maintenance {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .role-badge.dept {
+      background: #f3e8ff;
+      color: #6b21a8;
+    }
  
     h1 {
       font-size: 24px;
@@ -120,6 +130,8 @@
  
     .btn.admin  { background: #b91c1c; }
     .btn.dean   { background: #1d4ed8; }
+    .btn.maintenance { background: #166534; }
+    .btn.dept        { background: #6b21a8; }
  
     .btn:hover  { filter: brightness(0.9); transform: translateY(-1px); }
     .btn:active { transform: translateY(0); }

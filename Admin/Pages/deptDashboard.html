@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Department Staff Dashboard</title>
+  <link rel="stylesheet" href="../Asset/CSS/dept.css"/>
+  <style>
+    .dean-status-bar {
+      display: flex; align-items: center; gap: 12px;
+      background: #fff; border: 1.5px solid #e2e8f0;
+      border-radius: 10px; padding: 12px 18px;
+      margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .dean-status-bar .ds-label { font-size: 0.875rem; font-weight: 600; color: #374151; flex: 1; }
+    .dean-status-bar .ds-sublabel { font-size: 0.75rem; color: #6b7280; margin-left: 4px; }
+    .toggle-switch { position: relative; width: 52px; height: 28px; flex-shrink: 0; }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider {
+      position: absolute; cursor: pointer; inset: 0;
+      background: #22c55e; border-radius: 28px; transition: 0.3s;
+    }
+    .toggle-slider:before {
+      content: ""; position: absolute;
+      width: 20px; height: 20px; left: 4px; top: 4px;
+      background: white; border-radius: 50%; transition: 0.3s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    input:checked + .toggle-slider { background: #ef4444; }
+    input:checked + .toggle-slider:before { transform: translateX(24px); }
+    .dean-badge {
+      font-size: 0.72rem; font-weight: 700; padding: 3px 10px;
+      border-radius: 20px; text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .dean-badge.available   { background: #dcfce7; color: #16a34a; }
+    .dean-badge.unavailable { background: #fee2e2; color: #dc2626; }
+    .warn-banner {
+      display: none; align-items: center; gap: 10px;
+      background: #fff7ed; border: 1.5px solid #fb923c;
+      border-radius: 10px; padding: 12px 18px;
+      margin-bottom: 16px; font-size: 0.85rem; color: #92400e;
+    }
+    .warn-banner.show { display: flex; }
+    .btn-approve.to-admin { background: #0891b2 !important; color: #fff !important; }
+    .btn-approve.to-admin:hover { background: #0e7490 !important; }
+    .status.teal { background: #cffafe; color: #0e7490; border: 1px solid #a5f3fc; }
+    .btn-forward.disabled-dean { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="navbar">
+      <div class="system">School Facility Reporting System</div>
+      <ul class="nav-links">
+        <li><a href="deptDashboard.html" class="active">Home</a></li>
+        <li><a href="logout.html">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <h2>Department Staff Dashboard</h2>
+      <p>Review incoming reports and manage approvals.</p>
+    </div>
+
+    <!-- Dean Availability Toggle -->
+    <div class="dean-status-bar">
+      <span class="ds-label">
+        Dean Availability
+        <span class="ds-sublabel">— toggle if the dean is currently unavailable</span>
+      </span>
+      <span class="dean-badge available" id="deanBadge">✔ Available</span>
+      <label class="toggle-switch">
+        <input type="checkbox" id="deanToggle" onchange="toggleDeanMode()" />
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+
+    <!-- Warning banner (Dean unavailable) -->
+    <div class="warn-banner" id="warnBanner">
+      ⚠️ <strong>Dean Unavailable Mode</strong> — You may now approve reports directly and send them to the Admin for action.
+    </div>
+
+    <!-- Default info banner -->
+    <div class="info-banner" id="infoBanner">
+      <span class="info-icon">ℹ️</span>
+      <span>You are acting on behalf of the Dean. Approved reports will be forwarded to the Dean for final review. Rejected reports will be closed.</span>
+    </div>
+
+    <div class="stats">
+      <div class="StatCard">
+        <p class="StatLabel">Total Reports</p>
+        <p class="StatValue" id="statTotal">6</p>
+      </div>
+      <div class="StatCard">
+        <p class="StatLabel orange">Pending Review</p>
+        <p class="StatValue orange" id="statPending">2</p>
+      </div>
+      <div class="StatCard">
+        <p class="StatLabel purple">Forwarded to Dean</p>
+        <p class="StatValue purple" id="statForwarded">2</p>
+      </div>
+      <div class="StatCard">
+        <p class="StatLabel" style="color:#0e7490">Sent to Admin</p>
+        <p class="StatValue" style="color:#0e7490" id="statSentAdmin">0</p>
+      </div>
+      <div class="StatCard">
+        <p class="StatLabel green">Approved</p>
+        <p class="StatValue green" id="statApproved">1</p>
+      </div>
+      <div class="StatCard">
+        <p class="StatLabel red">Rejected</p>
+        <p class="StatValue red" id="statRejected">1</p>
+      </div>
+    </div>
+
+    <div class="searchStat">
+      <div class="searchbar">
+        <input type="text" id="searchInput" placeholder="Search by student name, report type, location, or ID..." oninput="filterCards()"/>
+      </div>
+      <div class="filters" id="filterContainer">
+        <button class="filter-chip active" data-filter="all">All <span class="count-badge" id="fb-all">6</span></button>
+        <button class="filter-chip" data-filter="pending">Pending <span class="count-badge" id="fb-pending">2</span></button>
+        <button class="filter-chip" data-filter="forwarded">Forwarded <span class="count-badge" id="fb-forwarded">2</span></button>
+        <button class="filter-chip" data-filter="sent-to-admin" id="chipSentAdmin" style="display:none">Sent to Admin <span class="count-badge" id="fb-sent-to-admin">0</span></button>
+        <button class="filter-chip" data-filter="approved">Approved <span class="count-badge" id="fb-approved">1</span></button>
+        <button class="filter-chip" data-filter="rejected">Rejected <span class="count-badge" id="fb-rejected">1</span></button>
+      </div>
+    </div>
+
+    <h2 class="sec-title" id="secTitle">Reports (6)</h2>
+
+    <div id="reportList">
+
+      <div class="card" data-status="forwarded" data-search="juan dela cruz 2024-12345 room 301 furniture broken chair">
+        <div class="CardTop">
+          <div><span class="CardTitle">Broken Chair</span><span class="badge orange">Medium</span></div>
+          <button class="view" onclick="openModal(0)">👁 View &amp; Review</button>
+        </div>
+        <p class="CardPerson">👤 Juan Dela Cruz &nbsp; ID: 2024-12345</p>
+        <p class="CardDesc">Chair leg is broken in Room 301</p>
+        <p class="CardTags">📍 Room 301 &nbsp;&nbsp; 📋 Furniture &nbsp;&nbsp; 📅 2026-03-01 &nbsp;&nbsp; #1</p>
+        <span class="status purple">📤 Forwarded to Dean</span>
+      </div>
+
+      <div class="card" data-status="approved" data-search="maria santos 2024-12346 room 205 ict equipment projector">
+        <div class="CardTop">
+          <div><span class="CardTitle">Projector</span><span class="badge red">High</span></div>
+          <button class="view" onclick="openModal(1)">👁 View &amp; Review</button>
+        </div>
+        <p class="CardPerson">👤 Maria Santos &nbsp; ID: 2024-12346</p>
+        <p class="CardDesc">Projector not turning on</p>
+        <p class="CardTags">📍 Room 205 &nbsp;&nbsp; 📋 ICT/Equipment &nbsp;&nbsp; 📅 2026-02-28 &nbsp;&nbsp; #2</p>
+        <span class="status green">✔ Approved</span>
+      </div>
+
+      <div class="card" data-status="pending" data-search="pedro reyes 2024-12347 library air conditioning ventilation">
+        <div class="CardTop">
+          <div><span class="CardTitle">Air Conditioner</span><span class="badge gray">Low</span></div>
+          <button class="view" onclick="openModal(2)">👁 View &amp; Review</button>
+        </div>
+        <p class="CardPerson">👤 Pedro Reyes &nbsp; ID: 2024-12347</p>
+        <p class="CardDesc">AC making loud noise</p>
+        <p class="CardTags">📍 Library &nbsp;&nbsp; 📋 Air Conditioning/Ventilation &nbsp;&nbsp; 📅 2026-03-02 &nbsp;&nbsp; #3</p>
+        <span class="status orange">⏳ Pending</span>
+      </div>
+
+      <div class="card" data-status="pending" data-search="ana garcia 2024-12348 restroom b2 plumbing water leaking faucet">
+        <div class="CardTop">
+          <div><span class="CardTitle">Leaking Faucet</span><span class="badge red">High</span></div>
+          <button class="view" onclick="openModal(3)">👁 View &amp; Review</button>
+        </div>
+        <p class="CardPerson">👤 Ana Garcia &nbsp; ID: 2024-12348</p>
+        <p class="CardDesc">Water leaking from faucet in restroom</p>
+        <p class="CardTags">📍 Restroom B2 &nbsp;&nbsp; 📋 Plumbing/Water &nbsp;&nbsp; 📅 2026-03-03 &nbsp;&nbsp; #4</p>
+        <span class="status orange">⏳ Pending</span>
+      </div>
+
+      <div class="card" data-status="forwarded" data-search="carlos lopez 2024-12349 hallway 3f electrical broken light">
+        <div class="CardTop">
+          <div><span class="CardTitle">Broken Light</span><span class="badge orange">Medium</span></div>
+          <button class="view" onclick="openModal(4)">👁 View &amp; Review</button>
+        </div>
+        <p class="CardPerson">👤 Carlos Lopez &nbsp; ID: 2024-12349</p>
+        <p class="CardDesc">Fluorescent light not working</p>
+        <p class="CardTags">📍 Hallway 3F &nbsp;&nbsp; 📋 Electrical &nbsp;&nbsp; 📅 2026-03-04 &nbsp;&nbsp; #5</p>
+        <span class="status purple">📤 Forwarded to Dean</span>
+      </div>
+
+      <div class="card" data-status="rejected" data-search="lisa tan 2024-12350 room 401 building structural cracked window">
+        <div class="CardTop">
+          <div><span class="CardTitle">Cracked Window</span><span class="badge gray">Low</span></div>
+          <button class="view" onclick="openModal(5)">👁 View &amp; Review</button>
+        </div>
+        <p class="CardPerson">👤 Lisa Tan &nbsp; ID: 2024-12350</p>
+        <p class="CardDesc">Window has a large crack</p>
+        <p class="CardTags">📍 Room 401 &nbsp;&nbsp; 📋 Building/Structural &nbsp;&nbsp; 📅 2026-03-05 &nbsp;&nbsp; #6</p>
+        <span class="status red">✖ Rejected</span>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- MODAL -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <h3 class="modal-title">Review Report</h3>
+      <p class="modal-report-id" id="modalReportId">Report ID: #1</p>
+
+      <div class="modal-fields">
+        <div class="modal-field"><span class="mi-label">Student</span><span class="mi-val" id="mStudent"></span></div>
+        <div class="modal-field"><span class="mi-label">Report Type</span><span class="mi-val" id="mType"></span></div>
+        <div class="modal-field"><span class="mi-label">Category</span><span class="mi-val" id="mCategory"></span></div>
+        <div class="modal-field"><span class="mi-label">Description</span><span class="mi-val" id="mDesc"></span></div>
+        <div class="modal-field"><span class="mi-label">Location</span><span class="mi-val" id="mLocation"></span></div>
+        <div class="modal-field"><span class="mi-label">Date Submitted</span><span class="mi-val" id="mDate"></span></div>
+      </div>
+
+      <div id="modalDeanNotice" style="display:none; background:#fff7ed; border:1.5px solid #fb923c; border-radius:8px; padding:9px 14px; font-size:0.8rem; color:#92400e; margin-top:10px;">
+        ⚠️ <strong>Dean Unavailable</strong> — Forwarding is disabled. You can approve and send directly to Admin instead.
+      </div>
+
+      <hr class="modal-divider">
+
+      <div class="modal-footer">
+        <span class="modal-label">Set Priority Level</span>
+        <div class="priority-btns">
+          <button class="pri-btn" id="pri-low" onclick="setPriority('low')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            Low
+          </button>
+          <button class="pri-btn" id="pri-medium" onclick="setPriority('medium')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            Medium
+          </button>
+          <button class="pri-btn" id="pri-high" onclick="setPriority('high')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            High
+          </button>
+        </div>
+
+        <span class="modal-label">Staff Remarks</span>
+        <textarea id="remarksInput" class="remarks-textarea" placeholder="Add your remarks or notes..."></textarea>
+
+        <div class="modal-actions">
+          <button class="btn-reject" onclick="doAction('reject')">✖ Reject</button>
+          <button class="btn-forward" id="btnForward" onclick="doAction('forward')">📤 Forward to Dean</button>
+          <button class="btn-approve" id="btnApprove" onclick="doAction('approve')">✔ Approve</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const reports = [
+      { id:1, student:"Juan Dela Cruz (2024-12345)", type:"Broken Chair",         category:"Furniture",                    desc:"Chair leg is broken in Room 301. Students are having difficulty sitting comfortably during lectures.", location:"Room 301",    date:"2026-03-01", priority:"medium", status:"forwarded" },
+      { id:2, student:"Maria Santos (2024-12346)",   type:"Projector Not Working", category:"ICT/Equipment",               desc:"Projector not turning on. Classroom lessons have been disrupted due to the malfunction.",              location:"Room 205",    date:"2026-02-28", priority:"high",   status:"approved"  },
+      { id:3, student:"Pedro Reyes (2024-12347)",    type:"Air Conditioner Noise", category:"Air Conditioning/Ventilation",desc:"AC unit is making a loud rattling noise and disrupting study sessions in the library.",                 location:"Library",     date:"2026-03-02", priority:"low",    status:"pending"   },
+      { id:4, student:"Ana Garcia (2024-12348)",     type:"Leaking Faucet",        category:"Plumbing/Water",              desc:"Water is leaking from the faucet in the restroom, causing water waste and a slipping hazard.",          location:"Restroom B2", date:"2026-03-03", priority:"high",   status:"pending"   },
+      { id:5, student:"Carlos Lopez (2024-12349)",   type:"Broken Light",          category:"Electrical",                  desc:"Fluorescent light is not working, causing poor visibility in the hallway area.",                        location:"Hallway 3F",  date:"2026-03-04", priority:"medium", status:"forwarded" },
+      { id:6, student:"Lisa Tan (2024-12350)",       type:"Cracked Window",        category:"Building/Structural",         desc:"Window has a large crack that poses a safety risk to students and faculty nearby.",                       location:"Room 401",    date:"2026-03-05", priority:"low",    status:"rejected"  }
+    ];
+
+    let currentIndex = null;
+    let deanUnavailable = false;
+
+    function toggleDeanMode() {
+      deanUnavailable = document.getElementById('deanToggle').checked;
+      const badge = document.getElementById('deanBadge');
+      const warn  = document.getElementById('warnBanner');
+      const info  = document.getElementById('infoBanner');
+      const chip  = document.getElementById('chipSentAdmin');
+      if (deanUnavailable) {
+        badge.textContent = '✖ Unavailable';
+        badge.className = 'dean-badge unavailable';
+        warn.classList.add('show');
+        info.style.display = 'none';
+        chip.style.display = '';
+      } else {
+        badge.textContent = '✔ Available';
+        badge.className = 'dean-badge available';
+        warn.classList.remove('show');
+        info.style.display = '';
+        chip.style.display = 'none';
+      }
+      updateCounts();
+    }
+
+    function openModal(index) {
+      currentIndex = index;
+      const r = reports[index];
+      document.getElementById('modalReportId').textContent = 'Report ID: #' + r.id;
+      document.getElementById('mStudent').textContent   = r.student;
+      document.getElementById('mType').textContent      = r.type;
+      document.getElementById('mCategory').textContent  = r.category;
+      document.getElementById('mDesc').textContent      = r.desc;
+      document.getElementById('mLocation').textContent  = r.location;
+      document.getElementById('mDate').textContent      = r.date;
+      document.getElementById('remarksInput').value     = '';
+      setPriority(r.priority);
+
+      const notice = document.getElementById('modalDeanNotice');
+      const fwdBtn = document.getElementById('btnForward');
+      const appBtn = document.getElementById('btnApprove');
+      if (deanUnavailable) {
+        notice.style.display = '';
+        fwdBtn.classList.add('disabled-dean');
+        appBtn.textContent = '🏢 Approve & Send to Admin';
+        appBtn.classList.add('to-admin');
+      } else {
+        notice.style.display = 'none';
+        fwdBtn.classList.remove('disabled-dean');
+        appBtn.textContent = '✔ Approve';
+        appBtn.classList.remove('to-admin');
+      }
+      document.getElementById('modal').classList.add('open');
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.remove('open');
+    }
+    document.getElementById('modal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+
+    function doAction(action) {
+      if (currentIndex === null) return;
+      const card = document.querySelectorAll('#reportList .card')[currentIndex];
+      const statusEl = card.querySelector('.status');
+      if (action === 'reject') {
+        reports[currentIndex].status = 'rejected';
+        statusEl.className = 'status red';
+        statusEl.textContent = '✖ Rejected';
+        card.dataset.status = 'rejected';
+      } else if (action === 'forward') {
+        reports[currentIndex].status = 'forwarded';
+        statusEl.className = 'status purple';
+        statusEl.textContent = '📤 Forwarded to Dean';
+        card.dataset.status = 'forwarded';
+      } else if (action === 'approve') {
+        if (deanUnavailable) {
+          reports[currentIndex].status = 'sent-to-admin';
+          statusEl.className = 'status teal';
+          statusEl.textContent = '🏢 Sent to Admin (Staff Approved)';
+          card.dataset.status = 'sent-to-admin';
+        } else {
+          reports[currentIndex].status = 'approved';
+          statusEl.className = 'status green';
+          statusEl.textContent = '✔ Approved';
+          card.dataset.status = 'approved';
+        }
+      }
+      updateCounts();
+      closeModal();
+    }
+
+    function updateCounts() {
+      const cards = document.querySelectorAll('#reportList .card');
+      const counts = { pending:0, forwarded:0, 'sent-to-admin':0, approved:0, rejected:0 };
+      cards.forEach(c => { if (counts[c.dataset.status] !== undefined) counts[c.dataset.status]++; });
+      const total = Object.values(counts).reduce((a,b)=>a+b,0);
+      document.getElementById('statTotal').textContent          = total;
+      document.getElementById('statPending').textContent        = counts.pending;
+      document.getElementById('statForwarded').textContent      = counts.forwarded;
+      document.getElementById('statSentAdmin').textContent      = counts['sent-to-admin'];
+      document.getElementById('statApproved').textContent       = counts.approved;
+      document.getElementById('statRejected').textContent       = counts.rejected;
+      document.getElementById('secTitle').textContent           = 'Reports (' + total + ')';
+      document.getElementById('fb-all').textContent             = total;
+      document.getElementById('fb-pending').textContent         = counts.pending;
+      document.getElementById('fb-forwarded').textContent       = counts.forwarded;
+      document.getElementById('fb-sent-to-admin').textContent   = counts['sent-to-admin'];
+      document.getElementById('fb-approved').textContent        = counts.approved;
+      document.getElementById('fb-rejected').textContent        = counts.rejected;
+    }
+
+    function setPriority(level) {
+      ['low','medium','high'].forEach(function(l) {
+        document.getElementById('pri-' + l).className = 'pri-btn' + (l === level ? ' active-' + l : '');
+      });
+    }
+
+    document.querySelectorAll('.filter-chip').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.filter-chip').forEach(function(b) { b.classList.remove('active'); });
+        this.classList.add('active');
+        const filter = this.dataset.filter;
+        document.querySelectorAll('#reportList .card').forEach(function(card) {
+          card.style.display = (filter === 'all' || card.dataset.status === filter) ? 'block' : 'none';
+        });
+      });
+    });
+
+    function filterCards() {
+      const q = document.getElementById('searchInput').value.toLowerCase();
+      document.querySelectorAll('#reportList .card').forEach(function(card) {
+        card.style.display = card.dataset.search.includes(q) ? 'block' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>

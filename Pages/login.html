@@ -43,7 +43,7 @@
 
       <button class="login-btn" type="submit">Login</button>
 
-      <p class="create-account">Don't have an account? <a href="../register/register.html">Create Account</a></p>
+      <p class="create-account">Don't have an account? <a href="../Pages/register.html">Create Account</a></p>
 
     </form>
   </div>
@@ -57,6 +57,14 @@
     "admin@wmsu.edu"
   ];
 
+  var MAINTENANCE_EMAILS = [
+    "maintenance@wmsu.edu"
+  ];
+
+  var DEPT_EMAILS = [
+    "deptstaff@wmsu.edu"
+  ];
+
   function handleLogin(event) {
     event.preventDefault();
     var email = document.getElementById('email').value.trim().toLowerCase();
@@ -65,6 +73,10 @@
       window.location.href = "../Admin/Pages/adminlog.html";
     } else if (DEAN_EMAILS.includes(email)) {
       window.location.href = "../Admin/Pages/deanlog.html";
+    } else if (MAINTENANCE_EMAILS.includes(email)) {
+      window.location.href = "../Admin/Pages/maintenancelog.html";
+    } else if (DEPT_EMAILS.includes(email)) {
+      window.location.href = "../Admin/Pages/deptlog.html";
     } else {
       window.location.href = "logsucess.html";
     }

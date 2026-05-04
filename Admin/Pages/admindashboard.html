@@ -6,6 +6,17 @@
   <title>Admin Dashboard</title>
   <link rel="stylesheet" href="../Asset/CSS/style.css"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    .tag-staff-approved {
+      display: inline-block;
+      background: #cffafe; color: #0e7490;
+      border: 1px solid #a5f3fc;
+      border-radius: 6px; font-size: 0.72rem;
+      font-weight: 700; padding: 2px 8px;
+      margin-left: 6px; vertical-align: middle;
+    }
+    .status.teal { background: #cffafe; color: #0e7490; border: 1px solid #a5f3fc; }
+  </style>
 </head>
 <body>
   <nav>
@@ -45,6 +56,10 @@
       <div class="StatCard">
         <p class="StatLabel red">Rejected</p>
         <p class="StatValue red">1</p>
+      </div>
+      <div class="StatCard">
+        <p class="StatLabel" style="color:#0e7490">Staff Approved</p>
+        <p class="StatValue" style="color:#0e7490">0</p>
       </div>
     </div>
 
@@ -126,18 +141,20 @@
         <span class="status orange">⏳ Pending</span>
       </div>
 
-      <div class="card" data-search="ana garcia 2024-12348 restroom b2 plumbing water leaking faucet">
+      <div class="card" data-search="ana garcia 2024-12348 restroom b2 plumbing water leaking faucet staff approved">
         <div class="CardTop">
           <div>
             <span class="CardTitle">Leaking Faucet</span>
             <span class="badge red">High</span>
+            <span class="tag-staff-approved">🏢 Staff Approved</span>
           </div>
           <button class="view" onclick="openModal(4)">👁 View &amp; Update</button>
         </div>
         <p class="CardPerson">👤 Ana Garcia &nbsp; ID: 2024-12348</p>
         <p class="CardDesc">Water leaking from faucet in restroom</p>
         <p class="CardTags">📍 Restroom B2 &nbsp;&nbsp; 📋 Plumbing/Water &nbsp;&nbsp; 📅 2026-03-03 &nbsp;&nbsp; #4</p>
-        <span class="status orange">⏳ Pending</span>
+        <p style="font-size:0.78rem;color:#0e7490;margin:2px 0 6px;">⚠️ Approved by Dept. Staff (Dean was unavailable) — Awaiting Admin action</p>
+        <span class="status teal">🏢 Staff Approved → Pending Admin Action</span>
       </div>
 
       <div class="card" data-search="carlos lopez 2024-12349 hallway 3f electrical broken light">
