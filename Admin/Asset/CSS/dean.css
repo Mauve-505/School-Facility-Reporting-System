@@ -78,7 +78,7 @@ main {
 }
 
 .page-header h2 {
-  font-size: 35px;
+  font-size: 28px;
   font-weight: 700;
   margin-bottom: 2px;
 }
@@ -188,7 +188,7 @@ main {
     padding: 1px 6px;
     border-radius: 10px;
     margin-left: 8px;
-    font-size: 11px;
+    font-size: 13px;
 }
 
 .filter-chip.active .count-badge {
@@ -229,13 +229,13 @@ main {
 }
 
 .CardTitle {
-  font-size: 30px;
+  font-size: 24px;
   font-weight: 700;
   margin-right: 8px;
 }
 
 .badge {
-  font-size: 11px;
+  font-size: 13px;
   padding: 3px 9px;
   border-radius: 12px;
   font-weight: 600;
@@ -270,7 +270,7 @@ main {
 }
 
 .CardDesc {
-  font-size: 19px;
+  font-size: 18px;
   margin-bottom: 6px;
 }
 
@@ -342,7 +342,7 @@ main {
 .modal-info-item { display: flex; flex-direction: column; gap: 3px; }
 .modal-info-item.full { grid-column: 1 / -1; }
 
-.mi-label { font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; }
+.mi-label { font-size: 13px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; }
 .mi-val   { font-size: 13px; color: #1e293b; font-weight: 500; }
 
 .modal-footer { border-top: 1px solid #f1f5f9; padding-top: 18px; }
@@ -423,7 +423,7 @@ main {
 }
  
 .mi-label {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   color: #94a3b8;
   text-transform: uppercase;

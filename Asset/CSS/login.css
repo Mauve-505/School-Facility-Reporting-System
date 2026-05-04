@@ -239,7 +239,7 @@ input::placeholder {
   }
 
   label {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     margin-bottom: 7px;
   }
 
@@ -269,12 +269,12 @@ input::placeholder {
   }
 
   .admin-link {
-    font-size: 0.92rem;
+    font-size: 0.95rem;
     margin-top: 18px;
   }
 
   .create-account {
-    font-size: 0.92rem;
+    font-size: 0.95rem;
     margin-top: 12px;
   }
 }

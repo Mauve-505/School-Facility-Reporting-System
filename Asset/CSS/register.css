@@ -232,7 +232,7 @@ input:focus {
     border-radius: 20px;
   }
 
-  .back-link { font-size: 0.9rem; margin-bottom: 20px; }
+  .back-link { font-size: 0.95rem; margin-bottom: 20px; }
   .back-link svg { width: 16px; height: 16px; }
 
   .icon-wrap { width: 72px; height: 72px; border-radius: 18px; margin-bottom: 16px; }
@@ -243,7 +243,7 @@ input:focus {
 
   .header { margin-bottom: 24px; }
 
-  label { font-size: 0.9rem; margin-bottom: 7px; }
+  label { font-size: 0.95rem; margin-bottom: 7px; }
 
   input[type="email"],
   input[type="password"],
@@ -255,16 +255,16 @@ input:focus {
 
   .field { margin-bottom: 18px; }
 
-  .doc-label { font-size: 0.9rem; margin-bottom: 10px; }
-  .doc-label span { font-size: 0.82rem; }
+  .doc-label { font-size: 0.95rem; margin-bottom: 10px; }
+  .doc-label span { font-size: 0.875rem; }
 
   .doc-option { padding: 13px 14px; gap: 10px; border-radius: 10px; margin-bottom: 8px; }
   .doc-checkbox { width: 22px; height: 22px; }
   .doc-checkbox svg { width: 13px; height: 13px; }
   .doc-icon svg { width: 18px; height: 18px; }
-  .doc-name { font-size: 0.88rem; }
+  .doc-name { font-size: 0.95rem; }
 
-  .selected-count { font-size: 0.82rem; margin-bottom: 18px; }
+  .selected-count { font-size: 0.875rem; margin-bottom: 18px; }
 
   .create-btn {
     padding: 14px;

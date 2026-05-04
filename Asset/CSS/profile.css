@@ -147,7 +147,7 @@ margin-bottom:15px;
 
 label{
 display:block;
-font-size:0.9rem;
+font-size:0.95rem;
 font-weight:600;
 color:#333;
 margin-bottom:6px;
@@ -164,7 +164,7 @@ color:#111;
 float:right;
 background:#e8ffe8;
 color:#1a7f37;
-font-size:0.75rem;
+font-size:0.875rem;
 padding:4px 10px;
 border-radius:20px;
 }
@@ -180,7 +180,7 @@ color:#111;
 }
 
 .verified-doc p{
-font-size:0.85rem;
+font-size:0.95rem;
 color:#666;
 }
 

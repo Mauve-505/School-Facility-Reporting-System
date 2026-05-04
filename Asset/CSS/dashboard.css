@@ -79,7 +79,7 @@ nav{
 }
 
 .main-content h2 {
-  font-size: 35px;
+  font-size: 28px;
   font-weight: 700;
   margin-bottom: 2px;
 }
@@ -165,13 +165,13 @@ h3{
 
 .cardTitle{
     margin: 0;
-    font-size: 30px;
+    font-size: 24px;
     font-weight: 700;
     margin-right: 8px;
 }
 
 #description{
-    font-size: 19px;
+    font-size: 18px;
     margin-bottom: 6px;
     color: black
 }
@@ -208,10 +208,43 @@ h3{
 
 
 
+.hamburger {
+    display: none;
+    font-size: 22px;
+    color: white;
+    cursor: pointer;
+}
+
 @media (max-width: 768px) {
 
   nav {
     padding: 15px 20px;
+  }
+
+  .navbar {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #b01c1c;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 0;
+    display: none;
+  }
+
+  .nav-links.active {
+    display: flex;
   }
 
   .stats {
@@ -247,61 +280,20 @@ h3{
     font-size: 12px;
   }
 
-  .nav-links {
-    gap: 10px;
-    font-size: 12px;
-  }
-
   .cardTitle {
     font-size: 14px;
   }
 
   .CardTags {
-    font-size: 11px;
+    font-size: 13px;
   }
 
   .status {
-    font-size: 10px;
+    font-size: 12px;
     padding: 3px 10px;
   }
 
   .report {
     line-height: 1.4;
   }
-}
-
-.hamburger {
-    display: none;
-    font-size: 22px;
-    color: white;
-    cursor: pointer;
-}
-
-@media (max-width: 768px) {
-
-    .navbar {
-        flex-direction: row;
-        justify-content: space-between;
-    }
-
-    .hamburger {
-        display: block;
-    }
-
-    .nav-links {
-        position: absolute;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        background: #b01c1c;
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-        padding: 15px 0;
-        display: none;
-    }
-
-    .nav-links.active {
-        display: flex;
-    }
 }
