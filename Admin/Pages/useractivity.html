@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Activity Logs</title>
+    
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f6f9;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #1e3a8a; /* Admin color (dark blue) */
+            color: white;
+            padding: 15px;
+            font-size: 20px;
+        }
+
+        /* Container */
+        .container {
+            padding: 20px;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #1e3a8a;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Status badges */
+        .badge {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            color: white;
+        }
+
+        .login {
+            background-color: #16a34a;
+        }
+
+        .logout {
+            background-color: #dc2626;
+        }
+        .back-btn {
+    background-color: #1e3a8a;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.back-btn:hover {
+    background-color: #3749b3;
+}
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        Admin Dashboard - Activity Logs
+    </div>
+
+    <div class="container">
+        <h2>User Activity Log</h2>
+        <button onclick="goBack()" class="back-btn">← Back</button>
+        <table id="activityTable">
+            <tr>
+                <th>User</th>
+                <th>Role</th>
+                <th>Action</th>
+                <th>Date & Time</th>
+            </tr>
+
+            <!-- Sample Data -->
+            <tr>
+                <td>Juan Dela Cruz</td>
+                <td>Student</td>
+                <td><span class="badge login">Logged In</span></td>
+                <td>May 4, 9:12 AM</td>
+            </tr>
+
+            <tr>
+                <td>Maria Santos</td>
+                <td>Dean</td>
+                <td><span class="badge logout">Logged Out</span></td>
+                <td>May 4, 9:45 AM</td>
+            </tr>
+
+            <tr>
+                <td>Admin</td>
+                <td>Admin</td>
+                <td><span class="badge login">Logged In</span></td>
+                <td>May 4, 8:55 AM</td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        // Optional: simulate new activity
+        function logActivity(user, role, action) {
+            const table = document.getElementById("activityTable");
+            const row = table.insertRow(1);
+
+            const badgeClass = action === "Logged In" ? "login" : "logout";
+
+            row.innerHTML = `
+                <td>${user}</td>
+                <td>${role}</td>
+                <td><span class="badge ${badgeClass}">${action}</span></td>
+                <td>${new Date().toLocaleString()}</td>
+            `;
+        }
+            function goBack() {
+    window.history.back();
+}
+
+    </script>
+
+</body>
+</html>
