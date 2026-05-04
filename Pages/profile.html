@@ -6,23 +6,23 @@
 <title>My Profile – School Facility Reporting System</title>
 
 <link rel="stylesheet" href="../Asset/CSS/profile.css">
-<!-- 
-<link href="c:\Users\ASUS TUF\OneDrive\Pictures\wmsu-building.jpg.jpg" rel="stylesheet"> -->
+
 </head>
 
 <body>
 
 <nav>
     <div class="navbar">
-          <div class="system">School Facility Reporting System</div>
-            <ul class="nav-links">
-                <li><a href="../Pages/dashboard.html">Home</a></li>
-                <li><a href="../Pages/report.html">Report</a></li>
-                <li><a href="../Pages/track.html">Track</a></li>
-                <li><a href="../Pages/profile.html">Profile</a></li>  
-            </ul>
-        </div>
-    </nav>
+        <div class="system">School Facility Reporting System</div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="../Pages/dashboard.html">Home</a></li>
+            <li><a href="../Pages/report.html">Report</a></li>
+            <li><a href="../Pages/track.html">Track</a></li>
+            <li><a href="../Pages/profile.html" class="active">Profile</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">&#9776;</div>
+    </div>
+</nav>
 
 <div class="container">
 
@@ -92,11 +92,12 @@ Student ID Card
 
 </div>
 
-</body>
-</html>
-
+<script src="../Asset/JS/hamburger.js"></script>
 <script>
 function logout() {
     window.location.href = "logout.html";
 }
 </script>
+
+</body>
+</html>

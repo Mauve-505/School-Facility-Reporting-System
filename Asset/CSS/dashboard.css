@@ -214,18 +214,6 @@ h3{
     padding: 15px 20px;
   }
 
-  .navbar {
-    flex-direction: column;
-    gap: 10px;
-    text-align: center;
-  }
-
-  .nav-links {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-  }
-
   .stats {
     flex-direction: column;
   }

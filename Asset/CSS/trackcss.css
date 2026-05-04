@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
-
+ 
 :root {
     --bg-main: #f8fafc;
     --card-bg: #ffffff;
@@ -12,20 +12,20 @@
     --yellow: #ca8a04;
     --red: #dc2626;
 }
-
+ 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'DM Sans', sans-serif;
 }
-
+ 
 body {
     background-color: var(--bg-main);
     color: var(--text-dark);
     font-family: 'DM Sans', sans-serif;
 }
-
+ 
 /* ── Navbar ── */
 nav {
     position: sticky;
@@ -34,7 +34,7 @@ nav {
     padding: 20px 40px;
     z-index: 1000;
 }
-
+ 
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -42,7 +42,7 @@ nav {
     font-size: 13px;
     min-width: 0;
 }
-
+ 
 .system {
     color: white;
     font-weight: bold;
@@ -54,25 +54,25 @@ nav {
     white-space: nowrap;
     flex-shrink: 1;
 }
-
+ 
 .nav-links {
     list-style: none;
     display: flex;
     gap: 30px;
     flex-shrink: 0;
 }
-
+ 
 .nav-links a {
     position: relative;
     text-decoration: none;
     color: whitesmoke;
     transition: color 0.3s ease;
 }
-
+ 
 .nav-links a:hover {
     color: #ffffff;
 }
-
+ 
 .nav-links a::after {
     content: "";
     position: absolute;
@@ -83,22 +83,22 @@ nav {
     background: #ec6464;
     transition: width 0.3s ease;
 }
-
+ 
 .nav-links a:hover::after {
     width: 100%;
 }
-
+ 
 .nav-links a.active {
     color: #ec6464;
 }
-
+ 
 .hamburger {
     display: none;
     font-size: 22px;
     color: white;
     cursor: pointer;
 }
-
+ 
 /* ── Layout ── */
 .container {
     width: 100%;
@@ -106,29 +106,29 @@ nav {
     margin: 0 auto;
     padding: 20px;
 }
-
+ 
 header {
     margin-bottom: 24px;
 }
-
+ 
 .header-nav {
     display: flex;
     align-items: center;
     gap: 12px;
 }
-
+ 
 header h2 {
     margin: 0;
     font-size: 20px;
     font-weight: 700;
 }
-
+ 
 header p {
     margin: 4px 0 0;
     color: var(--text-muted);
     font-size: 14px;
 }
-
+ 
 /* ── Search ── */
 .search-container {
     background: var(--card-bg);
@@ -140,17 +140,17 @@ header p {
     gap: 10px;
     margin-bottom: 20px;
 }
-
+ 
 .search-container:focus-within {
     border-color: #b01c1c;
 }
-
+ 
 .icon-muted {
     width: 18px;
     height: 18px;
     color: var(--text-muted);
 }
-
+ 
 .search-container input {
     border: none;
     outline: none;
@@ -159,7 +159,7 @@ header p {
     font-family: 'DM Sans', sans-serif;
     background: transparent;
 }
-
+ 
 /* ── Filters ── */
 .filters {
     display: flex;
@@ -168,7 +168,7 @@ header p {
     overflow-x: auto;
     padding-bottom: 4px;
 }
-
+ 
 .filter-chip {
     padding: 8px 16px;
     border-radius: 20px;
@@ -183,13 +183,13 @@ header p {
     align-items: center;
     transition: 0.2s ease;
 }
-
+ 
 .filter-chip.active {
     background: #b01c1c;
     color: white;
     border-color: #b01c1c;
 }
-
+ 
 .count-badge {
     background: #e2e8f0;
     color: var(--text-dark);
@@ -198,12 +198,12 @@ header p {
     margin-left: 8px;
     font-size: 11px;
 }
-
+ 
 .filter-chip.active .count-badge {
     background: rgba(255, 255, 255, 0.2);
     color: white;
 }
-
+ 
 /* ── Cards ── */
 .card {
     background: var(--card-bg);
@@ -213,25 +213,25 @@ header p {
     overflow: hidden;
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
-
+ 
 .card-blue   { border-top: 4px solid var(--blue); }
 .card-green  { border-top: 4px solid var(--green); }
 .card-yellow { border-top: 4px solid var(--yellow); }
 .card-red    { border-top: 4px solid var(--red); }
-
+ 
 .hidden { display: none !important; }
-
+ 
 .card-content {
     padding: 20px;
 }
-
+ 
 .card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 12px;
 }
-
+ 
 .id-badge {
     font-size: 11px;
     background: #f1f5f9;
@@ -240,7 +240,7 @@ header p {
     color: var(--text-muted);
     font-family: 'DM Sans', sans-serif;
 }
-
+ 
 .status-label {
     font-size: 12px;
     font-weight: 600;
@@ -248,38 +248,38 @@ header p {
     align-items: center;
     gap: 6px;
 }
-
+ 
 .dot {
     width: 8px;
     height: 8px;
     border-radius: 50%;
     display: inline-block;
 }
-
+ 
 .status-blue   { color: var(--blue);   } .status-blue .dot   { background: var(--blue);   }
 .status-green  { color: var(--green);  } .status-green .dot  { background: var(--green);  }
 .status-yellow { color: var(--yellow); } .status-yellow .dot { background: var(--yellow); }
 .status-red    { color: var(--red);    } .status-red .dot    { background: var(--red);    }
-
+ 
 .CardTitle {
     display: block;
     margin: 0 0 8px 0;
     font-size: 16px;
     font-weight: 700;
 }
-
+ 
 .description {
     font-size: 13px;
     margin-bottom: 16px;
     color: var(--text-dark);
 }
-
+ 
 .details {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
-
+ 
 .detail-item {
     display: flex;
     align-items: center;
@@ -287,32 +287,32 @@ header p {
     font-size: 13px;
     color: var(--text-muted);
 }
-
+ 
 .detail-item svg {
     width: 14px;
     height: 14px;
     flex-shrink: 0;
 }
-
+ 
 /* ── Tablet (≤ 768px) ── */
 @media (max-width: 768px) {
-
+ 
     nav {
         padding: 15px 16px;
     }
-
+ 
     .navbar {
         flex-direction: row;
         justify-content: space-between;
     }
-
+ 
     .hamburger {
         display: block;
     }
-
+ 
     .nav-links {
         position: absolute;
-        top: 60px;
+        top: 100%;
         left: 0;
         width: 100%;
         background: #b01c1c;
@@ -323,53 +323,53 @@ header p {
         display: none;
         z-index: 999;
     }
-
+ 
     .nav-links.active {
         display: flex;
     }
-
+ 
     .filters {
         gap: 6px;
     }
-
+ 
     .filter-chip {
         font-size: 12px;
         padding: 6px 12px;
     }
 }
-
+ 
 /* ── Mobile (≤ 480px) ── */
 @media (max-width: 480px) {
-
+ 
     .system {
         font-size: 16px;
     }
-
+ 
     .nav-links {
         gap: 10px;
         font-size: 12px;
     }
-
+ 
     header h2 {
         font-size: 18px;
     }
-
+ 
     header p {
         font-size: 12px;
     }
-
+ 
     .CardTitle {
         font-size: 14px;
     }
-
+ 
     .description {
         font-size: 12px;
     }
-
+ 
     .detail-item {
         font-size: 12px;
     }
-
+ 
     .card-content {
         padding: 14px;
     }

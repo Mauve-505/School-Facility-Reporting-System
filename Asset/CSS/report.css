@@ -77,7 +77,10 @@ nav {
 }
 
 .page-header {
-    padding: 20px;
+    width: 90%;
+    max-width: 600px;
+    margin: 20px auto 10px auto;
+    padding: 0;
 }
 
 .page-header h2 {
@@ -182,7 +185,7 @@ textarea {
 
     .nav-links {
         position: absolute;
-        top: 70px;
+        top: 100%;
         left: 0;
         width: 100%;
         background: #b01c1c;
