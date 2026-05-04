@@ -74,6 +74,11 @@
     </div>
 
     <div class="field">
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" placeholder="Enter your phone number" maxlength="15">
+    </div>
+
+    <div class="field">
       <label for="password">Password</label>
       <input type="password" id="password" placeholder="Create a password">
     </div>
@@ -134,6 +139,13 @@
       <p class="selected-count" id="selected-count">Selected: 0 of 2</p>
     </div>
 
+    <div id="upload-section" style="display:none;">
+      <div class="field">
+        <p class="doc-label">Upload Photos <span>(of your selected documents)</span></p>
+        <div id="upload-slots"></div>
+      </div>
+    </div>
+
     <button class="create-btn" type="button" onclick="handleRegister()">Create Account</button>
 
   </div>
@@ -147,6 +159,7 @@
       if (!isSelected && currentCount >= MAX_SELECTIONS) return;
       el.classList.toggle('selected');
       updateCount();
+      renderUploadSlots();
     }
 
     function updateCount() {
@@ -154,16 +167,66 @@
       document.getElementById('selected-count').textContent = `Selected: ${count} of 2`;
     }
 
+    function renderUploadSlots() {
+      const selected = document.querySelectorAll('.doc-option.selected');
+      const section = document.getElementById('upload-section');
+      const slots = document.getElementById('upload-slots');
+
+      if (selected.length === 0) {
+        section.style.display = 'none';
+        slots.innerHTML = '';
+        return;
+      }
+
+      section.style.display = 'block';
+      slots.innerHTML = '';
+
+      selected.forEach((doc, i) => {
+        const docName = doc.querySelector('.doc-name').textContent;
+        const id = 'doc-upload-' + i;
+        const slot = document.createElement('div');
+        slot.style.marginBottom = '14px';
+        slot.innerHTML = `
+          <label style="font-size:0.85rem;color:#555;display:block;margin-bottom:6px;">${docName}</label>
+          <input type="file" id="${id}" accept="image/*" style="display:none" onchange="showThumb(this, '${id}-thumb')">
+          <div onclick="document.getElementById('${id}').click()" style="
+            border: 2px dashed #cbd5e1;
+            border-radius: 10px;
+            padding: 18px;
+            text-align: center;
+            cursor: pointer;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            background: #f8fafc;
+            transition: border-color 0.2s;
+          " onmouseover="this.style.borderColor='#6366f1'" onmouseout="this.style.borderColor='#cbd5e1'">
+            📷 Click to upload photo
+          </div>
+          <img id="${id}-thumb" style="display:none;margin-top:8px;max-width:100%;max-height:140px;border-radius:8px;object-fit:cover;">
+        `;
+        slots.appendChild(slot);
+      });
+    }
+
+    function showThumb(input, thumbId) {
+      const thumb = document.getElementById(thumbId);
+      if (input.files && input.files[0]) {
+        thumb.src = URL.createObjectURL(input.files[0]);
+        thumb.style.display = 'block';
+      }
+    }
+
     function handleRegister() {
       var lastname = document.getElementById('lastname').value.trim();
       var given = document.getElementById('given').value.trim();
       var college = document.getElementById('college').value;
       var email = document.getElementById('email').value.trim();
+      var phone = document.getElementById('phone').value.trim();
       var password = document.getElementById('password').value;
       var confirm = document.getElementById('confirm-password').value;
       var count = document.querySelectorAll('.doc-option.selected').length;
 
-      if (!lastname || !given || !college || !email || !password || !confirm) {
+      if (!lastname || !given || !college || !email || !phone || !password || !confirm) {
         alert('Please fill in all required fields.');
         return;
       }

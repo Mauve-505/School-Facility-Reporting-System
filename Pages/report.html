@@ -55,6 +55,18 @@
         <option value="ccs">College of Computing Studies</option>
         <option value="csm">College of Science and Mathematics</option>
         <option value="ccje">College of Criminal Justice Education</option>
+        <option value="carch">College of Architecture</option>
+        <option value="cais">College of Asian &amp; Islamic Studies</option>
+        <option value="coe">College of Engineering</option>
+        <option value="che">College of Home Economics</option>
+        <option value="claw">College of Law</option>
+        <option value="cla">College of Liberal Arts</option>
+        <option value="cmed">College of Medicine</option>
+        <option value="cnurs">College of Nursing</option>
+        <option value="cpads">College of Public Administration &amp; Development Studies</option>
+        <option value="cswcd">College of Social Work &amp; Community Development</option>
+        <option value="cte">College of Teacher Education</option>
+        <option value="csspe">College of Sports Science &amp; Physical Education (CSSPE)</option>
     </select>
 
     <br><br><br>
@@ -103,6 +115,30 @@ function updateRooms() {
         rooms = ["Room 101", "Room 102", "Room 103", "Chemistry Lab", "Physics Lab"];
     } else if (department === "ccje") {
         rooms = ["CJ Room 1", "CJ Room 2", "Simulation Room"];
+    } else if (department === "carch") {
+        rooms = ["Design Studio A", "Design Studio B", "Drafting Room 1", "Drafting Room 2", "Model Workshop", "Critique Hall"];
+    } else if (department === "cais") {
+        rooms = ["Seminar Room 1", "Seminar Room 2", "Language Lab", "Asian Studies Hall", "Islamic Studies Room", "Research Room 3"];
+    } else if (department === "coe") {
+        rooms = ["Eng Lab 1", "Eng Lab 2", "Fabrication Shop", "Hydraulics Lab", "Electronics Room", "CAD Room", "Testing Area"];
+    } else if (department === "che") {
+        rooms = ["Food Lab 1", "Food Lab 2", "Textile Room", "Demo Kitchen", "Nutrition Lab", "Home Mgmt House"];
+    } else if (department === "claw") {
+        rooms = ["Moot Court", "Law Library", "LR 401", "LR 402", "Legal Aid Office", "Conference Room A"];
+    } else if (department === "cla") {
+        rooms = ["Lecture Hall 1", "Lecture Hall 2", "Room 205", "Room 206", "Room 310", "Language Center"];
+    } else if (department === "cmed") {
+        rooms = ["Anatomy Lab", "Physiology Lab", "Cadaver Room", "Lecture Hall M1", "Lecture Hall M2", "Skills Lab"];
+    } else if (department === "cnurs") {
+        rooms = ["Nursing Lab 1", "Nursing Lab 2", "Skills Training Room", "Simulation Ward", "Room N101", "Room N102"];
+    } else if (department === "cpads") {
+        rooms = ["Policy Room 1", "Policy Room 2", "Governance Lab", "Seminar Hall PA", "Research Office", "Room PA3"];
+    } else if (department === "cswcd") {
+        rooms = ["Social Work Lab", "Community Room 1", "Community Room 2", "Counseling Room", "SW Seminar Hall", "Field Office"];
+    } else if (department === "cte") {
+        rooms = ["Demo Teaching Room", "Education Lab", "Micro-Teaching Studio", "Room TE201", "Room TE202", "Resource Center"];
+    } else if (department === "csspe") {
+        rooms = ["Gymnasium", "Fitness Center", "Sports Science Lab", "Athletic Training Room", "Dance Studio", "Swimming Pool Area"];
     }
 
     rooms.forEach(r => {
@@ -132,9 +168,33 @@ function submitForm() {
         return;
     }
 
-    alert("Request Submitted Successfully!");
+    const reports = JSON.parse(localStorage.getItem("facilityReports") || "[]");
+    const nextNum = reports.length + 1;
+    const reportId = "RPT-" + String(nextNum).padStart(3, "0");
 
-    console.log({ request, department, room, description });
+    const deptSelect = document.getElementById("department");
+    const deptLabel = deptSelect.options[deptSelect.selectedIndex].text;
+
+    const now = new Date();
+    const submittedAt = now.toISOString().slice(0, 10) + " " +
+        now.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" });
+
+    const newReport = {
+        id: reportId,
+        type: request,
+        department: deptLabel,
+        room: room,
+        description: description,
+        status: "pending",
+        submittedAt: submittedAt,
+        updatedAt: submittedAt
+    };
+
+    reports.push(newReport);
+    localStorage.setItem("facilityReports", JSON.stringify(reports));
+
+    alert("Request " + reportId + " submitted successfully!");
+    window.location.href = "../Pages/track.html";
 }
 
 document.getElementById("hamburger").onclick = () => {
