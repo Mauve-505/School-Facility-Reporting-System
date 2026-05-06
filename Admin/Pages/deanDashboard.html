@@ -5,12 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dean's Dashboard</title>
     <link rel="stylesheet" href="../Asset/CSS/dean.css">
+    <link rel="stylesheet" href="../Asset/CSS/hamburger.css">
   <style>.card-remarks{font-size:0.8rem;color:#475569;margin:3px 0 5px;}.sec-title{font-size:1.1rem;font-weight:700;margin:20px 0 10px;}</style>
 </head>
 <body>
     <nav>
         <div class="navbar">
             <div class="system">School Facility Reporting System</div>
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+              <span></span><span></span><span></span>
+            </button>
             <ul class="nav-links">
                 <li><a href="../Pages/deanDashboard.html" class="active">Home</a></li>
                 <li><a href="deanActivityLog.html">Activity Log</a></li>
@@ -222,5 +226,6 @@
     </div>
   <script src="../Asset/JS/sharedData.js"></script>
   <script src="../Asset/JS/deanDashboard.js"></script>
+  <script src="../Asset/JS/hamburger.js"></script>
 </body>
 </html>

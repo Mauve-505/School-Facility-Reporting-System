@@ -28,11 +28,15 @@
     .empty-log { text-align:center; color:#94a3b8; padding:40px; font-size:0.95rem; }
     .log-count { font-size:0.85rem; color:#64748b; margin-bottom:8px; }
   </style>
+  <link rel="stylesheet" href="../Asset/CSS/hamburger.css"/>
 </head>
 <body>
   <nav>
     <div class="navbar">
       <div class="system">School Facility Reporting System</div>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
       <ul class="nav-links">
         <li><a href="admindashboard.html">Home</a></li>
         <li><a href="useractivity.html" class="active">Activity Logs</a></li>
@@ -123,5 +127,6 @@
 
   renderLog();
   </script>
+  <script src="../Asset/JS/hamburger.js"></script>
 </body>
 </html>

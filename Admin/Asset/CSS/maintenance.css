@@ -372,3 +372,7 @@ main { padding: 20px; }
   transition: background 0.2s;
 }
 .btn-save:hover { background: #14532d; }
+
+@media (max-width: 768px) {
+  .nav-links { background: #166534; }
+}

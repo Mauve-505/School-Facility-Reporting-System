@@ -8,14 +8,18 @@
   <link rel="stylesheet" href="../Asset/CSS/admindashboard-extra.css"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
   <style>.card-remarks{font-size:0.8rem;color:#475569;margin:3px 0 5px;}.sec-title{font-size:1.1rem;font-weight:700;margin:20px 0 10px;}</style>
+  <link rel="stylesheet" href="../Asset/CSS/hamburger.css"/>
 </head>
 <body>
   <nav>
     <div class="navbar">
       <div class="system">School Facility Reporting System</div>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
       <ul class="nav-links">
         <li><a href="../Pages/admindashboard.html" class="active">Home</a></li>
-            <a href="useractivity.html">View Activity Logs</a>
+        <li><a href="useractivity.html">View Activity Logs</a></li>
         <li><a href="logout.html">Logout</a></li>
       </ul>
     </div>
@@ -202,5 +206,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
   <script src="../Asset/JS/sharedData.js"></script>
   <script src="../Asset/JS/admindashboard.js"></script>
+  <script src="../Asset/JS/hamburger.js"></script>
 </body>
 </html>

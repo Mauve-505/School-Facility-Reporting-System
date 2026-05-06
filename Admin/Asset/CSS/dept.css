@@ -404,3 +404,7 @@ main { padding: 20px; }
   transition: background 0.2s;
 }
 .btn-approve:hover { background: #166534; }
+
+@media (max-width: 768px) {
+  .nav-links { background: #6b21a8; }
+}
