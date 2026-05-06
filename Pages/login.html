@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>School Facility Reporting System</title>
   <link rel="stylesheet" href="../Asset/CSS/login.css">
 </head>
@@ -8,7 +10,7 @@
 
   <div class="card">
 
-    <a href="../../index.html" class="back-link">&#8592; Back</a>
+    <a href="../index.html" class="back-link">&#8592; Back</a>
 
     <img src="../img/logo.png" class="logo" onerror="this.style.display='none'">
 
@@ -68,6 +70,8 @@
   function handleLogin(event) {
     event.preventDefault();
     var email = document.getElementById('email').value.trim().toLowerCase();
+    // Store user identity for student pages
+    sessionStorage.setItem('sfrs_email', email);
 
     if (ADMIN_EMAILS.includes(email)) {
       window.location.href = "../Admin/Pages/adminlog.html";
@@ -78,6 +82,11 @@
     } else if (DEPT_EMAILS.includes(email)) {
       window.location.href = "../Admin/Pages/deptlog.html";
     } else {
+      // Regular student — store demo name
+      var name = email.split('@')[0] || 'Student';
+      name = name.charAt(0).toUpperCase() + name.slice(1);
+      sessionStorage.setItem('sfrs_name', name);
+      sessionStorage.setItem('sfrs_id', '2024-99999');
       window.location.href = "logsucess.html";
     }
   }

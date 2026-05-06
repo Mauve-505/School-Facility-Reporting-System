@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Track Status Dashboard</title>
+    <title>Track Status</title>
     <link rel="stylesheet" href="../Asset/CSS/trackcss.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -19,19 +19,31 @@
             <li><a href="../Pages/track.html" class="active">Track</a></li>
             <li><a href="../Pages/profile.html">Profile</a></li>
         </ul>
-        <div class="hamburger" id="hamburger">
-            <i class="fa-solid fa-bars"></i>
-        </div>
+        <div class="hamburger" id="hamburger"><i class="fa-solid fa-bars"></i></div>
     </div>
 </nav>
 
 <div class="container">
     <header>
-        <div class="header-nav">
-            <h2>Track Status</h2>
-        </div>
-        <p>Monitor your submitted reports</p>
+        <div class="header-nav"><h2>Track Your Reports</h2></div>
+        <p>Monitor your submitted facility reports</p>
     </header>
+
+    <!-- Workflow guide -->
+    <div style="background:#f1f5f9;border-radius:12px;padding:14px 18px;margin-bottom:18px;font-size:0.82rem;color:#475569;">
+        <strong>📋 Report Journey:</strong><br>
+        <span style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;">
+            <span style="background:#fff;border:1px solid #e2e8f0;border-radius:6px;padding:3px 8px;">1️⃣ Submitted</span>
+            <span>→</span>
+            <span style="background:#fff;border:1px solid #e2e8f0;border-radius:6px;padding:3px 8px;">2️⃣ Dept. Staff Reviews</span>
+            <span>→</span>
+            <span style="background:#fff;border:1px solid #e2e8f0;border-radius:6px;padding:3px 8px;">3️⃣ Dean or Admin Approves</span>
+            <span>→</span>
+            <span style="background:#fff;border:1px solid #e2e8f0;border-radius:6px;padding:3px 8px;">4️⃣ Maintenance Fixes</span>
+            <span>→</span>
+            <span style="background:#16a34a;color:#fff;border-radius:6px;padding:3px 8px;">5️⃣ Resolved ✅</span>
+        </span>
+    </div>
 
     <div class="search-container">
         <i data-lucide="search" class="icon-muted"></i>
@@ -39,97 +51,109 @@
     </div>
 
     <div class="filters" id="filterContainer">
-        <button class="filter-chip active" data-filter="all">All <span class="count-badge">5</span></button>
-        <button class="filter-chip" data-filter="pending">Pending <span class="count-badge">2</span></button>
-        <button class="filter-chip" data-filter="in-progress">In Progress <span class="count-badge">1</span></button>
-        <button class="filter-chip" data-filter="resolved">Resolved <span class="count-badge">1</span></button>
-        <button class="filter-chip" data-filter="rejected">Rejected <span class="count-badge">1</span></button>
+        <button class="filter-chip active" data-filter="all">All <span class="count-badge" id="countAll">0</span></button>
+        <button class="filter-chip" data-filter="pending">Pending <span class="count-badge" id="countPending">0</span></button>
+        <button class="filter-chip" data-filter="in-progress">In Progress <span class="count-badge" id="countInProgress">0</span></button>
+        <button class="filter-chip" data-filter="resolved">Resolved <span class="count-badge" id="countResolved">0</span></button>
+        <button class="filter-chip" data-filter="rejected">Rejected <span class="count-badge" id="countRejected">0</span></button>
     </div>
 
-    <div id="cardList">
-        <div class="card card-blue" data-status="in-progress">
-            <div class="card-content">
-                <div class="card-header">
-                    <span class="id-badge">RPT-001</span>
-                    <span class="status-label status-blue"><span class="dot"></span> In Progress</span>
-                </div>
-                <span class="CardTitle">Broken Chair</span>
-                <p class="description">Broken chair leg in classroom, unstable and unsafe for use</p>
-                <div class="details">
-                    <div class="detail-item"><i data-lucide="map-pin"></i> Room 301, Building A</div>
-                    <div class="detail-item"><i data-lucide="calendar"></i> Submitted: 2026-03-01 09:30 AM</div>
-                    <div class="detail-item"><i data-lucide="clock"></i> Last Updated: 2026-03-03 02:15 PM</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card card-green" data-status="resolved">
-            <div class="card-content">
-                <div class="card-header">
-                    <span class="id-badge">RPT-002</span>
-                    <span class="status-label status-green"><span class="dot"></span> Resolved</span>
-                </div>
-                <span class="CardTitle">Electrical</span>
-                <p class="description">Projector not turning on, power button unresponsive</p>
-                <div class="details">
-                    <div class="detail-item"><i data-lucide="map-pin"></i> Room 205, Building B</div>
-                    <div class="detail-item"><i data-lucide="calendar"></i> Submitted: 2026-02-28 11:00 AM</div>
-                    <div class="detail-item"><i data-lucide="clock"></i> Last Updated: 2026-03-02 10:30 AM</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card card-yellow" data-status="pending">
-            <div class="card-content">
-                <div class="card-header">
-                    <span class="id-badge">RPT-003</span>
-                    <span class="status-label status-yellow"><span class="dot"></span> Pending</span>
-                </div>
-                <span class="CardTitle">Air Conditioning / Ventilation</span>
-                <p class="description">AC making loud noise and not cooling properly</p>
-                <div class="details">
-                    <div class="detail-item"><i data-lucide="map-pin"></i> Library, 2nd Floor</div>
-                    <div class="detail-item"><i data-lucide="calendar"></i> Submitted: 2026-03-02 03:45 PM</div>
-                    <div class="detail-item"><i data-lucide="clock"></i> Last Updated: 2026-03-02 03:45 PM</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card card-yellow" data-status="pending">
-            <div class="card-content">
-                <div class="card-header">
-                    <span class="id-badge">RPT-004</span>
-                    <span class="status-label status-yellow"><span class="dot"></span> Pending</span>
-                </div>
-                <span class="CardTitle">ICT / Equipment</span>
-                <p class="description">Computer monitor flickering, possibly hardware issue</p>
-                <div class="details">
-                    <div class="detail-item"><i data-lucide="map-pin"></i> Computer Lab 1</div>
-                    <div class="detail-item"><i data-lucide="calendar"></i> Submitted: 2026-03-04 08:20 AM</div>
-                    <div class="detail-item"><i data-lucide="clock"></i> Last Updated: 2026-03-04 08:20 AM</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card card-red" data-status="rejected">
-            <div class="card-content">
-                <div class="card-header">
-                    <span class="id-badge">RPT-005</span>
-                    <span class="status-label status-red"><span class="dot"></span> Rejected</span>
-                </div>
-                <span class="CardTitle">Restroom / Sanitation</span>
-                <p class="description">Toilet not flushing properly, water leaking</p>
-                <div class="details">
-                    <div class="detail-item"><i data-lucide="map-pin"></i> 3rd Floor Restroom, Building C</div>
-                    <div class="detail-item"><i data-lucide="calendar"></i> Submitted: 2026-02-25 01:15 PM</div>
-                    <div class="detail-item"><i data-lucide="clock"></i> Last Updated: 2026-02-26 09:00 AM</div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div id="cardList"></div>
 </div>
 
 <script src="../Asset/JS/hamburger.js"></script>
-<script src="../Asset/JS/track.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    lucide.createIcons();
+
+    // Student-facing status mapping
+    const STATUS_DISPLAY = {
+        'pending':        { label:'Awaiting Staff Review',       filter:'pending',     colorClass:'card-yellow', labelClass:'status-yellow' },
+        'forwarded':      { label:'Forwarded to Dean',           filter:'pending',     colorClass:'card-yellow', labelClass:'status-yellow' },
+        'sent-to-admin':  { label:'Under Admin Review',          filter:'pending',     colorClass:'card-yellow', labelClass:'status-yellow' },
+        'dean-approved':  { label:'Approved — Being Processed',  filter:'in-progress', colorClass:'card-blue',   labelClass:'status-blue'   },
+        'dean-rejected':  { label:'Not Approved by Dean',        filter:'rejected',    colorClass:'card-red',    labelClass:'status-red'    },
+        'admin-approved': { label:'Assigned to Maintenance',     filter:'in-progress', colorClass:'card-blue',   labelClass:'status-blue'   },
+        'rejected':       { label:'Rejected',                    filter:'rejected',    colorClass:'card-red',    labelClass:'status-red'    },
+        'in-progress':    { label:'Maintenance In Progress',     filter:'in-progress', colorClass:'card-blue',   labelClass:'status-blue'   },
+        'completed':      { label:'Work Done — Finalizing',      filter:'in-progress', colorClass:'card-blue',   labelClass:'status-blue'   },
+        'resolved':       { label:'Resolved ✅',                 filter:'resolved',    colorClass:'card-green',  labelClass:'status-green'  }
+    };
+
+    const all = JSON.parse(localStorage.getItem('sfrs_reports') || '[]');
+    const studentName = sessionStorage.getItem('sfrs_name') || 'Student';
+    const studentId   = sessionStorage.getItem('sfrs_id') || '';
+
+    const reports = all.filter(r =>
+        (studentId && r.studentId === studentId) ||
+        (!studentId && r.student === studentName) ||
+        studentName === 'Student'
+    );
+
+    const counts = { all: reports.length, pending: 0, 'in-progress': 0, resolved: 0, rejected: 0 };
+    reports.forEach(r => {
+        const f = (STATUS_DISPLAY[r.status] || {}).filter || 'pending';
+        if (counts[f] !== undefined) counts[f]++;
+    });
+    document.getElementById('countAll').textContent        = counts.all;
+    document.getElementById('countPending').textContent    = counts.pending;
+    document.getElementById('countInProgress').textContent = counts['in-progress'];
+    document.getElementById('countResolved').textContent   = counts.resolved;
+    document.getElementById('countRejected').textContent   = counts.rejected;
+
+    const cardList = document.getElementById('cardList');
+    if (reports.length === 0) {
+        cardList.innerHTML = '<p style="color:#94a3b8;margin-top:24px;text-align:center;">No reports yet. <a href="report.html" style="color:#b01c1c;">Submit one now.</a></p>';
+        return;
+    }
+
+    reports.forEach(r => {
+        const cfg = STATUS_DISPLAY[r.status] || STATUS_DISPLAY['pending'];
+        const card = document.createElement('div');
+        card.className = `card ${cfg.colorClass}`;
+        card.setAttribute('data-filter', cfg.filter);
+        card.innerHTML = `
+            <div class="card-content">
+                <div class="card-header">
+                    <span class="id-badge">${r.id}</span>
+                    <span class="status-label ${cfg.labelClass}"><span class="dot"></span> ${cfg.label}</span>
+                </div>
+                <span class="CardTitle">${r.type}</span>
+                <p class="description">${r.desc || r.description || ''}</p>
+                <div class="details">
+                    <div class="detail-item"><i data-lucide="map-pin"></i> ${r.location || r.room}</div>
+                    <div class="detail-item"><i data-lucide="calendar"></i> Submitted: ${r.submittedAt || r.date}</div>
+                    <div class="detail-item"><i data-lucide="clock"></i> Updated: ${r.updatedAt || r.submittedAt || r.date}</div>
+                    ${r.maintenanceNotes ? `<div class="detail-item">🔧 ${r.maintenanceNotes}</div>` : ''}
+                </div>
+            </div>`;
+        cardList.appendChild(card);
+    });
+
+    lucide.createIcons();
+
+    const searchInput = document.getElementById('searchInput');
+    const filterButtons = document.querySelectorAll('.filter-chip');
+
+    const applyFilters = () => {
+        const query = searchInput.value.toLowerCase();
+        const activeFilter = document.querySelector('.filter-chip.active').getAttribute('data-filter');
+        document.querySelectorAll('#cardList .card').forEach(card => {
+            const matchFilter = activeFilter === 'all' || card.getAttribute('data-filter') === activeFilter;
+            const matchSearch = card.innerText.toLowerCase().includes(query);
+            card.style.display = (matchFilter && matchSearch) ? '' : 'none';
+        });
+    };
+
+    searchInput.addEventListener('input', applyFilters);
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            applyFilters();
+        });
+    });
+});
+</script>
 </body>
 </html>

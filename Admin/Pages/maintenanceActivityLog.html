@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maintenance – Activity Log</title>
+  <link rel="stylesheet" href="../Asset/CSS/maintenance.css"/>
+  <style>
+    .log-controls { display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin:20px 0 16px; }
+    .log-search { flex:1; min-width:200px; padding:9px 14px; border:1.5px solid #e2e8f0; border-radius:8px; font-size:0.88rem; font-family:inherit; }
+    .log-table { width:100%; border-collapse:collapse; font-size:0.87rem; }
+    .log-table th { background:#f1f5f9; color:#475569; font-weight:600; padding:10px 14px; text-align:left; border-bottom:2px solid #e2e8f0; }
+    .log-table td { padding:10px 14px; border-bottom:1px solid #f1f5f9; vertical-align:top; }
+    .log-table tr:hover td { background:#f8fafc; }
+    .report-id  { font-weight:600; color:#b01c1c; font-size:0.82rem; }
+    .detail-text { color:#64748b; font-size:0.82rem; margin-top:3px; }
+    .time-text  { color:#94a3b8; font-size:0.82rem; white-space:nowrap; }
+    .status-pill { display:inline-block; padding:3px 10px; border-radius:20px; font-size:0.78rem; font-weight:600; background:#dcfce7; color:#15803d; }
+    .empty-log  { text-align:center; color:#94a3b8; padding:40px; }
+    .log-count  { font-size:0.85rem; color:#64748b; margin-bottom:8px; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="navbar">
+      <div class="system">School Facility Reporting System</div>
+      <ul class="nav-links">
+        <li><a href="maintenanceDashboard.html">Home</a></li>
+        <li><a href="maintenanceActivityLog.html" class="active">Activity Log</a></li>
+        <li><a href="logout.html">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <h2>Maintenance Activity Log</h2>
+      <p>History of all repair updates and maintenance actions</p>
+    </div>
+
+    <div class="log-controls">
+      <input type="text" class="log-search" id="logSearch" placeholder="Search by action, report ID, or location..." oninput="renderLog()">
+    </div>
+
+    <div class="log-count" id="logCount"></div>
+
+    <div style="overflow-x:auto;">
+      <table class="log-table">
+        <thead>
+          <tr>
+            <th>Date &amp; Time</th>
+            <th>Action</th>
+            <th>Report</th>
+            <th>Details / Notes</th>
+          </tr>
+        </thead>
+        <tbody id="logBody"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <script src="../Asset/JS/sharedData.js"></script>
+  <script>
+  function renderLog() {
+    const q = document.getElementById('logSearch').value.toLowerCase();
+    // Show only maintenance entries
+    let log = getLog().filter(e => e.role === 'Maintenance');
+
+    if (q) {
+      log = log.filter(e =>
+        [e.action, e.reportId, e.detail].join(' ').toLowerCase().includes(q));
+    }
+
+    document.getElementById('logCount').textContent = `Showing ${log.length} entr${log.length === 1 ? 'y' : 'ies'}`;
+
+    const tbody = document.getElementById('logBody');
+    if (log.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="4" class="empty-log">No maintenance activity logged yet. Updates saved on the dashboard will appear here.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = log.map(e => `
+      <tr>
+        <td class="time-text">${e.displayTime}</td>
+        <td>${e.action}</td>
+        <td class="report-id">${e.reportId || '—'}</td>
+        <td class="detail-text">${e.detail || '—'}</td>
+      </tr>`).join('');
+  }
+
+  renderLog();
+  </script>
+</body>
+</html>

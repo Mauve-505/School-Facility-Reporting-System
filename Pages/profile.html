@@ -4,9 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Profile – School Facility Reporting System</title>
-
 <link rel="stylesheet" href="../Asset/CSS/profile.css">
-
 </head>
 
 <body>
@@ -31,8 +29,8 @@
 
 <div class="profile-card">
     <div class="profile"></div>
-    <h2>Jared Tuason</h2>
-    <p class="student-num">2025-02275</p>
+    <h2 id="profileName">—</h2>
+    <p class="student-num" id="profileEmail">—</p>
 </div>
 
 <div class="card">
@@ -40,54 +38,37 @@
 
 <div class="info">
 <label>Full Name</label>
-<div class="field">Jared Ezekiel Tuason</div>
-</div>
-
-<div class="info">
-<label>Student ID</label>
-<div class="field">2025-02275 <span class="verified">Verified</span></div>
+<div class="field" id="fieldName">—</div>
 </div>
 
 <div class="info">
 <label>Email Address</label>
-<div class="field">jaredtuason@wmsu.edu.ph</div>
+<div class="field" id="fieldEmail">—</div>
 </div>
 
 <div class="info">
-<label>Course</label>
-<div class="field">BS Computer Science</div>
+<label>Phone Number</label>
+<div class="field" id="fieldPhone">—</div>
 </div>
 
 <div class="info">
-<label>Year Level</label>
-<div class="field">1st year</div>
+<label>College / Department</label>
+<div class="field" id="fieldCollege">—</div>
 </div>
 
 </div>
 
 <div class="card">
-
 <h3>Verified Documents</h3>
-
-<div class="verified-doc">
-Certificate of Registration
-<p>Verified during registration</p>
+<div id="verifiedDocs">
+    <p style="color:#94a3b8;font-size:0.9rem;">No documents on record.</p>
 </div>
-
-<div class="verified-doc">
-Student ID Card
-<p>Verified during registration</p>
-</div>
-
 </div>
 
 <div class="card">
-
 <h3>Account Settings</h3>
-
 <div class="setting">Change Password</div>
 <div class="setting logout" onclick="logout()">Logout</div>
-
 </div>
 
 </div>
@@ -95,7 +76,27 @@ Student ID Card
 <script src="../Asset/JS/hamburger.js"></script>
 <script>
 function logout() {
-    window.location.href = "logout.html";
+    window.location.href = 'logout.html';
+}
+
+// Load registration data saved during register
+const reg = JSON.parse(localStorage.getItem('registrationData') || 'null');
+if (reg) {
+    const fullName = (reg.given + ' ' + (reg.mi ? reg.mi + '. ' : '') + reg.lastname).trim();
+    document.getElementById('profileName').textContent = fullName;
+    document.getElementById('profileEmail').textContent = reg.email || '—';
+    document.getElementById('fieldName').textContent = fullName;
+    document.getElementById('fieldEmail').textContent = reg.email || '—';
+    document.getElementById('fieldPhone').textContent = reg.phone || '—';
+    document.getElementById('fieldCollege').textContent = reg.college || '—';
+
+    if (reg.docs && reg.docs.length > 0) {
+        document.getElementById('verifiedDocs').innerHTML = reg.docs.map(d => `
+            <div class="verified-doc">
+                ${d}
+                <p>Verified during registration</p>
+            </div>`).join('');
+    }
 }
 </script>
 

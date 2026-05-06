@@ -6,50 +6,62 @@
     <title>Report an Issue</title>
     <link rel="stylesheet" href="../Asset/CSS/report.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        .field-error { color:#b91c1c;font-size:0.8rem;margin-top:4px;display:none; }
+        .input-invalid { border:1.5px solid #b91c1c !important;background:#fff5f5 !important; }
+        #successBanner { display:none;background:#dcfce7;color:#15803d;border:1px solid #bbf7d0;border-radius:10px;padding:14px 18px;margin-bottom:16px;font-weight:600;font-size:0.95rem; }
+ 
+        /* Hamburger responsive fallback — add to report.css if not already there */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .hamburger {
+                display: block;
+                cursor: pointer;
+            }
+        }
+    </style>
 </head>
 <body>
-
+ 
 <nav>
     <div class="navbar">
         <div class="system">School Facility Reporting System</div>
         <ul class="nav-links" id="navLinks">
             <li><a href="../Pages/dashboard.html">Home</a></li>
-        <li><a href="../Pages/report.html">Report</a></li>
-        <li><a href="../Pages/track.html">Track</a></li>
-        <li><a href="../Pages/profile.html">Profile</a></li>
+            <li><a href="../Pages/report.html" class="active">Report</a></li>
+            <li><a href="../Pages/track.html">Track</a></li>
+            <li><a href="../Pages/profile.html">Profile</a></li>
         </ul>
-        <div class="hamburger" id="hamburger">
-            <i class="fa-solid fa-bars"></i>
-        </div>
+        <div class="hamburger" id="hamburger"><i class="fa-solid fa-bars"></i></div>
     </div>
 </nav>
-
+ 
 <div class="page-header">
     <h2>Submit a Request</h2>
     <p>Report a facility issue for review</p>
 </div>
-
+ 
 <div id="formbox">
-    <p id="detailstxt">DETAILS</p>
-    <hr><br>
-
+    <div id="successBanner"></div>
+    <p id="detailstxt">DETAILS</p><hr><br>
+ 
     <p><b>1. CHOOSE A REQUEST</b></p>
     <select id="myselect">
-        <option>-</option>
-        <option>Electrical Issue</option>
-        <option>Plumbing Issue</option>
-        <option>HVAC / Ventilation</option>
-        <option>Furniture / Equipment</option>
-        <option>IT / Technology</option>
-        <option>Cleaning / Sanitation</option>
-        <option>Structural / Safety</option>
-        <option>Other</option>
+        <option value="">-- Select request type --</option>
+        <option>Electrical Issue</option><option>Plumbing Issue</option>
+        <option>HVAC / Ventilation</option><option>Furniture / Equipment</option>
+        <option>IT / Technology</option><option>Cleaning / Sanitation</option>
+        <option>Structural / Safety</option><option>Other</option>
     </select>
-
-    <br><br><br>
-
-    <p><b>2. SELECT DEPARTMENT</b></p>
-    <br>
+    <div class="field-error" id="err-request">Please select a request type.</div><br><br>
+ 
+    <p><b>2. SELECT DEPARTMENT</b></p><br>
     <select id="department" onchange="updateRooms()">
         <option value="">-- Select Department --</option>
         <option value="ccs">College of Computing Studies</option>
@@ -66,141 +78,155 @@
         <option value="cpads">College of Public Administration &amp; Development Studies</option>
         <option value="cswcd">College of Social Work &amp; Community Development</option>
         <option value="cte">College of Teacher Education</option>
-        <option value="csspe">College of Sports Science &amp; Physical Education (CSSPE)</option>
+        <option value="csspe">College of Sports Science &amp; Physical Education</option>
     </select>
-
-    <br><br><br>
-
-    <p><b>3. SELECT ROOM</b></p>
-    <br>
-    <select id="room">
-        <option value="">-- Select Room --</option>
-    </select>
-
-    <br><br><br>
-
-    <p><b>4. DESCRIBE THE ISSUE</b></p>
-    <br>
+    <div class="field-error" id="err-department">Please select a department.</div><br><br>
+ 
+    <p><b>3. SELECT ROOM</b></p><br>
+    <select id="room"><option value="">-- Select Room --</option></select>
+    <div class="field-error" id="err-room">Please select a room.</div><br><br>
+ 
+    <p><b>4. DESCRIBE THE ISSUE</b></p><br>
     <textarea id="textbox" placeholder="Please provide detailed information..."></textarea>
-
-    <br><br>
-
-    <p><b>5. ATTACH A PHOTO</b></p>
-    <br>
+    <div class="field-error" id="err-description">Please describe the issue.</div><br><br>
+ 
+    <p><b>5. ATTACH A PHOTO</b> <span style="color:#94a3b8;font-size:0.85rem;">(optional)</span></p><br>
     <input type="file" id="photoinput" accept="image/*" onchange="showPreview()">
-
-    <div id="photobox" onclick="document.getElementById('photoinput').click()">
-        📷 Click here to upload a photo
-    </div>
-
-    <img id="previewimg" style="display:none;">
-
-    <br><br>
-
+    <div id="photobox" onclick="document.getElementById('photoinput').click()">📷 Click here to upload a photo</div>
+    <img id="previewimg" style="display:none;"><br><br>
+ 
     <button onclick="submitForm()" id="submit">Submit Request</button>
 </div>
-
+ 
 <script>
+const ROOM_MAP = {
+    ccs:   ['LR 1','LR 2','LR 3','LR 4','LR 5','LAB 1','LAB 2'],
+    csm:   ['Room 101','Room 102','Room 103','Chemistry Lab','Physics Lab'],
+    ccje:  ['CJ Room 1','CJ Room 2','Simulation Room'],
+    carch: ['Design Studio A','Design Studio B','Drafting Room 1','Drafting Room 2','Model Workshop','Critique Hall'],
+    cais:  ['Seminar Room 1','Seminar Room 2','Language Lab','Asian Studies Hall','Islamic Studies Room','Research Room 3'],
+    coe:   ['Eng Lab 1','Eng Lab 2','Fabrication Shop','Hydraulics Lab','Electronics Room','CAD Room','Testing Area'],
+    che:   ['Food Lab 1','Food Lab 2','Textile Room','Demo Kitchen','Nutrition Lab','Home Mgmt House'],
+    claw:  ['Moot Court','Law Library','LR 401','LR 402','Legal Aid Office','Conference Room A'],
+    cla:   ['Lecture Hall 1','Lecture Hall 2','Room 205','Room 206','Room 310','Language Center'],
+    cmed:  ['Anatomy Lab','Physiology Lab','Cadaver Room','Lecture Hall M1','Lecture Hall M2','Skills Lab'],
+    cnurs: ['Nursing Lab 1','Nursing Lab 2','Skills Training Room','Simulation Ward','Room N101','Room N102'],
+    cpads: ['Policy Room 1','Policy Room 2','Governance Lab','Seminar Hall PA','Research Office','Room PA3'],
+    cswcd: ['Social Work Lab','Community Room 1','Community Room 2','Counseling Room','SW Seminar Hall','Field Office'],
+    cte:   ['Demo Teaching Room','Education Lab','Micro-Teaching Studio','Room TE201','Room TE202','Resource Center'],
+    csspe: ['Gymnasium','Fitness Center','Sports Science Lab','Athletic Training Room','Dance Studio','Swimming Pool Area']
+};
+ 
 function updateRooms() {
-    const department = document.getElementById("department").value;
-    const room = document.getElementById("room");
-
+    const dept = document.getElementById('department').value;
+    const room = document.getElementById('room');
     room.innerHTML = '<option value="">-- Select Room --</option>';
-
-    let rooms = [];
-
-    if (department === "ccs") {
-        rooms = ["LR 1", "LR 2", "LR 3", "LR 4", "LR 5", "LAB 1", "LAB 2"];
-    } else if (department === "csm") {
-        rooms = ["Room 101", "Room 102", "Room 103", "Chemistry Lab", "Physics Lab"];
-    } else if (department === "ccje") {
-        rooms = ["CJ Room 1", "CJ Room 2", "Simulation Room"];
-    } else if (department === "carch") {
-        rooms = ["Design Studio A", "Design Studio B", "Drafting Room 1", "Drafting Room 2", "Model Workshop", "Critique Hall"];
-    } else if (department === "cais") {
-        rooms = ["Seminar Room 1", "Seminar Room 2", "Language Lab", "Asian Studies Hall", "Islamic Studies Room", "Research Room 3"];
-    } else if (department === "coe") {
-        rooms = ["Eng Lab 1", "Eng Lab 2", "Fabrication Shop", "Hydraulics Lab", "Electronics Room", "CAD Room", "Testing Area"];
-    } else if (department === "che") {
-        rooms = ["Food Lab 1", "Food Lab 2", "Textile Room", "Demo Kitchen", "Nutrition Lab", "Home Mgmt House"];
-    } else if (department === "claw") {
-        rooms = ["Moot Court", "Law Library", "LR 401", "LR 402", "Legal Aid Office", "Conference Room A"];
-    } else if (department === "cla") {
-        rooms = ["Lecture Hall 1", "Lecture Hall 2", "Room 205", "Room 206", "Room 310", "Language Center"];
-    } else if (department === "cmed") {
-        rooms = ["Anatomy Lab", "Physiology Lab", "Cadaver Room", "Lecture Hall M1", "Lecture Hall M2", "Skills Lab"];
-    } else if (department === "cnurs") {
-        rooms = ["Nursing Lab 1", "Nursing Lab 2", "Skills Training Room", "Simulation Ward", "Room N101", "Room N102"];
-    } else if (department === "cpads") {
-        rooms = ["Policy Room 1", "Policy Room 2", "Governance Lab", "Seminar Hall PA", "Research Office", "Room PA3"];
-    } else if (department === "cswcd") {
-        rooms = ["Social Work Lab", "Community Room 1", "Community Room 2", "Counseling Room", "SW Seminar Hall", "Field Office"];
-    } else if (department === "cte") {
-        rooms = ["Demo Teaching Room", "Education Lab", "Micro-Teaching Studio", "Room TE201", "Room TE202", "Resource Center"];
-    } else if (department === "csspe") {
-        rooms = ["Gymnasium", "Fitness Center", "Sports Science Lab", "Athletic Training Room", "Dance Studio", "Swimming Pool Area"];
-    }
-
-    rooms.forEach(r => {
-        let option = document.createElement("option");
-        option.text = r;
-        room.add(option);
+    (ROOM_MAP[dept] || []).forEach(r => {
+        const opt = document.createElement('option');
+        opt.text = r;
+        room.add(opt);
     });
 }
-
+ 
 function showPreview() {
-    const file = document.getElementById("photoinput").files[0];
-    const preview = document.getElementById("previewimg");
+    const file = document.getElementById('photoinput').files[0];
+    const preview = document.getElementById('previewimg');
     if (file) {
         preview.src = URL.createObjectURL(file);
-        preview.style.display = "block";
+        preview.style.display = 'block';
     }
 }
-
+ 
+function clearErrors() {
+    document.querySelectorAll('.field-error').forEach(e => e.style.display = 'none');
+    document.querySelectorAll('.input-invalid').forEach(e => e.classList.remove('input-invalid'));
+}
+ 
+function showError(fieldId, errId) {
+    document.getElementById(fieldId).classList.add('input-invalid');
+    document.getElementById(errId).style.display = 'block';
+}
+ 
 function submitForm() {
-    const request = document.getElementById("myselect").value;
-    const department = document.getElementById("department").value;
-    const room = document.getElementById("room").value;
-    const description = document.getElementById("textbox").value;
-
-    if (!request || request === "-" || !department || !room || !description) {
-        alert("Please fill out all fields!");
-        return;
-    }
-
-    const reports = JSON.parse(localStorage.getItem("facilityReports") || "[]");
+    clearErrors();
+    const request     = document.getElementById('myselect').value;
+    const deptVal     = document.getElementById('department').value;
+    const room        = document.getElementById('room').value;
+    const description = document.getElementById('textbox').value.trim();
+ 
+    let valid = true;
+    if (!request)     { showError('myselect',   'err-request');     valid = false; }
+    if (!deptVal)     { showError('department', 'err-department');  valid = false; }
+    if (!room)        { showError('room',       'err-room');        valid = false; }
+    if (!description) { showError('textbox',    'err-description'); valid = false; }
+    if (!valid) return;
+ 
+    const reports = JSON.parse(localStorage.getItem('sfrs_reports') || '[]');
     const nextNum = reports.length + 1;
-    const reportId = "RPT-" + String(nextNum).padStart(3, "0");
-
-    const deptSelect = document.getElementById("department");
-    const deptLabel = deptSelect.options[deptSelect.selectedIndex].text;
-
+    const reportId = 'RPT-' + String(nextNum).padStart(3, '0');
+ 
+    const deptSelect = document.getElementById('department');
+    const deptLabel  = deptSelect.options[deptSelect.selectedIndex].text;
+ 
     const now = new Date();
-    const submittedAt = now.toISOString().slice(0, 10) + " " +
-        now.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" });
-
-    const newReport = {
+    const ts  = now.toISOString().slice(0,10) + ' ' + now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+ 
+    const studentName = sessionStorage.getItem('sfrs_name') || 'Student';
+    const studentId   = sessionStorage.getItem('sfrs_id')   || 'N/A';
+ 
+    reports.push({
         id: reportId,
+        student: studentName,
+        studentId: studentId,
         type: request,
+        category: request,
         department: deptLabel,
         room: room,
+        location: room + ', ' + deptLabel,
+        desc: description,
         description: description,
-        status: "pending",
-        submittedAt: submittedAt,
-        updatedAt: submittedAt
-    };
-
-    reports.push(newReport);
-    localStorage.setItem("facilityReports", JSON.stringify(reports));
-
-    alert("Request " + reportId + " submitted successfully!");
-    window.location.href = "../Pages/track.html";
+        date: now.toISOString().slice(0,10),
+        submittedAt: ts,
+        updatedAt: ts,
+        priority: 'medium',
+        status: 'pending',
+        remarks: '',
+        maintenanceNotes: ''
+    });
+ 
+    localStorage.setItem('sfrs_reports', JSON.stringify(reports));
+ 
+    const log = JSON.parse(localStorage.getItem('sfrs_activityLog') || '[]');
+    log.unshift({
+        timestamp: now.toISOString(),
+        displayTime: ts,
+        role: 'Student',
+        actor: studentName,
+        action: 'Submitted report',
+        reportId,
+        detail: request + ' @ ' + room
+    });
+    localStorage.setItem('sfrs_activityLog', JSON.stringify(log));
+ 
+    const banner = document.getElementById('successBanner');
+    banner.textContent = '✅ Report ' + reportId + ' submitted! Forwarding to Dept. Staff for review...';
+    banner.style.display = 'block';
+    banner.scrollIntoView({ behavior: 'smooth' });
+ 
+    setTimeout(() => { window.location.href = '../Pages/track.html'; }, 1800);
 }
-
-document.getElementById("hamburger").onclick = () => {
-    document.getElementById("navLinks").classList.toggle("active");
-};
+ 
+// ✅ FIXED: Single hamburger handler using DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function () {
+    const hamburger = document.getElementById('hamburger');
+    const navLinks  = document.getElementById('navLinks');
+ 
+    if (hamburger && navLinks) {
+        hamburger.addEventListener('click', function () {
+            navLinks.classList.toggle('active');
+        });
+    }
+});
 </script>
-
 </body>
 </html>

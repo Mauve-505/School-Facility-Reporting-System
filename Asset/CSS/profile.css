@@ -257,3 +257,6 @@ color:#b01c1c;
         margin-top: 6px;
     }
 }
+
+.logout-link { color: #fca5a5 !important; }
+.logout-link:hover { color: #ffffff !important; }

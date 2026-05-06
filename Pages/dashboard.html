@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reporting System</title>
+    <title>Student Dashboard</title>
     <link rel="stylesheet" href="../Asset/CSS/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
@@ -12,86 +12,108 @@
         <div class="navbar">
             <div class="system">School Facility Reporting System</div>
             <ul class="nav-links" id="navLinks">
-                <li><a href="../Pages/dashboard.html">Home</a></li>
+                <li><a href="../Pages/dashboard.html" class="active">Home</a></li>
                 <li><a href="../Pages/report.html">Report</a></li>
                 <li><a href="../Pages/track.html">Track</a></li>
                 <li><a href="../Pages/profile.html">Profile</a></li>
             </ul>
-            <div class="hamburger" id="hamburger">
-                <i class="fa-solid fa-bars"></i>
-            </div>
+            <div class="hamburger" id="hamburger"><i class="fa-solid fa-bars"></i></div>
         </div>
     </nav>
 
     <div class="main-content">
         <h2>Student Dashboard</h2>
-        <p>Welcome back! Manage your facility reports</p>
+        <p>Welcome back, <strong id="welcomeName">Student</strong>! Manage your facility reports.</p>
 
-        <a href="../Pages/report.html" class="new-task"> + Report New Issue</a>
-        <a href="../Pages/track.html" class="track-bttn">Track Report</a>
-        
+        <a href="../Pages/report.html" class="new-task">+ Report New Issue</a>
+        <a href="../Pages/track.html" class="track-bttn">Track Reports</a>
+
         <div class="stats">
             <div class="card">
-                <p class="Label orange">Pending</p>
-                <h3 class="Value orange">1</h3>
+                <p class="Label orange">Pending Review</p>
+                <h3 class="Value orange" id="statPending">0</h3>
             </div>
             <div class="card">
                 <p class="Label blue">In Progress</p>
-                <h3 class="Value blue">1</h3>
+                <h3 class="Value blue" id="statInProgress">0</h3>
             </div>
             <div class="card">
                 <p class="Label green">Resolved</p>
-                <h3 class="Value green">1</h3>
+                <h3 class="Value green" id="statResolved">0</h3>
             </div>
         </div>
 
         <div class="submitted">
             <i class="fa-regular fa-clipboard list"></i>
             <span>My Submitted Reports</span>
-            <br><br>
-        </div>
-        
-        <div class="reportList">
-            <div class="report">
-                <span class="cardTitle">Broken Chair</span>
-                <p id="description">Chair Leg is broken in Room 301</p>
-
-                    <span class="info">
-                        <p class="CardTags">📍 Room 301 &nbsp;&nbsp; 📋 Furniture &nbsp;&nbsp; 📅 2026-03-01</p>
-                    </span>
-
-                <span class="status progress">In Progress</span>
-            </div>
-
-            <br>
-
-            <div class="report">
-                <span class="cardTitle">Projector</span>
-                <p id="description">Projector not turning on</p>
-        
-                    <span class="info">
-                        <p class="CardTags">📍 Room 205 &nbsp;&nbsp; 📋 ICT/Equipment &nbsp;&nbsp; 📅 2026-02-28</p>
-                    </span>
-                <span class="status resolved">Resolved</span>
-            </div>
-
-            <br>
-
-            <div class="report">
-                <span class="cardTitle">Air Conditioner</span>
-                <p id="description">AC making load noise</p>
-
-                    <span class="info">
-                        <p class="CardTags">📍 Library &nbsp;&nbsp; 📋 Air Conditioning/Ventilation &nbsp;&nbsp; 📅 2026-03-02</p>
-                    </span>
-                <span class="status pending">Pending</span>
-            </div>
         </div>
 
+        <div class="reportList" id="reportList"></div>
     </div>
 
+    <script src="../Asset/JS/hamburger.js"></script>
+    <script>
+    // Workflow status labels for students (simplified, reassuring language)
+    const STUDENT_STATUS = {
+        'pending':        { label:'Pending — Awaiting Staff Review', cls:'pending' },
+        'forwarded':      { label:'Under Review by Dean',            cls:'pending' },
+        'sent-to-admin':  { label:'Under Admin Review',              cls:'pending' },
+        'dean-approved':  { label:'Approved — Being Processed',      cls:'pending' },
+        'dean-rejected':  { label:'Not Approved',                    cls:'rejected' },
+        'admin-approved': { label:'Assigned to Maintenance',         cls:'progress' },
+        'rejected':       { label:'Rejected',                        cls:'rejected' },
+        'in-progress':    { label:'In Progress',                     cls:'progress' },
+        'completed':      { label:'Work Done — Awaiting Closure',    cls:'progress' },
+        'resolved':       { label:'Resolved ✅',                     cls:'resolved' }
+    };
+
+    function loadDashboard() {
+        const studentName = sessionStorage.getItem('sfrs_name') || 'Student';
+        const studentId   = sessionStorage.getItem('sfrs_id')   || '';
+        document.getElementById('welcomeName').textContent = studentName;
+
+        // Load from unified key
+        const all = JSON.parse(localStorage.getItem('sfrs_reports') || '[]');
+
+        // Show only this student's reports (match by studentId or name if no ID)
+        const reports = all.filter(r =>
+            (studentId && r.studentId === studentId) ||
+            (!studentId && r.student === studentName) ||
+            // fallback: show all if demo user
+            studentName === 'Student'
+        );
+
+        let pending = 0, inProgress = 0, resolved = 0;
+        reports.forEach(r => {
+            if (['pending','forwarded','sent-to-admin','dean-approved'].includes(r.status)) pending++;
+            else if (['admin-approved','in-progress','completed'].includes(r.status)) inProgress++;
+            else if (r.status === 'resolved') resolved++;
+        });
+        document.getElementById('statPending').textContent   = pending;
+        document.getElementById('statInProgress').textContent = inProgress;
+        document.getElementById('statResolved').textContent  = resolved;
+
+        const list = document.getElementById('reportList');
+        if (reports.length === 0) {
+            list.innerHTML = '<p style="color:#94a3b8;margin-top:16px;">No reports submitted yet.</p>';
+            return;
+        }
+
+        list.innerHTML = reports.map(r => {
+            const s = STUDENT_STATUS[r.status] || { label: r.status, cls:'pending' };
+            return `
+            <div class="report">
+                <span class="cardTitle">${r.type}</span>
+                <p class="desc">${r.desc || r.description || ''}</p>
+                <span class="info">
+                    <p class="CardTags">📍 ${r.location || r.room} &nbsp;&nbsp; 📋 ${r.department || r.category} &nbsp;&nbsp; 📅 ${(r.submittedAt || r.date || '').slice(0,10)}</p>
+                </span>
+                <span class="status ${s.cls}">${s.label}</span>
+            </div><br>`;
+        }).join('');
+    }
+
+    loadDashboard();
+    </script>
 </body>
-
- <script src="../Asset/JS/hamburger.js"></script>
-
 </html>

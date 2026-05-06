@@ -1,0 +1,124 @@
+.dean-status-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 12px 18px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.dean-status-bar .ds-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+  flex: 1;
+}
+
+.dean-status-bar .ds-sublabel {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-left: 4px;
+}
+
+.toggle-switch {
+  position: relative;
+  width: 52px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background: #22c55e;
+  border-radius: 28px;
+  transition: 0.3s;
+}
+
+.toggle-slider:before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 4px;
+  top: 4px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.3s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+input:checked + .toggle-slider {
+  background: #ef4444;
+}
+
+input:checked + .toggle-slider:before {
+  transform: translateX(24px);
+}
+
+.dean-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.dean-badge.available {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.dean-badge.unavailable {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.warn-banner {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  background: #fff7ed;
+  border: 1.5px solid #fb923c;
+  border-radius: 10px;
+  padding: 12px 18px;
+  margin-bottom: 16px;
+  font-size: 0.85rem;
+  color: #92400e;
+}
+
+.warn-banner.show {
+  display: flex;
+}
+
+.btn-approve.to-admin {
+  background: #0891b2 !important;
+  color: #fff !important;
+}
+
+.btn-approve.to-admin:hover {
+  background: #0e7490 !important;
+}
+
+.status.teal {
+  background: #cffafe;
+  color: #0e7490;
+  border: 1px solid #a5f3fc;
+}
+
+.btn-forward.disabled-dean {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}

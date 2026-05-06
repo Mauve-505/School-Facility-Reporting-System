@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Maintenance Dashboard</title>
   <link rel="stylesheet" href="../Asset/CSS/maintenance.css"/>
+  <style>.card-remarks{font-size:0.8rem;color:#0e7490;margin:3px 0 5px;}.sec-title{font-size:1.1rem;font-weight:700;margin:20px 0 10px;}</style>
 </head>
 <body>
   <nav>
@@ -12,6 +13,7 @@
       <div class="system">School Facility Reporting System</div>
       <ul class="nav-links">
         <li><a href="maintenanceDashboard.html" class="active">Home</a></li>
+        <li><a href="maintenanceActivityLog.html">Activity Log</a></li>
         <li><a href="logout.html">Logout</a></li>
       </ul>
     </div>
@@ -166,81 +168,12 @@
 
         <div class="modal-actions">
           <button class="btn-cancel" onclick="closeModal()">✕ Cancel</button>
-          <button class="btn-save"   onclick="saveAndClose()">💾 Save Update</button>
+          <button class="btn-save" id="btnSave" onclick="saveAndClose()">💾 Save Update</button>
         </div>
       </div>
     </div>
   </div>
-
-  <script>
-    const tasks = [
-      { id: 1, student: "Juan Dela Cruz (2024-12345)", type: "Broken Chair", category: "Furniture",
-        desc: "Chair leg is broken in Room 301. Students are having difficulty sitting comfortably during lectures.",
-        location: "Room 301", date: "2026-03-01", status: "in-progress" },
-      { id: 3, student: "Pedro Reyes (2024-12347)", type: "Air Conditioner Noise", category: "Air Conditioning/Ventilation",
-        desc: "AC unit is making a loud rattling noise and disrupting study sessions in the library.",
-        location: "Library", date: "2026-03-02", status: "pending" },
-      { id: 4, student: "Ana Garcia (2024-12348)", type: "Leaking Faucet", category: "Plumbing/Water",
-        desc: "Water is leaking from the faucet in the restroom, causing water waste and a slipping hazard.",
-        location: "Restroom B2", date: "2026-03-03", status: "in-progress" },
-      { id: 5, student: "Carlos Lopez (2024-12349)", type: "Broken Light", category: "Electrical",
-        desc: "Fluorescent light is not working, causing poor visibility in the hallway area.",
-        location: "Hallway 3F", date: "2026-03-04", status: "completed" }
-    ];
-
-    let currentStatus = "pending";
-
-    function openModal(index) {
-      const t = tasks[index];
-      document.getElementById("modalTaskId").textContent  = "Task ID: #" + t.id;
-      document.getElementById("mStudent").textContent     = t.student;
-      document.getElementById("mType").textContent        = t.type;
-      document.getElementById("mCategory").textContent    = t.category;
-      document.getElementById("mDesc").textContent        = t.desc;
-      document.getElementById("mLocation").textContent    = t.location;
-      document.getElementById("mDate").textContent        = t.date;
-      document.getElementById("notesInput").value         = "";
-      setStatus(t.status);
-      document.getElementById("modal").classList.add("open");
-    }
-
-    function closeModal() {
-      document.getElementById("modal").classList.remove("open");
-    }
-
-    function saveAndClose() {
-      closeModal();
-    }
-
-    document.getElementById("modal").addEventListener("click", function(e) {
-      if (e.target === this) closeModal();
-    });
-
-    function setStatus(level) {
-      currentStatus = level;
-      ["pending","in-progress","completed"].forEach(function(s) {
-        document.getElementById("sta-" + s).className =
-          "sta-btn" + (s === level ? " active-" + s.replace("-","") : "");
-      });
-    }
-
-    document.querySelectorAll(".filter-chip").forEach(function(btn) {
-      btn.addEventListener("click", function() {
-        document.querySelectorAll(".filter-chip").forEach(function(b) { b.classList.remove("active"); });
-        this.classList.add("active");
-        const filter = this.dataset.filter;
-        document.querySelectorAll("#taskList .card").forEach(function(card) {
-          card.style.display = (filter === "all" || card.dataset.status === filter) ? "block" : "none";
-        });
-      });
-    });
-
-    function filterCards() {
-      const q = document.getElementById("searchInput").value.toLowerCase();
-      document.querySelectorAll("#taskList .card").forEach(function(card) {
-        card.style.display = card.dataset.search.includes(q) ? "block" : "none";
-      });
-    }
-  </script>
+  <script src="../Asset/JS/sharedData.js"></script>
+  <script src="../Asset/JS/maintenanceDashboard.js"></script>
 </body>
 </html>

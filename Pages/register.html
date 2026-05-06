@@ -224,7 +224,8 @@
       var phone = document.getElementById('phone').value.trim();
       var password = document.getElementById('password').value;
       var confirm = document.getElementById('confirm-password').value;
-      var count = document.querySelectorAll('.doc-option.selected').length;
+      var selectedDocs = Array.from(document.querySelectorAll('.doc-option.selected'))
+                              .map(el => el.querySelector('.doc-name').textContent);
 
       if (!lastname || !given || !college || !email || !phone || !password || !confirm) {
         alert('Please fill in all required fields.');
@@ -234,10 +235,21 @@
         alert('Passwords do not match.');
         return;
       }
-      if (count < 2) {
+      if (selectedDocs.length < 2) {
         alert('Please select 2 documents.');
         return;
       }
+
+      // Save registration data so profile page can read it
+      localStorage.setItem('registrationData', JSON.stringify({
+        lastname: lastname,
+        given: given,
+        mi: document.getElementById('mi').value.trim(),
+        college: college,
+        email: email,
+        phone: phone,
+        docs: selectedDocs
+      }));
 
       window.location.href = 'regsuccess.html';
     }

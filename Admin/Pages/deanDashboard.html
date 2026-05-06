@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dean's Dashboard</title>
     <link rel="stylesheet" href="../Asset/CSS/dean.css">
+  <style>.card-remarks{font-size:0.8rem;color:#475569;margin:3px 0 5px;}.sec-title{font-size:1.1rem;font-weight:700;margin:20px 0 10px;}</style>
 </head>
 <body>
     <nav>
@@ -12,6 +13,7 @@
             <div class="system">School Facility Reporting System</div>
             <ul class="nav-links">
                 <li><a href="../Pages/deanDashboard.html" class="active">Home</a></li>
+                <li><a href="deanActivityLog.html">Activity Log</a></li>
                 <li><a href="logout.html">Logout</a></li>
             </ul>
         </div>
@@ -33,7 +35,7 @@
                 <p class="StatValue orange">2</p>
             </div>
             <div class="StatCard">
-                <p class="StatLabel green">Approve</p>
+                <p class="StatLabel green">Approved</p>
                 <p class="StatValue green">2</p>
             </div>
             <div class="StatCard">
@@ -49,8 +51,8 @@
             <div class="filters" id="filterContainer">
                 <button class="filter-chip active" data-filter="all">All <span class="count-badge">6</span></button>
                 <button class="filter-chip" data-filter="pending">Pending <span class="count-badge">2</span></button>
-                <button class="filter-chip" data-filter="in-progress">In Progress <span class="count-badge">2</span></button>
-                <button class="filter-chip" data-filter="resolved">Resolved <span class="count-badge">1</span></button>
+                <button class="filter-chip" data-filter="forwarded">Awaiting Review <span class="count-badge" id="fb-forwarded">0</span></button>
+                <button class="filter-chip" data-filter="dean-approved">Approved <span class="count-badge" id="fb-dean-approved">0</span></button>
                 <button class="filter-chip" data-filter="rejected">Rejected <span class="count-badge">1</span></button>
             </div>
         </div>
@@ -175,10 +177,8 @@
                     <span class="mi-label">Location</span>
                     <span class="mi-val" id="mLocation"></span>
                 </div>
-                <div class="modal-field">
-                    <span class="mi-label">Date Submitted</span>
-                    <span class="mi-val" id="mDate"></span>
-                </div>
+                <div class="modal-field"><span class="mi-label">Date Submitted</span><span class="mi-val" id="mDate"></span></div>
+                <div class="modal-field"><span class="mi-label">Maintenance Notes</span><span class="mi-val" id="mMaintenanceNotes" style="color:#0e7490;">None</span></div>
             </div>
  
             <hr class="modal-divider">
@@ -213,134 +213,14 @@
                 <textarea id="remarksInput" class="remarks-textarea" placeholder="Add your remarks, comments, or instructions for this report..."></textarea>
  
                 <div class="modal-actions">
-                    <button class="btn-reject" onclick="closeModal()">✖ Reject</button>
-                    <button class="btn-update" onclick="closeModal()">✎ Update</button>
-                    <button class="btn-approve" onclick="closeModal()">✔ Approve</button>
+                    <button class="btn-reject" onclick="applyAction('Rejected')">✖ Reject</button>
+                    <button class="btn-update" 
+                    <button class="btn-approve" onclick="applyAction('Approved')">✔ Approve</button>
                 </div>
             </div>
         </div>
     </div>
- 
-    <script>
-        // ── Report data ──────────────────────────────────────────────
-        const reports = [
-            {
-                id: 1,
-                student: "Juan Dela Cruz (2024-12345)",
-                type: "Broken Chair",
-                category: "Furniture",
-                desc: "Chair leg is broken in Room 301. Students are having difficulty sitting comfortably during lectures.",
-                location: "Room 301",
-                date: "2026-04-05",
-                priority: "medium"
-            },
-            {
-                id: 2,
-                student: "Maria Santos (2024-12346)",
-                type: "Projector Not Working",
-                category: "ICT/Equipment",
-                desc: "Projector not turning on. Classroom lessons have been disrupted due to the malfunction.",
-                location: "Room 205",
-                date: "2026-02-28",
-                priority: "high"
-            },
-            {
-                id: 3,
-                student: "Pedro Reyes (2024-12347)",
-                type: "Air Conditioner Noise",
-                category: "Air Conditioning/Ventilation",
-                desc: "AC unit is making a loud rattling noise and disrupting study sessions in the library.",
-                location: "Library",
-                date: "2026-03-02",
-                priority: "low"
-            },
-            {
-                id: 4,
-                student: "Ana Garcia (2024-12348)",
-                type: "Leaking Faucet",
-                category: "Plumbing/Water",
-                desc: "Water is leaking from the faucet in the restroom, causing water waste and a slipping hazard.",
-                location: "Restroom B2",
-                date: "2026-03-03",
-                priority: "high"
-            },
-            {
-                id: 5,
-                student: "Carlos Lopez (2024-12349)",
-                type: "Broken Light",
-                category: "Electrical",
-                desc: "Fluorescent light is not working, causing poor visibility in the hallway area.",
-                location: "Hallway 3F",
-                date: "2026-03-04",
-                priority: "medium"
-            },
-            {
-                id: 6,
-                student: "Lisa Tan (2024-12350)",
-                type: "Cracked Window",
-                category: "Building/Structural",
-                desc: "Window has a large crack that poses a safety risk to students and faculty nearby.",
-                location: "Room 401",
-                date: "2026-03-05",
-                priority: "low"
-            }
-        ];
- 
-        // ── Open modal ───────────────────────────────────────────────
-        function openModal(index) {
-            const r = reports[index];
-            document.getElementById("modalReportId").textContent = "Report ID: #" + r.id;
-            document.getElementById("mStudent").textContent   = r.student;
-            document.getElementById("mType").textContent      = r.type;
-            document.getElementById("mCategory").textContent  = r.category;
-            document.getElementById("mDesc").textContent      = r.desc;
-            document.getElementById("mLocation").textContent  = r.location;
-            document.getElementById("mDate").textContent      = r.date;
-            document.getElementById("remarksInput").value     = "";
-            setPriority(r.priority);
-            document.getElementById("modal").classList.add("open");
-        }
- 
-        // ── Close modal ──────────────────────────────────────────────
-        function closeModal() {
-            document.getElementById("modal").classList.remove("open");
-        }
- 
-        // Click outside modal to close
-        document.getElementById("modal").addEventListener("click", function (e) {
-            if (e.target === this) closeModal();
-        });
- 
-        // ── Priority selector ────────────────────────────────────────
-        function setPriority(level) {
-            ["low", "medium", "high"].forEach(function (l) {
-                const btn = document.getElementById("pri-" + l);
-                btn.className = "pri-btn" + (l === level ? " active-" + l : "");
-            });
-        }
- 
-        // ── Filter chips ─────────────────────────────────────────────
-        document.querySelectorAll(".filter-chip").forEach(function (btn) {
-            btn.addEventListener("click", function () {
-                document.querySelectorAll(".filter-chip").forEach(function (b) {
-                    b.classList.remove("active");
-                });
-                this.classList.add("active");
-                const filter = this.dataset.filter;
-                document.querySelectorAll("#reportList .card").forEach(function (card) {
-                    card.style.display =
-                        (filter === "all" || card.dataset.status === filter) ? "block" : "none";
-                });
-            });
-        });
- 
-        // ── Search ───────────────────────────────────────────────────
-        function filterCards() {
-            const q = document.getElementById("searchInput").value.toLowerCase();
-            document.querySelectorAll("#reportList .card").forEach(function (card) {
-                card.style.display = card.dataset.search.includes(q) ? "block" : "none";
-            });
-        }
-    </script>
+  <script src="../Asset/JS/sharedData.js"></script>
+  <script src="../Asset/JS/deanDashboard.js"></script>
 </body>
 </html>

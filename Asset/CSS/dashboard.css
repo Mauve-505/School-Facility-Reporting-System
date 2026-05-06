@@ -170,7 +170,7 @@ h3{
     margin-right: 8px;
 }
 
-#description{
+.desc{
     font-size: 18px;
     margin-bottom: 6px;
     color: black
@@ -297,3 +297,6 @@ h3{
     line-height: 1.4;
   }
 }
+
+.logout-link { color: #fca5a5 !important; }
+.logout-link:hover { color: #ffffff !important; }
