@@ -134,6 +134,7 @@ function saveAndClose() {
     allReports[idx].maintenanceNotes = notes;
     allReports[idx].updatedAt = r.updatedAt;
     saveReports(allReports);
+    if (typeof pushNotification === 'function') pushNotification(allReports[idx], newStatus);
   }
 
   const actionLabel = newStatus === 'completed'

@@ -119,6 +119,7 @@ function applyAction(decision) {
     r.status = 'dean-rejected';
   }
 
+  if (typeof pushNotification === 'function') pushNotification(r, r.status);
   saveReports(reports);
   addLog('Dean', 'Dean', `${decision} report (${oldStatus} → ${r.status})`, r.id,
     `${r.type} @ ${r.location}${r.remarks ? ' | Remarks: '+r.remarks : ''}`);

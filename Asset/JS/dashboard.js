@@ -58,3 +58,7 @@ const STUDENT_STATUS = {
     }
 
     loadDashboard();
+// Notification bell
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof injectNotificationBell === 'function') injectNotificationBell('navLinks');
+});

@@ -126,3 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+// Notification bell on report page
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof injectNotificationBell === 'function') injectNotificationBell('navLinks');
+});

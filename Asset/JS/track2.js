@@ -89,3 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+// Notification bell
+if (typeof injectNotificationBell === 'function') {
+  document.addEventListener('DOMContentLoaded', () => injectNotificationBell('navLinks'));
+}

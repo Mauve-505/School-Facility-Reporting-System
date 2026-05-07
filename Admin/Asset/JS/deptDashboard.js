@@ -159,6 +159,7 @@ function doAction(action) {
     }
   }
 
+  if (typeof pushNotification === 'function') pushNotification(r, r.status);
   saveReports(reports);
   addLog('Dept Staff', 'Dept Staff', `${actionLabel}`, r.id, `${r.type} @ ${r.location}${r.remarks ? ' | Remarks: '+r.remarks : ''}`);
 

@@ -202,6 +202,7 @@ function doAdminAction(action) {
     addLog('Admin', 'Admin', 'Sent back to Maintenance', r.id, `${r.type} @ ${r.location}`);
   }
 
+  if (typeof pushNotification === 'function') pushNotification(r, r.status);
   saveReports(reports);
   document.getElementById('updateMsg').textContent = `✔ Updated to: ${r.status}`;
   setTimeout(() => { closeModal(); renderCards(); renderCharts(); }, 900);
