@@ -14,7 +14,7 @@ body {
 nav{
     position: sticky;
     top: 0;
-    background: #b01c1c;
+    background: #1e3a8a;
     padding: 20px 40px;
     z-index: 1000;
 }
@@ -57,7 +57,7 @@ nav{
     bottom: -6px;
     width: 0%;
     height: 2px;
-    background: #ec6464;
+    background: #93c5fd;
     transform: width 0.3s ease;
 }
 
@@ -66,7 +66,7 @@ nav{
 }
 
 .nav-links a.active{
-    color: #ec6464;
+    color: #93c5fd;
 }
 
 main {
@@ -141,7 +141,7 @@ main {
 }
 
 .searchbar input:focus {
-  border-color: #b01c1c;
+  border-color: #1e3a8a;
 }
 
 
@@ -187,7 +187,7 @@ main {
 .badge.blue   { background: #dbeafe; color: #2563eb; }
 
 .view {
-  background: #b01c1c;
+  background: #1e3a8a;
   color: white;
   border: none;
   padding: 6px 12px;
@@ -200,7 +200,7 @@ main {
 }
 
 .view:hover {
-  background: #8f1616;
+  background: #172554;
 }
 
 .CardPerson {
@@ -299,14 +299,14 @@ main {
 }
 
 .toggle-btn:hover {
-  border-color: #b01c1c;
-  color: #b01c1c;
+  border-color: #1e3a8a;
+  color: #1e3a8a;
 }
 
 .toggle-btn.active {
-  background: #b01c1c;
+  background: #1e3a8a;
   color: white;
-  border-color: #b01c1c;
+  border-color: #1e3a8a;
 }
 
 .modal-overlay {
@@ -340,7 +340,7 @@ main {
   background: none; border: none; font-size: 18px;
   cursor: pointer; color: #64748b;
 }
-.modal-close:hover { color: #b01c1c; }
+.modal-close:hover { color: #1e3a8a; }
 
 .modal-title { font-size: 17px; font-weight: 700; margin-bottom: 20px; }
 
@@ -424,7 +424,7 @@ main {
     top: 100%;
     left: 0;
     right: 0;
-    background: #b01c1c;
+    background: #1e3a8a;
     padding: 10px 0;
     z-index: 1050;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);

@@ -98,7 +98,8 @@ label {
 
 input[type="email"],
 input[type="password"],
-input[type="text"] {
+input[type="text"],
+input[type="tel"] {
   width: 100%;
   padding: 18px 22px;
   border: 1.5px solid #e2e5ef;
@@ -247,7 +248,8 @@ input:focus {
 
   input[type="email"],
   input[type="password"],
-  input[type="text"] {
+  input[type="text"],
+  input[type="tel"] {
     padding: 13px 16px;
     font-size: 0.95rem;
     border-radius: 10px;

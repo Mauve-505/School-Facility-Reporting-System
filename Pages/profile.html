@@ -77,5 +77,10 @@
 <script src="../Asset/JS/profile.js"></script>
 
 <script src="../Asset/JS/notifications.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof injectNotificationBell === 'function') injectNotificationBell('navLinks');
+  });
+</script>
 </body>
 </html>

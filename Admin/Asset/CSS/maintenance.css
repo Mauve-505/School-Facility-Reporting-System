@@ -15,7 +15,7 @@ body {
 nav {
   position: sticky;
   top: 0;
-  background: #166534;
+  background: #c2410c;
   padding: 20px 40px;
   z-index: 1000;
 }
@@ -56,12 +56,12 @@ nav {
   bottom: -6px;
   width: 0%;
   height: 2px;
-  background: #4ade80;
+  background: #fb923c;
   transition: width 0.3s ease;
 }
 
 .nav-links a:hover::after { width: 100%; }
-.nav-links a.active { color: #4ade80; }
+.nav-links a.active { color: #fb923c; }
 
 main { padding: 20px; }
 
@@ -127,7 +127,7 @@ main { padding: 20px; }
   background: white;
 }
 
-.searchbar input:focus { border-color: #166534; }
+.searchbar input:focus { border-color: #c2410c; }
 
 .filters {
   display: flex;
@@ -151,9 +151,9 @@ main { padding: 20px; }
 }
 
 .filter-chip.active {
-  background: #166534;
+  background: #c2410c;
   color: white;
-  border-color: #166534;
+  border-color: #c2410c;
 }
 
 .count-badge {
@@ -212,7 +212,7 @@ main { padding: 20px; }
 .badge.blue   { background: #dbeafe; color: #2563eb; }
 
 .view {
-  background: #166534;
+  background: #c2410c;
   color: white;
   border: none;
   padding: 6px 12px;
@@ -224,7 +224,7 @@ main { padding: 20px; }
   transition: background 0.2s;
 }
 
-.view:hover { background: #14532d; }
+.view:hover { background: #9a3412; }
 
 .CardPerson { font-size: 15px; color: #64748b; margin-bottom: 2px; }
 .CardDesc   { font-size: 18px; margin-bottom: 6px; }
@@ -280,7 +280,7 @@ main { padding: 20px; }
   background: none; border: none; font-size: 18px;
   cursor: pointer; color: #64748b; line-height: 1;
 }
-.modal-close:hover { color: #166534; }
+.modal-close:hover { color: #c2410c; }
 
 .modal-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; color: #1e293b; }
 .modal-report-id { font-size: 13px; color: #94a3b8; margin-bottom: 20px; }
@@ -319,7 +319,7 @@ main { padding: 20px; }
   transition: all 0.15s ease;
 }
 
-.sta-btn:hover { border-color: #166534; color: #166534; }
+.sta-btn:hover { border-color: #c2410c; color: #c2410c; }
 
 .sta-btn.active-pending    { border-color: #a16207; background: #fffbeb; color: #a16207; }
 .sta-btn.active-inprogress { border-color: #2563eb; background: #eff6ff; color: #2563eb; }
@@ -339,7 +339,7 @@ main { padding: 20px; }
   transition: border 0.2s;
   margin-bottom: 18px;
 }
-.remarks-textarea:focus { border-color: #166534; }
+.remarks-textarea:focus { border-color: #c2410c; }
 
 .modal-actions { display: flex; gap: 10px; }
 
@@ -362,7 +362,7 @@ main { padding: 20px; }
   flex: 2;
   padding: 10px;
   border: none;
-  background: #166534;
+  background: #c2410c;
   border-radius: 8px;
   font-size: 13px;
   font-weight: 600;
@@ -371,8 +371,8 @@ main { padding: 20px; }
   cursor: pointer;
   transition: background 0.2s;
 }
-.btn-save:hover { background: #14532d; }
+.btn-save:hover { background: #9a3412; }
 
 @media (max-width: 768px) {
-  .nav-links { background: #166534; }
+  .nav-links { background: #c2410c; }
 }
